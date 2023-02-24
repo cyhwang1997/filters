@@ -6,6 +6,7 @@ rm -rf $FILE
 
 for i in 20 50 90
 do
-  echo -n "$i " >> $FILE
-	./main 17 $i | grep Insertion | awk '{print $11;}' >> $FILE
+  echo "[Load Factor: $i]" >> $FILE
+	./main 17 $i >> $FILE
+  echo "" >> $FILE
 done

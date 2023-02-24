@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     positive_throughput += 1.0 * nvals / elapsed_usecs;
       
-    print_time_elapsed("Lookup time", &start, &end, nvals, "successful lookup");
+    print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
       
       
     gettimeofday(&start, &tzp);
@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     negative_throughput += 1.0 * nvals / elapsed_usecs;
       
-    print_time_elapsed("Random lookup:", &start, &end, nvals, "random lookup");
+    print_time_elapsed("Random lookup:", &start, &end, nvals, "random_lookup");
     printf("%lu/%lu positives\nFP rate: 1/%f\n", nfps, nvals, 1.0 * nvals / nfps);
 
       
