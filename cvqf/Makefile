@@ -37,16 +37,16 @@ all: $(TARGETS)
 # dependencies between programs and .o files
 ifeq ($(HAVE_AVX512),1)
 $(info AVX512)
-main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
-main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
-main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
-bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
+main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter2.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
+main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter2.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
+main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter2.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
+bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter2.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
 else
 $(info AVX2)
-main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter.o 
-main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter.o
-main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter.o
-bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter.o 
+main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter2.o 
+main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter2.o
+main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter2.o
+bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter2.o 
 endif
 
 # dependencies between .o files and .cc (or .c) files
@@ -57,7 +57,7 @@ $(OBJDIR)/main_id.o: 			$(LOC_SRC)/main_id.cc
 $(OBJDIR)/main_tx.o: 			$(LOC_SRC)/main_tx.cc
 $(OBJDIR)/bm.o: 			$(LOC_SRC)/bm.cc
 
-$(OBJDIR)/vqf_filter.o: 			$(LOC_SRC)/vqf_filter.c
+$(OBJDIR)/vqf_filter2.o: 			$(LOC_SRC)/vqf_filter2.c
 
 #
 # generic build rules

@@ -28,7 +28,7 @@
 #define QUQU_BUCKETS_PER_BLOCK 80
 #define QUQU_CHECK_ALT 92
 
-// additional
+//additional
 #define QUQU_MAX 255
 #define QUQU_PRESLOT 16
 
@@ -42,7 +42,7 @@
 #define TAG_MASK 0xffff
 #define QUQU_SLOTS_PER_BLOCK 28 
 #define QUQU_BUCKETS_PER_BLOCK 36
-#define QUQU_CHECK_ALT 43
+#define QUQU_CHECK_ALT 43 
 
 // additional
 #define QUQU_MAX 65535
@@ -182,10 +182,10 @@ void print_tags(uint8_t *tags, uint32_t size) {
 
 void print_tags_special(uint8_t *tags, uint32_t size, uint64_t slot_index) {
    for (uint8_t i = 0; i < size; i++) {
-      if (i == slot_index)
-        printf("[%d] ", (uint32_t)tags[i]);
-      else
-        printf("%d ", (uint32_t)tags[i]);
+     if (i == slot_index)
+       printf("[%d] ", (uint32_t) tags[i]);
+     else
+       printf("%d ", (uint32_t) tags[i]);
    }
    printf("\n");
 }
@@ -362,7 +362,7 @@ vqf_filter * vqf_init(uint64_t nslots) {
    uint64_t total_size_in_bytes = sizeof(vqf_block) * total_blocks;
 
    filter = (vqf_filter *)malloc(sizeof(*filter) + total_size_in_bytes);
-   printf("Size: %ld, total_blocks: %ld\n",total_size_in_bytes, total_blocks);
+   printf("Size: %ld\n",total_size_in_bytes);
    assert(filter);
 
    filter->metadata.total_size_in_bytes = total_size_in_bytes;
@@ -398,7 +398,7 @@ vqf_filter * vqf_init(uint64_t nslots) {
 // find the i'th 0 in the metadata, insert a 1 after that and shift the rest
 // by 1 bit.
 // Insert the new tag at the end of its run and shift the rest by 1 slot.
-int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
+int vqf_insert(vqf_filter * restrict filter, uint64_t hash) {
    vqf_metadata * restrict metadata           = &filter->metadata;
    vqf_block    * restrict blocks             = filter->blocks;
    uint64_t                 key_remainder_bits = metadata->key_remainder_bits;
@@ -415,15 +415,10 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 #endif
    uint64_t tag = hash & TAG_MASK;
    uint64_t alt_block_index = ((hash ^ (tag * 0x5bd1e995)) % range) >> key_remainder_bits;
-   //uint64_t alt_block_index = ((hash ^ 0x5bd1e995) % range) >> key_remainder_bits;
 
-   //if (blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK] != NULL) {
    __builtin_prefetch(&blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
-   //}
 
-
-   //if the primary block's slots are 75% full, and the primary block && if primary block and secondary block are different
-   if (block_free < QUQU_CHECK_ALT && block_index/QUQU_BUCKETS_PER_BLOCK != alt_block_index/QUQU_BUCKETS_PER_BLOCK) { 
+   if (block_free < QUQU_CHECK_ALT && block_index/QUQU_BUCKETS_PER_BLOCK != alt_block_index/QUQU_BUCKETS_PER_BLOCK) {
       unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
       lock_blocks(filter, block_index, alt_block_index);
 #if TAG_BITS == 8
@@ -440,26 +435,20 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
          block_md = alt_block_md;
          block_free = alt_block_free;
       } else if (block_free == QUQU_BUCKETS_PER_BLOCK) {
-//         print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
-//         print_block(filter, alt_block_index / QUQU_BUCKETS_PER_BLOCK);
          unlock_blocks(filter, block_index, alt_block_index);
-         fprintf(stderr, "vqf filter is full.\n");
-         //return false;
-         return -1;
+         fprintf(stderr, "vqf filter is full.");
+         return false;
          //exit(EXIT_FAILURE);
       } else {
          unlock(blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
       }
 
    } else {
-     if (block_free == QUQU_BUCKETS_PER_BLOCK) {
-//       print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
-       unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
-       fprintf(stderr, "vqf filter is full, no alternative.\n");
-       //return false;
-       return -1;
-       //exit(EXIT_FAILURE);
-     }
+      if (block_free == QUQU_BUCKETS_PER_BLOCK) {
+         unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
+         fprintf(stderr, "vqf filter is full, no alternative.\n");
+         return -1;
+      }
    }
 
    uint64_t index = block_index / QUQU_BUCKETS_PER_BLOCK;
@@ -468,50 +457,28 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 #if TAG_BITS == 8
    uint64_t slot_index = select_128(block_md, offset);
    uint64_t select_index = slot_index + offset - sizeof(__uint128_t);
-
-   /*CVQF*/
-   uint64_t preslot_index; // yongjin
-   if (offset != 0) {
-     preslot_index = select_128(block_md, offset - 1);
-   } else {
-     preslot_index = QUQU_PRESLOT;
-   }
-   /*CVQF*/
 #elif TAG_BITS == 16
    uint64_t slot_index = select_64(*block_md, offset);
    uint64_t select_index = slot_index + offset - (sizeof(uint64_t)/2);
-   uint64_t preslot_index; // yongjin
+#endif
+   return insert_counting(filter, tag, offset, select_index, block_md, slot_index, block_free, index);
+}
+
+int insert_counting(vqf_filter* restrict filter, uint64_t tag, uint64_t offset, uint64_t select_index, uint64_t *block_md, uint64_t slot_index, uint64_t block_free, uint64_t index) {
+   vqf_block    * restrict blocks             = filter->blocks;
+#if TAG_BITS == 8
+   uint64_t preslot_index;
+   if (offset != 0)
+      preslot_index = select_128(block_md, offset - 1);
+   else
+      preslot_index = QUQU_PRESLOT;
+#elif TAG_BITS == 16
    if (offset != 0) {
-     preslot_index = select_128(block_md, offset - 1);
+      preslot_index = select_128(block_md, offset - 1);
    } else {
-     preslot_index = QUQU_PRESLOT;
+      preslot_index = QUQU_PRESLOT;
    }
 #endif
-
-   // ONLY SORT
-   /*uint64_t target_index = slot_index;
-   if (preslot_index == slot_index) {
-     target_index = slot_index;
-   }
-
-   else {
-     uint64_t i;
-     for (i = preslot_index; i < slot_index; i++) {
-       if (blocks[index].tags[i - 16] >= tag) {
-	 target_index = i;
-	 break;
-       }
-     }
-   }*/
-
-   // BACKUP
-   //update_tags_512(&blocks[index], slot_index, tag); // slot_index
-   //update_md(block_md, select_index);
-   //unlock(blocks[index]);
-   //return true;
-
-
-   //print_block(filter, index);
 
    uint64_t target_index;
    uint64_t end_target_index;
@@ -523,7 +490,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
      update_tags_512(&blocks[index], target_index, tag);
      update_md(block_md, select_index);
      unlock(blocks[index]);
-     //return true;
      return 1;
    }
 
@@ -606,7 +572,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            update_tags_512(&blocks[index], target_index, tag);
            update_md(block_md, select_index);
            unlock(blocks[index]);
-           //return true;
            return 1;
        }
 
@@ -624,7 +589,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
                update_tags_512(&blocks[index], end_target_index, 1);
                update_md(block_md, select_index);
                unlock(blocks[index]);
-               //return true;
                return 1;
              }
 
@@ -632,7 +596,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
                update_tags_512(&blocks[index], end_target_index, tag);
                update_md(block_md, select_index);
                unlock(blocks[index]);
-               //return true;
                return 1;
              }
 	         }
@@ -656,7 +619,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
                update_tags_512(&blocks[index], end_target_index, 1);
                update_md(block_md, select_index);
                unlock(blocks[index]);
-               //return true;
                return 1;
              }
 
@@ -664,7 +626,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
              else {
                blocks[index].tags[end_target_index - 1 - QUQU_PRESLOT]++;
                unlock(blocks[index]);
-               //return true;
                return 0;
              }
            }
@@ -674,7 +635,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
              update_tags_512(&blocks[index], target_index, tag);
              update_md(block_md, select_index);
              unlock(blocks[index]);
-             //return true;
              return 1;
            }
          }
@@ -683,10 +643,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
          else {
            // [0 ... 0] ?
            printf("ERROR\n");
-           //update_tags_512(&blocks[index], target_index, tag);
-           //update_md(block_md, select_index);
            unlock(blocks[index]);
-           //return false;
            return -1;
          }
        }
@@ -700,7 +657,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            // cannot insert two tags
            if (block_free == QUQU_BUCKETS_PER_BLOCK + 1) {
              unlock(blocks[index]);
-             //return false;
              return -1;
            }
 
@@ -724,7 +680,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
              update_tags_512(&blocks[index], end_target_index, 2);
              update_md(block_md, select_index);
              unlock(blocks[index]);
-             //return true;
              return 1;
            }
 
@@ -732,7 +687,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            else {
              blocks[index].tags[end_target_index - 1 - QUQU_PRESLOT]++;
              unlock(blocks[index]);
-             //return true;
              return 0;
            }
          }
@@ -742,8 +696,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            update_tags_512(&blocks[index], target_index, tag);
            update_md(block_md, select_index);
            unlock(blocks[index]);
-           //unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
-           //return true;
            return 1;
          }
        }
@@ -756,7 +708,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            update_tags_512(&blocks[index], end_target_index, 1);
            update_md(block_md, select_index);
            unlock(blocks[index]);
-           //return true;
            return 1;
          }
 
@@ -768,7 +719,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
              update_tags_512(&blocks[index], end_target_index, 1);
              update_md(block_md, select_index);
              unlock(blocks[index]);
-             //return true;
              return 1;
            }
 
@@ -776,7 +726,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            else {
              blocks[index].tags[end_target_index - 1 - QUQU_PRESLOT]++;
              unlock(blocks[index]);
-             //return true;
              return 0;
            }
          }
@@ -853,8 +802,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
        update_tags_512(&blocks[index], target_index, tag);
        update_md(block_md, select_index);
        unlock(blocks[index]);
-       //unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
-       //return true;
        return 1;
      }
    }
@@ -863,21 +810,12 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    else {
      update_tags_512(&blocks[index], target_index, tag); // slot_index
      update_md(block_md, select_index);
-     //print_block(filter, index);
      unlock(blocks[index]);
-     //unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
-     //return true;
      return 1;
    }
 
-   //print_block(filter, index);
    // something wrong
    return false;
-
-   /*update_tags_512(&blocks[index], target_index, tag);
-   update_md(block_md, select_index);
-   unlock(blocks[index]);
-   return true;*/
 }
 
 static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
@@ -933,38 +871,40 @@ static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
 
 #if TAG_BITS == 8
    uint64_t start = offset != 0 ? lookup_128(filter->blocks[index].md, offset -
-	 1) : one[0] << 2 * sizeof(uint64_t);
+         1) : one[0] << 2 * sizeof(uint64_t);
    uint64_t end = lookup_128(filter->blocks[index].md, offset);
 #elif TAG_BITS == 16
    uint64_t start = offset != 0 ? lookup_64(filter->blocks[index].md, offset -
-	 1) : one[0] << (sizeof(uint64_t)/2);
+         1) : one[0] << (sizeof(uint64_t)/2);
    uint64_t end = lookup_64(filter->blocks[index].md, offset);
 #endif
    uint64_t mask = end - start;
 
    uint64_t check_indexes = mask & result;
-   if (check_indexes != 0) { // remove the first available tag
+ /*  if (check_indexes != 0) { // remove the first available tag
       vqf_block    * restrict blocks             = filter->blocks;
-
-      // original
-      /*
-	 uint64_t remove_index = __builtin_ctzll(check_indexes);
-	 remove_tags_512(&blocks[index], remove_index);
+      uint64_t remove_index = __builtin_ctzll(check_indexes);
+      remove_tags_512(&blocks[index], remove_index);
 #if TAG_BITS == 8
-remove_index = remove_index + offset - sizeof(__uint128_t);
-uint64_t *block_md = blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
+      remove_index = remove_index + offset - sizeof(__uint128_t);
+      uint64_t *block_md = blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
+      remove_md(block_md, remove_index);
 #elif TAG_BITS == 16
-remove_index = remove_index + offset - sizeof(uint64_t);
-uint64_t *block_md = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
+      remove_index = remove_index + offset - sizeof(uint64_t);
+      uint64_t *block_md = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
+      remove_md(block_md, remove_index);
 #endif
-return true;
-*/
+      return true;
+   } else
+      return false;*/
+   if (check_indexes != 0) {
+      return remove_tags_counting(check_indexes, start, end, offset, filter, block_index, tag, index);
+   } else
+      return false;
+}
 
-      // CVQF
-      // check check_tags for comment
-
+bool remove_tags_counting(uint64_t check_indexes, uint64_t start, uint64_t end, uint64_t offset, vqf_filter * restrict filter, uint64_t block_index, uint64_t tag, uint64_t index) {
+      vqf_block    * restrict blocks             = filter->blocks;
       uint64_t slot_start = _tzcnt_u64(start);
       uint64_t slot_end = _tzcnt_u64(end);
       uint64_t slot_check;
@@ -1765,14 +1705,9 @@ return true;
 	       }
 	    }
 	    check_indexes &= ~(one[0] << slot_check);
-	 }
-      }
-      //return true;
-
-      // if every matching tags are counters
-      return false;
-   } else
-      return false;
+     }
+   }
+   return false;
 }
 
 bool vqf_remove(vqf_filter * restrict filter, uint64_t hash) {
@@ -1842,21 +1777,20 @@ static inline bool check_tags(vqf_filter * restrict filter, uint64_t tag,
 
 #if TAG_BITS == 8
    uint64_t start = offset != 0 ? lookup_128(filter->blocks[index].md, offset -
-         1) : one[0] << 2 * sizeof(uint64_t); // 1 << 16
+         1) : one[0] << 2 * sizeof(uint64_t);
    uint64_t end = lookup_128(filter->blocks[index].md, offset);
 #elif TAG_BITS == 16
    uint64_t start = offset != 0 ? lookup_64(filter->blocks[index].md, offset -
-	 1) : one[0] << (sizeof(uint64_t)/2); // 1 << 4
+         1) : one[0] << (sizeof(uint64_t)/2);
    uint64_t end = lookup_64(filter->blocks[index].md, offset);
 #endif
    uint64_t mask = end - start;
-   /*CVQF*/
-   //return (mask & result) != 0; //turn off for CVQF
+//   return (mask & result) != 0;
+   return check_tags_counting(filter, mask, result, start, end, tag, index);
+}
 
-   // equal locations, tag order [tag64 tag63 ... tag16]
-   // tag value is tag
-   // [slot_start, slot_end)
-   vqf_block * restrict blocks = filter->blocks;
+bool check_tags_counting(vqf_filter * restrict filter, uint64_t mask, uint64_t result, uint64_t start, uint64_t end, uint64_t tag, uint64_t index) {
+   vqf_block    * restrict blocks             = filter->blocks;
    uint64_t equalLocations = mask & result;
    uint64_t slot_start = _tzcnt_u64(start);
    uint64_t slot_end = _tzcnt_u64(end);
@@ -1865,100 +1799,90 @@ static inline bool check_tags(vqf_filter * restrict filter, uint64_t tag,
    // 255 should be last tag
    if (tag == QUQU_MAX) {
       if (((equalLocations >> (slot_end - 1)) & 1 ) == 1) {
-	 return true;
+         return true;
       }
       else {
-	 return false;
+         return false;
       }
    }
 
    // 0 should be first tag
    else if (tag == 0) {
       if (((equalLocations >> slot_start) & 1 ) == 1) {
-	 return true;
+         return true;
       }
       else {
-	 return false;
+         return false;
       }
    }
 
    // other tags
    else {
-
       // filter->blocks[index].tags[slot_check - 16];
       while (equalLocations != 0) {
+         // only check necessaries
+         slot_check = _tzcnt_u64(equalLocations);
+         // if first
+         if (slot_check == slot_start) {
+            return true;
+         }
 
-	 // only check necessaries
-	 slot_check = _tzcnt_u64(equalLocations);
+         // if last
+         else if (slot_check == slot_end - 1) {
+            return true;
+         }
 
-	 // if first
-	 if (slot_check == slot_start) {
-	    return true;
-	 }
+         // not first, nor last
+         else {
+         // the escape sequence
+            if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] > tag) {
+            // counter
+            }
 
-	 // if last
-	 else if (slot_check == slot_end - 1) {
-	    return true;
-	 }
+            // [... 0, tag ...]
+            else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
+               // [0, tag ...]
+               if (slot_check == slot_start + 1) {
+                  if (slot_check < slot_end - 2) {
+                     // [0, tag, 0, 0 ...]
+                     if (blocks[index].tags[slot_check + 1 - QUQU_PRESLOT] == 0
+                     && blocks[index].tags[slot_check + 2 - QUQU_PRESLOT] == 0) {
+                        // counter
+                     }
+                     // not [0, tag, 0, 0 ...] sequence
+                     else {
+                        return true;
+                     }
+                  }
 
-	 // not first, nor last
-	 else {
+                  // cannot even make the sequence
+                  else {
+                     return true;
+                  }
+               }
 
-	    // the escape sequence
-	    if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] > tag) {
-	       // counter
-	    }
+               // [... 0, tag ...]
+               else {
+                  // [ ... 0, 0, tag ...]
+                  if (blocks[index].tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
+                     return true;
+                  }
+                  else {
+                     // counter
+                  }
+               }
+            }
 
-	    // [... 0, tag ...]
-	    else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
+            // tag before is less than
+            else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
+               return true;
+            }
 
-	       // [0, tag ...]
-	       if (slot_check == slot_start + 1) {
-
-		  if (slot_check < slot_end - 2) {
-
-		     // [0, tag, 0, 0 ...]
-		     if (blocks[index].tags[slot_check + 1 - QUQU_PRESLOT] == 0
-			   && blocks[index].tags[slot_check + 2 - QUQU_PRESLOT] == 0) {
-			// counter
-		     }
-
-		     // not [0, tag, 0, 0 ...] sequence
-		     else {
-			return true;
-		     }
-		  }
-
-		  // cannot even make the sequence
-		  else {
-		     return true;
-		  }
-	       }
-
-	       // [... 0, tag ...]
-	       else {
-
-		  // [ ... 0, 0, tag ...]
-		  if (blocks[index].tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
-		     return true;
-		  }
-
-		  else {
-		     // counter
-		  }
-	       }
-	    }
-
-	    // tag before is less than
-	    else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
-	       return true;
-	    }
-
-	    // tag before is equal to
-	    else {
-	    }
-	 }
-	 equalLocations &= ~(one[0] << slot_check);
+            // tag before is equal to
+            else {
+            }
+         }
+         equalLocations &= ~(one[0] << slot_check);
       }
    }
 
@@ -2555,7 +2479,6 @@ bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash) {
    /*print_block(filter, alt_block_index / QUQU_SLOTS_PER_BLOCK);*/
    /*}*/
 }
-
 
 int get_count(vqf_filter * restrict filter, uint64_t hash) {
    vqf_metadata * restrict metadata           = &filter->metadata;

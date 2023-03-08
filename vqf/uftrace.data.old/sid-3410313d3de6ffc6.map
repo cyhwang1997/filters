@@ -1,0 +1,18 @@
+556701b54000-556701b5b000 r-xp 00000000 00:00 0                          /home/cyhwang/filter/vqf/main build-id:06dbb2e7e89d3149f2d1208af2ae83f8e515de67
+7f508020e000-7f5080221000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4 build-id:f8e13291f0c24f1c51bd2e7c50a3490f82f66d20
+7f5080221000-7f508024a000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/liblzma.so.5.2.4 build-id:0e13b0f27b3bc79a2828c11199ce4336a348af37
+7f508024a000-7f5080266000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libz.so.1.2.11 build-id:101d8983a254f1b26637242e10b80ecae42eff2d
+7f5080268000-7f5080283000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 build-id:4abd133cc80e01bb388a9c42d9e3cb338836544a
+7f5080283000-7f50803d2000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libm-2.31.so build-id:fe91b4090ea04c1559ff71dd9290062776618891
+7f50803d2000-7f50803f1000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libpthread-2.31.so build-id:7b4536f41cdaa5888408e82d0836e33dcf436466
+7f50803f5000-7f5080698000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libcapstone.so.3 build-id:66e1e7a4084e0cc2237bcc0f5b629f950164f8d3
+7f5080698000-7f50806f7000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libdw-0.176.so build-id:05da66984203b76c5e0d8cc917c157f6fdbf4b28
+7f50806f7000-7f5080713000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libelf-0.176.so build-id:b02b0fa20986f756dc742b3a22d80d658906e2da
+7f5080715000-7f508071f000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/librt-2.31.so build-id:ce016c975d94bc4770ed8c62d45dea6b71405a2c
+7f508071f000-7f5080725000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libdl-2.31.so build-id:c0f40155b3f8bf8c494fa800f9ab197ebe20ed6e
+7f5080725000-7f5080913000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libc-2.31.so build-id:1878e6b475720c7c51969e69ab2d276fae6d1dee
+7f5080917000-7f5080af6000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28 build-id:c90e6603c7cdf84713cd445700a575d3ea446d9b
+7f5080af9000-7f5080dcc000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 build-id:c55056bc089b06c56ec3f57047f5ff2f00b2a864
+7f5080de5000-7f5080e2a000 r-xp 00000000 00:00 0                          /usr/local/lib/uftrace/libmcount-fast.so build-id:dba9debf830b55e0cd4af2b9e8c73c11ff3040b5
+7f5080e2e000-7f5080e5d000 r-xp 00000000 00:00 0                          /usr/lib/x86_64-linux-gnu/ld-2.31.so build-id:4587364908de169dec62ffa538170118c1c3a078
+7ffef6010000-7ffef6031000 rw-p 00000000 00:00 0                          [stack]

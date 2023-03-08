@@ -14,8 +14,9 @@ ifeq ($(THREAD),1)
    OPT +=-DENABLE_THREADS
 endif
 
-CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=native
-CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native
+#-pg for uftrace
+CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=native -pg
+CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native -pg
 LD= g++ -std=c++11
 
 LOC_INCLUDE=include

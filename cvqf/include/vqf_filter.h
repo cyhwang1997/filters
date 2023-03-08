@@ -78,6 +78,12 @@ extern "C" {
 
 	int get_count(vqf_filter * restrict filter, uint64_t hash);
 
+  bool check_tags_counting(vqf_filter * restrict filter, uint64_t mask, uint64_t result, uint64_t start, uint64_t end, uint64_t tag, uint64_t index);
+
+  bool remove_tags_counting(uint64_t check_indexes, uint64_t start, uint64_t end, uint64_t offset, vqf_filter * restrict filter, uint64_t block_index, uint64_t tag, uint64_t index);
+
+  int insert_counting(vqf_filter * restrict filter, uint64_t tag, uint64_t offset, uint64_t select_index, uint64_t *block_md, uint64_t slot_index, uint64_t block_free, uint64_t index);
+
 #ifdef __cplusplus
 }
 #endif
