@@ -178,6 +178,18 @@ void benchmark(uint64_t load_factor){
     diff = std::chrono::duration_cast<std::chrono::duration<double>>(now() - start);
     std::cout << "Millions of items relocated per second: " << (total_items_to_insert / ((1e6)*diff.count())) << std::endl;
   }
+  /*CY*/
+  // Item at a time lookups
+  uint64_t pl_net_success = 0;
+  start = now();
+  for(uint64_t i = 0; i < total_items_to_probe; i++){
+    pl_net_success += ccf.likely_contains(insert_items[i]);
+  }
+  diff = std::chrono::duration_cast<std::chrono::duration<double>>(now() - start);
+  std::cout << "Positive Lookup Throughput: " << (total_items_to_probe / ((1e6)*diff.count())) <<  " Mops/sec" << std::endl;
+  std::cout << "  " << (100.0 * pl_net_success) / total_items_to_probe << "% successfully retrieved\n";
+  std::cout << "  " << pl_net_success << " of " << total_items_to_probe << " were successful lookups\n";
+  /*CY*/
 
   // Item at a time lookups
   uint64_t net_success = 0;
