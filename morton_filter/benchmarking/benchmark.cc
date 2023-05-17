@@ -108,6 +108,7 @@ void benchmark(uint64_t load_factor){
   MortonFilter ccf(total_slots);
   diff = std::chrono::duration_cast<std::chrono::duration<double>>(now() - start);
   std::cout << "Morton filter constructor time: " << diff.count() << " seconds" << std::endl;
+  printf("[CYDBG] size: %ld bytes\n", (ccf._total_blocks * 512 / 8));
 
   if(! skip_cuckoo_filter){
     static_assert(__builtin_popcountll(total_phys_slots / 4) == 1, 

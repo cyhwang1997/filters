@@ -14,17 +14,17 @@ ifeq ($(THREAD),1)
    OPT +=-DENABLE_THREADS
 endif
 
-CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=native
-CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native
+CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=cascadelake 
+CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=cascadelake
 LD= g++ -std=c++11
 
 LOC_INCLUDE=include
 LOC_SRC=src
 OBJDIR=obj
 
-CXXFLAGS += -Wall $(DEBUG) $(PROFILE) $(OPT) $(ARCH) -m64 -I. -I$(LOC_INCLUDE)
+CXXFLAGS += -Wall $(DEBUG) $(PROFILE) $(OPT) $(ARCH) -m64 -I. -I$(LOC_INCLUDE) -mavx -mavx512bw -mavx512vbmi -mavx512pf
 
-CFLAGS += -Wall $(DEBUG) $(PROFILE) $(OPT) $(ARCH) -m64 -I. -I$(LOC_INCLUDE)
+CFLAGS += -Wall $(DEBUG) $(PROFILE) $(OPT) $(ARCH) -m64 -I. -I$(LOC_INCLUDE) -mavx -mavx512bw -mavx512vbmi -mavx512pf
 
 LDFLAGS += $(DEBUG) $(PROFILE) $(OPT) -lpthread -lssl -lcrypto -lm -litm
 

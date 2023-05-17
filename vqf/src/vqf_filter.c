@@ -235,6 +235,7 @@ static inline void remove_tags_512(vqf_block * restrict block, uint8_t index) {
    _mm512_storeu_si512(reinterpret_cast<__m512i*>(block), vector);
 }
 #endif
+
 #else
 #if TAG_BITS == 8
 static inline void update_tags_512(vqf_block * restrict block, uint8_t index, uint8_t tag) {

@@ -377,6 +377,7 @@ int main(int argc, char **argv)
   struct quotient_filter qf_dummy;
   qf_init(&qf_dummy, log_slot, 8);
   qf_clear(&qf_dummy);
+  printf("[CYDBG] size: %ld\n", qf_table_size(log_slot, 8));
 
   size_t num_inserted = 0;
   struct timeval start, end;

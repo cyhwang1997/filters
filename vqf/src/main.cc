@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 
    /* initialize vqf filter */
    if ((filter = vqf_init(nslots)) == NULL) {
-      fprintf(stderr, "Can't allocate vqf filter.");
+      fprintf(stderr, "Can't allocate vqf filter.\n");
       exit(EXIT_FAILURE);
    }
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
    /* Insert hashes in the vqf filter */
    for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_insert(filter, vals[i])) {
-         fprintf(stderr, "Insertion failed");
+         fprintf(stderr, "Insertion failed\n");
          exit(EXIT_FAILURE);
       }
    }
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
    gettimeofday(&start, &tzp);
    for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_is_present(filter, vals[i])) {
-         fprintf(stderr, "Lookup failed for %ld", vals[i]);
+         fprintf(stderr, "Lookup failed for %ld\n", vals[i]);
          exit(EXIT_FAILURE);
       }
    }

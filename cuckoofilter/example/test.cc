@@ -39,6 +39,7 @@ int main(int argc, char **argv) {
   //   CuckooFilter<size_t, 13, cuckoofilter::PackedTable> filter(total_items);
   //CuckooFilter<size_t, 12> filter(total_items);
   CuckooFilter<uint64_t, 8> filter(total_items);
+  printf("[CYDBG] filter size: %lu\n", filter.SizeInBytes());
 
   struct timeval start, end;
   struct timezone tzp;
