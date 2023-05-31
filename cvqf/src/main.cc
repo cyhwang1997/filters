@@ -68,6 +68,11 @@ int main(int argc, char **argv) {
                      3. Skewness (0 - 99).\n");
     exit(1);
   }
+#ifdef __AVX512BW__
+  printf("[CYDBG] AVX512 is used\n");
+#else
+  printf("[CYDBG] AVX2 is used\n");
+#endif
 
   uint64_t qbits = atoi(argv[1]);
   uint64_t nslots = (1ULL << qbits);

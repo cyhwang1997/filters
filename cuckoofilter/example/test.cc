@@ -11,6 +11,14 @@
 #include <chrono>
 #include <openssl/rand.h>
 
+//FOR ZIPFIAN
+#include <algorithm>
+#include <array>
+#include <chrono>
+#include <cmath>
+#include <random>
+#include "zipfian_int_distribution.h"
+
 uint64_t tv2usec(struct timeval *tv) {
    return 1000000 * tv->tv_sec + tv->tv_usec;
 }
@@ -18,8 +26,8 @@ uint64_t tv2usec(struct timeval *tv) {
 using cuckoofilter::CuckooFilter;
 
 int main(int argc, char **argv) {
-  if (argc < 3) {
-    fprintf(stderr, "1. nslots\n2. load factor.\n");
+  if (argc < 4) {
+    fprintf(stderr, "1. nslots\n2. load factor.\n 3.skeweness (0 - 99)");
     exit(1);
   }
   //size_t total_items = 1000000;
@@ -29,6 +37,7 @@ int main(int argc, char **argv) {
   size_t total_items = 1ULL << nslots;
 
   uint64_t load_factor = atoi(argv[2]);
+  uint64_t skewness = atoi(argv[3]);
 
   // Create a cuckoo filter where each item is of type size_t and
   // use 12 bits for each item:
@@ -49,8 +58,15 @@ int main(int argc, char **argv) {
   double negative_throughput;
   double remove_throughput;
 
-  uint64_t *vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
-  RAND_bytes((unsigned char *)vals, sizeof(*vals)*total_items);
+  if (skewness == 0) {
+    uint64_t *vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
+    RAND_bytes((unsigned char *)vals, sizeof(*vals)*total_items);
+  } else if (skewness > 99) {
+    fprintf(stderr, "Such skewness not allowed\n");
+    exit(EXIT_FAILURE);
+  } else {
+    printf("Zipfian Created\n");
+  }
 
   gettimeofday(&start, &tzp);
   // Insert items to this cuckoo filter

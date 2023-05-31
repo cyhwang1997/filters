@@ -79,8 +79,8 @@ void benchmark(uint64_t load_factor){
   // Trying to get close to 95% of 128 * 1024 * 1024 for comparing against 
   // Fan et al.'s cuckoo filter, which requires that the table be a power of 2
   //constexpr uint64_t total_phys_slots = 128ULL * 1024ULL * 1024ULL; // Physical
-  constexpr uint64_t total_phys_slots = 131072; // 2^17  /*[CYDBG] slot*/
-  //constexpr uint64_t total_phys_slots = 2097152; // 2^21 /*[CYDBG] slot*/
+  //constexpr uint64_t total_phys_slots = 131072; // 2^17  /*[CYDBG] slot*/
+  constexpr uint64_t total_phys_slots = 2097152; // 2^21 /*[CYDBG] slot*/
 
   // constexpr
   uint64_t total_items_to_probe = round_to_appropriate_size(total_phys_slots * block_saturation);

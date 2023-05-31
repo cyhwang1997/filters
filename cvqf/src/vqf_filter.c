@@ -414,18 +414,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    uint64_t                 range              = metadata->range;
 
    uint64_t block_index = hash >> key_remainder_bits;
-   /*if (blocks[block_index/QUQU_BUCKETS_PER_BLOCK] == NULL) {
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK] = (vqf_block*)malloc(sizeof(vqf_block));
-#if TAG_BITS == 8
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md[0] = UINT64_MAX;
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md[1] = UINT64_MAX;
-      // reset the most significant bit of metadata for locking.
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md[1] = blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md[1] & ~(1ULL << 63);
-#elif TAG_BITS == 16
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md = UINT64_MAX;
-      blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md = blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md & ~(1ULL << 63);
-#endif
-   }*/
    lock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
 #if TAG_BITS == 8
    uint64_t *block_md = blocks[block_index/QUQU_BUCKETS_PER_BLOCK].md;
@@ -436,28 +424,13 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 #endif
    uint64_t tag = hash & TAG_MASK;
    uint64_t alt_block_index = ((hash ^ (tag * 0x5bd1e995)) % range) >> key_remainder_bits;
-   //uint64_t alt_block_index = ((hash ^ 0x5bd1e995) % range) >> key_remainder_bits;
 
-   //if (blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK] != NULL) {
-      __builtin_prefetch(&blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
-   //}
+   __builtin_prefetch(&blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
 
 
+   // block_index is over 75% full && the two candidate blocks are different
    if (block_free < QUQU_CHECK_ALT && block_index/QUQU_BUCKETS_PER_BLOCK != alt_block_index/QUQU_BUCKETS_PER_BLOCK) {
-      //printf("yes\n");
       unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
-      /*if (blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK] == NULL) {
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK] = (vqf_block*)malloc(sizeof(vqf_block));
-#if TAG_BITS == 8
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md[0] = UINT64_MAX;
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md[1] = UINT64_MAX;
-	 // reset the most significant bit of metadata for locking.
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md[1] = blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md[1] & ~(1ULL << 63);
-#elif TAG_BITS == 16
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md = UINT64_MAX;
-	 blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md = blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md & ~(1ULL << 63);
-#endif
-      }*/
       lock_blocks(filter, block_index, alt_block_index);
 #if TAG_BITS == 8
       uint64_t *alt_block_md = blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md;
@@ -483,8 +456,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
       } else {
          unlock(blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
       }
-
-   } else {
+   } /*else { //never comes here
      if (block_free == QUQU_BUCKETS_PER_BLOCK) {
        print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
        unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
@@ -493,7 +465,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
        return -1;
        //exit(EXIT_FAILURE);
      }
-   }
+   }*/
 
    uint64_t index = block_index / QUQU_BUCKETS_PER_BLOCK;
    uint64_t offset = block_index % QUQU_BUCKETS_PER_BLOCK;

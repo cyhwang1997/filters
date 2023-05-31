@@ -5,7 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ARCH	Makefile	/^ARCH=-msse4.2$/;"	m
-CC	Makefile	/^CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native$/;"	m
+CC	Makefile	/^CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native -fsanitize=address$/;"	m
 CXX	Makefile	/^CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=native$/;"	m
 HAVE_AVX512	Makefile	/^HAVE_AVX512=$(filter-out 0,$(shell lscpu | grep avx512bw | wc -l))$/;"	m
 ITR	src/main_id.cc	25;"	d	file:
@@ -324,6 +324,7 @@ cf	src/bm.cc	/^filter cf = {q_init, q_insert, q_lookup, q_remove, q_range, q_des
 cf	src/main_tx.cc	/^   vqf_filter *cf;$/;"	m	struct:args	file:
 check_tags	src/vqf_filter.c	/^static inline bool check_tags(vqf_filter * restrict filter, uint64_t tag,$/;"	f	file:
 cmp_uint64_t	src/bm.cc	/^int cmp_uint64_t(const void *a, const void *b) {$/;"	f
+count_tags	src/vqf_filter.c	/^static inline int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index){$/;"	f	file:
 destroy	src/bm.cc	/^  destroy_op destroy;$/;"	m	struct:filter	file:
 destroy_op	src/bm.cc	/^typedef int (*destroy_op)();$/;"	t	file:
 distribution_type	src/zipfian_int_distribution.h	/^    typedef zipfian_int_distribution<_IntType> distribution_type;$/;"	t	struct:zipfian_int_distribution::param_type
@@ -338,6 +339,7 @@ generate_shuffle_512	src/generate_shuffle_matrix.cc	/^void generate_shuffle_512(
 generate_shuffle_512_16	src/generate_shuffle_matrix.cc	/^void generate_shuffle_512_16(void) {$/;"	f
 get_block_free_space	src/vqf_filter.c	/^static inline uint64_t get_block_free_space(uint64_t *vector) {$/;"	f	file:
 get_block_free_space	src/vqf_filter.c	/^static inline uint64_t get_block_free_space(uint64_t vector) {$/;"	f	file:
+get_count	src/vqf_filter.c	/^int get_count(vqf_filter * restrict filter, uint64_t hash) {$/;"	f
 get_range_op	src/bm.cc	/^typedef __uint128_t (*get_range_op)();$/;"	t	file:
 init	src/bm.cc	/^  init_op init;$/;"	m	struct:filter	file:
 init	src/bm.cc	/^  rand_init init;$/;"	m	struct:rand_generator	file:
@@ -354,7 +356,7 @@ lookup_64	src/vqf_filter.c	/^static inline uint64_t lookup_64(uint64_t vector, u
 lookup_op	src/bm.cc	/^typedef int (*lookup_op)(__uint128_t val);$/;"	t	file:
 main	src/bm.cc	/^int main(int argc, char **argv) {$/;"	f
 main	src/generate_shuffle_matrix.cc	/^main ( int argc, char *argv[] )$/;"	f
-main	src/main.cc	/^int main(int argc, char **argv)$/;"	f
+main	src/main.cc	/^int main(int argc, char **argv) {$/;"	f
 main	src/main_id.cc	/^int main(int argc, char **argv)$/;"	f
 main	src/main_tx.cc	/^int main(int argc, char **argv)$/;"	f
 max	src/zipfian_int_distribution.h	/^  result_type max() const { return this->b(); }$/;"	f	class:zipfian_int_distribution
