@@ -164,22 +164,20 @@ int main(int argc, char **argv) {
 
     //int put_slot = 0;
     //int all_slot = 0;
+    uint64_t num_successful_inserts = 0;
 
     gettimeofday(&start, &tzp);
     /* Insert hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
-      //clock_gettime(CLOCK_MONOTONIC, &startT);
-      //vqf_insert(filter, vals[i]);
-      //clock_gettime(CLOCK_MONOTONIC, &endT);
-      //printf("%ld\n", 1000000000 * (endT.tv_sec - startT.tv_sec) + (endT.tv_nsec - startT.tv_nsec));
       insert_return = vqf_insert(filter, vals[i]);
-      //put_slot += insert_return;
-      //all_slot++;
-      if (insert_return == -1) {
+      if (!insert_return) {
         fprintf(stderr, "Insertion failed\n");
+        printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
         exit(EXIT_FAILURE);
       }
+      num_successful_inserts++;
     }
+    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     gettimeofday(&end, &tzp);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;

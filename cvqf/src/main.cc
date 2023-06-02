@@ -130,6 +130,7 @@ int main(int argc, char **argv) {
       unsigned seed;
       seed = std::chrono::system_clock::now().time_since_epoch().count();
       std::shuffle(foo, foo + filter->metadata.range, std::default_random_engine(seed));
+      printf("[CYDBG]\n");
 
       printf("SHUFFLED\n");
 
@@ -165,6 +166,7 @@ int main(int argc, char **argv) {
     //int all_slot = 0;
 
     gettimeofday(&start, &tzp);
+    uint64_t num_successful_inserts = 0;
     /* Insert hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
       //clock_gettime(CLOCK_MONOTONIC, &startT);
@@ -176,9 +178,12 @@ int main(int argc, char **argv) {
       //all_slot++;
       if (insert_return == -1) {
         fprintf(stderr, "Insertion failed\n");
+        printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
         exit(EXIT_FAILURE);
       }
+      num_successful_inserts++;
     }
+    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     gettimeofday(&end, &tzp);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
