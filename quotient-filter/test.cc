@@ -368,11 +368,18 @@ int main(int argc, char **argv)
      vals[i] %= max_value;
   }
 
+  uint64_t same_num = 0;
   uint64_t *vals_alt = (uint64_t*)malloc(total_items*sizeof(vals_alt[0]));
   RAND_bytes((unsigned char*)vals_alt, sizeof(*vals_alt)*total_items);
   for (size_t i = 0; i < total_items; i++) {
      vals_alt[i] %= max_value;
+     for (size_t j = 0; i < total_items; i++) {
+       if (vals[j] == vals_alt[i]) {
+         same_num++;
+       }
+     }
   }
+  printf("[CYDBG] same_num: %ld\n", same_num);
 
   struct quotient_filter qf_dummy;
   qf_init(&qf_dummy, log_slot, 8);
@@ -428,6 +435,7 @@ int main(int argc, char **argv)
   negative_throughput = 1.0 * num_inserted / elapsed_usecs;
 
   printf("Negative Throughput: %f Million operations / sec\n", negative_throughput);
+  printf("false_queries: %ld, total_queries: %ld\n", false_queries, total_queries);
 
   gettimeofday(&start, &tzp);
   size_t num_removed = num_inserted;
