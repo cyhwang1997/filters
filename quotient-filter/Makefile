@@ -4,7 +4,7 @@ CXX = g++
 
 LD = g++
 
-LDFLAGS += -lssl -lcrypto
+LDFLAGS += -lssl -lcrypto 
 
 all: $(TARGETS)
 
