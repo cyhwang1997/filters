@@ -147,6 +147,24 @@ int main(int argc, char **argv) {
       printf("Zipfian Created\n");
     }
 
+    /*CYDBG*/
+    for (uint64_t i = 0; i < 20; i++) {
+      vals[i] = 0;
+    }
+    for (uint64_t i = 20; i < 40; i++) {
+      vals[i] = 2;
+    }
+    for (uint64_t i = 40; i < 60; i++) {
+      vals[i] = 3;
+    }
+    for (uint64_t i = 60; i < 80; i++) {
+      vals[i] = 1;
+    }
+    for (uint64_t i = 80; i < 100; i++) {
+      vals[i] = 255;
+    }
+    /*CYDBG*/
+
     other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
     RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
     for (uint64_t i = 0; i < nvals; i++) {
@@ -204,6 +222,7 @@ int main(int argc, char **argv) {
       
     print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
       
+    printf("[CYDBG] get_count 0: %d, 1: %d, 2: %d, 3: %d, 255: %d\n\n", get_count(filter, 0), get_count(filter, 1), get_count(filter, 2), get_count(filter, 3), get_count(filter, 255));
       
     gettimeofday(&start, &tzp);
     uint64_t nfps = 0;

@@ -160,6 +160,17 @@ static inline int64_t select_128(uint64_t *vector, uint64_t rank) {
    return _tzcnt_u64(lookup_128(vector, rank));
 }
 
+void print_m512i(__m512i vec) {
+  uint8_t buffer[64];
+  _mm512_storeu_si512(buffer, vec);
+
+  printf("print_m512i: ");
+  for (int i = 0; i < 64; i++) {
+    printf("%x ", buffer[i]);
+  }
+  printf("\n");
+}
+
 //assumes little endian
 #if TAG_BITS == 8
 void print_bits(__uint128_t num, int numbits)
@@ -493,36 +504,12 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    }
 #endif
 
-   // ONLY SORT
-   /*uint64_t target_index = slot_index;
-   if (preslot_index == slot_index) {
-     target_index = slot_index;
-   }
-
-   else {
-     uint64_t i;
-     for (i = preslot_index; i < slot_index; i++) {
-       if (blocks[index].tags[i - 16] >= tag) {
-	 target_index = i;
-	 break;
-       }
-     }
-   }*/
-
-   // BACKUP
-   //update_tags_512(&blocks[index], slot_index, tag); // slot_index
-   //update_md(block_md, select_index);
-   //unlock(blocks[index]);
-   //return true;
-
-
-   //print_block(filter, index);
-
+   /*CVQF*/
    uint64_t target_index;
    uint64_t end_target_index;
    uint8_t temp_tag;
 
-   // empty
+   // bucket is empty
    if (preslot_index == slot_index) {
      target_index = slot_index;
      update_tags_512(&blocks[index], target_index, tag);
@@ -532,29 +519,33 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
      return 1;
    }
 
-   // not empty
+   // bucket is not empty
    else {
-
      target_index = slot_index;
-
-     // sorting //////////////////
-
-     uint64_t i;
-     for (i = preslot_index; i < slot_index; i++) {
-
+     // sorting ////////////////// find the position(target_index) to insert. the tags in a bucket are sorted in ascending order
+     for (uint64_t i = preslot_index; i < slot_index; i++) {
        // candidate
        if (blocks[index].tags[i - QUQU_PRESLOT] >= tag) {
-
-         // the first tag, no need to think
+         // the first tag is bigger than the current tag. insert it to the first slot
          if (i == preslot_index) {
            target_index = i;
            break;
          }
-
          // could be counter
          else if (blocks[index].tags[i - 1 - QUQU_PRESLOT] == 0) {
-           // corner case, [0, counter], found
+           // CY: the first slot is '0' and the current slot is a counter of tag '0'
+           // inserting 0
            if (i == preslot_index + 1) {
+             /*CY*/
+             while (blocks[index].tags[i - QUQU_PRESLOT] == QUQU_MAX) 
+               i++;
+             if (blocks[index].tags[i - QUQU_PRESLOT] != 0)
+               i += 2; /*[0, 2, 0, 0], current tag is 2*/
+             else
+               i++;  /*[0, 255, 0, 0], current tag is 0 right after 255*/
+           }
+           // The current index is not a counter. The '0' before this current index is from tag '0'
+           else if (blocks[index].tags[i - 2 - QUQU_PRESLOT] == 0) { 
              target_index = i;
              break;
            }
@@ -562,19 +553,11 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            // other cases
            else {
              temp_tag = blocks[index].tags[i - 2 - QUQU_PRESLOT];
-
-             // corner case, [0, 0, 255], found
-             if (temp_tag == 0) {
-               target_index = i;
-               break;
-             }
-
-             // counter (TAG_BIT = 8)
-             else {
-               while(blocks[index].tags[i - QUQU_PRESLOT] == QUQU_MAX) i++;
-                 if (blocks[index].tags[i - QUQU_PRESLOT] != temp_tag) i++;
-                 continue;
-             }
+             while(blocks[index].tags[i - QUQU_PRESLOT] == QUQU_MAX) 
+               i++;
+             if (blocks[index].tags[i - QUQU_PRESLOT] != temp_tag) 
+               i++;
+             continue;
            }
          }
 
@@ -585,11 +568,8 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
          }
        }
      }
-   // sorting //////////////////
    }
-
-   ////////////////////////////////////////////////////////////////////////
-
+   // sorting //////////////////
 
    // if tag that is ">=" is found in [preslot_index ---------- slot_index)
    if (target_index < slot_index) {
@@ -2042,22 +2022,6 @@ static inline int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_
    if (check_indexes != 0) { // remove the first available tag
       vqf_block    * restrict blocks             = filter->blocks;
 
-      // original
-      /*
-	 uint64_t remove_index = __builtin_ctzll(check_indexes);
-	 remove_tags_512(&blocks[index], remove_index);
-#if TAG_BITS == 8
-remove_index = remove_index + offset - sizeof(__uint128_t);
-uint64_t *block_md = blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
-#elif TAG_BITS == 16
-remove_index = remove_index + offset - sizeof(uint64_t);
-uint64_t *block_md = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
-#endif
-return true;
-*/
-
       // CVQF
       // check check_tags for comment
 
@@ -2268,7 +2232,7 @@ return true;
 		     // counter
 		     if (  (blocks[index].tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
 			   && (blocks[index].tags[slot_temp + 2 - QUQU_PRESLOT] == 0)) {
-			return 2 + temp_tag;
+			return 3 + temp_tag;
 		     }
 
 		     // not counter
