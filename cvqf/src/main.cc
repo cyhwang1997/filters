@@ -148,17 +148,18 @@ int main(int argc, char **argv) {
     }
 
     /*CYDBG*/
-    for (uint64_t i = 0; i < 20; i++) {
-      vals[i] = 0;
+    vals[0] = 0;
+    for (uint64_t i = 1; i < 20; i++) {
+      vals[i] = 1;
     }
     for (uint64_t i = 20; i < 40; i++) {
-      vals[i] = 2;
+      vals[i] = 4;
     }
     for (uint64_t i = 40; i < 60; i++) {
       vals[i] = 3;
     }
     for (uint64_t i = 60; i < 80; i++) {
-      vals[i] = 1;
+      vals[i] = 2;
     }
     for (uint64_t i = 80; i < 100; i++) {
       vals[i] = 255;
@@ -212,7 +213,7 @@ int main(int argc, char **argv) {
     /* Lookup hashes in the vqf filter (Successful Lookup) */
     for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_is_present(filter, vals[i])) {
-        fprintf(stderr, "Lookup failed for %ld\n", vals[i]);
+        fprintf(stderr, "Lookup failed for %lx, tag: %ld, i: %ld\n", vals[i], vals[i] & 0xff, i);
         exit(EXIT_FAILURE);
       }
     }

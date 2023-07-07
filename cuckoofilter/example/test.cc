@@ -67,31 +67,31 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Such skewness not allowed\n");
     exit(EXIT_FAILURE);
   } else {
-	  uint64_t *foo;
-		foo = (uint64_t*)malloc((total_items)*sizeof(foo[0]));
-		for (uint64_t i = 0; i < total_items; i++) {
-		  foo[i] = i;
-		}
-		unsigned seed;
-		seed = std::chrono::system_clock::now().time_since_epoch().count();
-		std::shuffle(foo, foo + total_items, std::default_random_engine(seed));
-		printf("SHUFFLED\n");
-		float skewnessR = skewness / 100.0;
-		uint64_t pre_val;
-		std::default_random_engine generator;
-		vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
-		zipfian_int_distribution<uint64_t> distribution(0, nvals, skewnessR);
-		for (uint64_t i = 0; i < nvals; i++) {
-		  pre_val = distribution(generator) % total_items;
-			vals[i] = foo[pre_val];
-		}
+    uint64_t *foo;
+    foo = (uint64_t*)malloc((total_items)*sizeof(foo[0]));
+    for (uint64_t i = 0; i < total_items; i++) {
+      foo[i] = i;
+    }
+    unsigned seed;
+    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(foo, foo + total_items, std::default_random_engine(seed));
+    printf("SHUFFLED\n");
+    float skewnessR = skewness / 100.0;
+    uint64_t pre_val;
+    std::default_random_engine generator;
+    vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
+    zipfian_int_distribution<uint64_t> distribution(0, nvals, skewnessR);
+    for (uint64_t i = 0; i < nvals; i++) {
+      pre_val = distribution(generator) % total_items;
+      vals[i] = foo[pre_val];
+    }
 
     printf("Zipfian Created\n");
   }
 
-	for (uint64_t i = 0; i < nvals; i++) {
-	  printf("%ld\n", vals[i]);
-	}
+/*  for (uint64_t i = 0; i < nvals; i++) {
+    printf("%ld\n", vals[i]);
+  }*/
 
   gettimeofday(&start, &tzp);
   // Insert items to this cuckoo filter

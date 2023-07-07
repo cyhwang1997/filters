@@ -388,6 +388,7 @@ print_bits	src/vqf_filter.c	/^void print_bits(__uint128_t num, int numbits)$/;"	
 print_bits	src/vqf_filter.c	/^void print_bits(uint64_t num, int numbits)$/;"	f
 print_block	src/vqf_filter.c	/^void print_block(vqf_filter *filter, uint64_t block_index) {$/;"	f
 print_block_special	src/vqf_filter.c	/^void print_block_special(vqf_filter *filter, uint64_t block_index, uint64_t slot_index) {$/;"	f
+print_m512i	src/vqf_filter.c	/^void print_m512i(__m512i vec) {$/;"	f
 print_tags	src/vqf_filter.c	/^void print_tags(uint16_t *tags, uint32_t size) {$/;"	f
 print_tags	src/vqf_filter.c	/^void print_tags(uint8_t *tags, uint32_t size) {$/;"	f
 print_tags_special	src/vqf_filter.c	/^void print_tags_special(uint8_t *tags, uint32_t size, uint64_t slot_index) {$/;"	f
@@ -457,7 +458,7 @@ vqf_filter	include/vqf_filter.h	/^	typedef struct vqf_filter {$/;"	s
 vqf_filter	include/vqf_filter.h	/^	} vqf_filter;$/;"	t	typeref:struct:vqf_filter
 vqf_init	src/vqf_filter.c	/^vqf_filter * vqf_init(uint64_t nslots) {$/;"	f
 vqf_insert	src/vqf_filter.c	/^int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { \/\/ bool$/;"	f
-vqf_is_present	src/vqf_filter.c	/^bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash) {$/;"	f
+vqf_is_present	src/vqf_filter.c	/^bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash) { \/*CYDBG return value bool ->int*\/$/;"	f
 vqf_metadata	include/vqf_filter.h	/^	typedef struct vqf_metadata {$/;"	s
 vqf_metadata	include/vqf_filter.h	/^	} vqf_metadata;$/;"	t	typeref:struct:vqf_metadata
 vqf_remove	src/vqf_filter.c	/^bool vqf_remove(vqf_filter * restrict filter, uint64_t hash) {$/;"	f

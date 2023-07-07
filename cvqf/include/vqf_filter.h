@@ -74,9 +74,13 @@ extern "C" {
 	
 	bool vqf_remove(vqf_filter * restrict filter, uint64_t hash);
 
-	bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash);
+	bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash); /*bool ->int*/
 
 	int get_count(vqf_filter * restrict filter, uint64_t hash);
+        /*CYDBG print functions added for debugging*/
+        void print_block(vqf_filter * filter, uint64_t block_index);
+        void print_tags(uint8_t *tags, uint32_t size);
+        void print_bits(__uint128_t num, int numbits);
 
 #ifdef __cplusplus
 }
