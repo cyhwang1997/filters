@@ -81,6 +81,7 @@ extern "C" {
         void print_block(vqf_filter * filter, uint64_t block_index);
         void print_tags(uint8_t *tags, uint32_t size);
         void print_bits(__uint128_t num, int numbits);
+        bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index);
 
 #ifdef __cplusplus
 }

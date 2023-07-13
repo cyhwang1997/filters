@@ -24,6 +24,9 @@
 
 #include "vqf_filter.h"
 
+#include <cstring>
+#include <vector>
+
 // FOR ZIPFIAN
 #include <algorithm>
 #include <array>
@@ -90,6 +93,8 @@ int main(int argc, char **argv) {
   double negative_throughput = 0.0;
   double remove_throughput = 0.0;
 
+  std::vector<uint64_t> uniq_vals(nvals, 0);
+
 /*
 #if TAG_BITS == 8
    uint64_t filterMetadataRange = (nslots + 48)/48;
@@ -117,6 +122,7 @@ int main(int argc, char **argv) {
       RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
       for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = (1 * vals[i]) % filter->metadata.range;
+        uniq_vals[i] = vals[i];
       }
     } else if (skewness > 99) {
       fprintf(stderr, "Such skewness not allowed\n");
@@ -142,17 +148,28 @@ int main(int argc, char **argv) {
       for (uint64_t i = 0; i < nvals; i++) {
         pre_val = distribution(generator) % filter->metadata.range;
         vals[i] = foo[pre_val];
+        uniq_vals[i] = vals[i];
       }
 
       printf("Zipfian Created\n");
     }
+    printf("[CYDBG] nvals: %ld\n", nvals);
 
-    /*CYDBG*/
-    vals[0] = 0;
-    for (uint64_t i = 1; i < 20; i++) {
-      vals[i] = 1;
+
+//    vals[0] = 0;
+    for (uint64_t i = 0; i < 30000; i++) {
+/*      if (i % 2) {
+        vals[i] = 1;
+        uniq_vals[i] = 1;
+      }
+      else {
+        vals[i] = 2;
+        uniq_vals[i] = 2;
+      }*/
+      vals[i] = 3;
+      uniq_vals[i] = 3;
     }
-    for (uint64_t i = 20; i < 40; i++) {
+/*    for (uint64_t i = 20; i < 40; i++) {
       vals[i] = 4;
     }
     for (uint64_t i = 40; i < 60; i++) {
@@ -163,7 +180,7 @@ int main(int argc, char **argv) {
     }
     for (uint64_t i = 80; i < 100; i++) {
       vals[i] = 255;
-    }
+    }*/
     /*CYDBG*/
 
     other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
@@ -171,6 +188,11 @@ int main(int argc, char **argv) {
     for (uint64_t i = 0; i < nvals; i++) {
       other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
     }
+
+    /*CYDBG uniq_vals*/
+    std::sort(uniq_vals.begin(), uniq_vals.end());
+    uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());
+    /*CYDBG*/
 
     struct timeval start, end;
     struct timezone tzp;
@@ -209,6 +231,8 @@ int main(int argc, char **argv) {
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
     //printf("\n%d/%d\n\n", put_slot, all_slot);
 
+    print_block(filter, 0);
+
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
     for (uint64_t i = 0; i < nvals; i++) {
@@ -223,7 +247,9 @@ int main(int argc, char **argv) {
       
     print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
       
-    printf("[CYDBG] get_count 0: %d, 1: %d, 2: %d, 3: %d, 255: %d\n\n", get_count(filter, 0), get_count(filter, 1), get_count(filter, 2), get_count(filter, 3), get_count(filter, 255));
+    for (uint64_t i = 0; i < uniq_vals.size(); i++) {
+      printf("[CYDBG] uniq_vals[%ld]: %lx, count: %d\n", i, uniq_vals[i], get_count(filter, uniq_vals[i]));
+    }
       
     gettimeofday(&start, &tzp);
     uint64_t nfps = 0;
