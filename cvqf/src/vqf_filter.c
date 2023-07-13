@@ -451,10 +451,34 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
       uint64_t *alt_block_md = &blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].md;
       uint64_t alt_block_free = get_block_free_space(*alt_block_md);
 #endif
-
+      // pick the least loaded block
+      if (alt_block_free > block_free) {
+        unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
+        block_index = alt_block_index;
+        block_md = alt_block_md;
+        block_free = alt_block_free;
+      } else if (block_free == QUQU_BUCKETS_PER_BLOCK) {
+        if (check_space(filter, tag, block_index)) {
+          unlock(blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
+        } else if (check_space(filter, tag, alt_block_index)) {
+          unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
+          block_index = alt_block_index;
+          block_md = alt_block_md;
+          block_free = alt_block_free;
+        } else {
+          print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+          print_block(filter, alt_block_index / QUQU_BUCKETS_PER_BLOCK);
+          unlock_blocks(filter, block_index, alt_block_index);
+          fprintf(stderr, "vqf filter is full.\n");
+          return -1;
+        }
+      } else {
+        unlock(blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK]);
+      }
+   }
       /*CY*/
-      bool in_block1 = check_tags(filter, tag, block_index); /*CY*/
-      bool in_block2 = check_tags(filter, tag, alt_block_index); /*CY*/
+/*      bool in_block1 = check_tags(filter, tag, block_index);
+      bool in_block2 = check_tags(filter, tag, alt_block_index);
       if (!in_block1 && !in_block2) { //not in block1 and block2. do the same process as vqf.
         // pick the least loaded block
         if (alt_block_free > block_free) { //block2 has more space
@@ -520,9 +544,9 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
           }
         }
       }
-   } 
+   }
    printf("[CYDBG] get_count: %d\n", get_count(filter, hash));
-   print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+   print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);*/
    /*CY*/
 
    uint64_t index = block_index / QUQU_BUCKETS_PER_BLOCK;
@@ -2645,21 +2669,21 @@ int get_count(vqf_filter * restrict filter, uint64_t hash) {
 bool check_space(vqf_filter* restrict filter, uint64_t tag, uint64_t block_index) {
   if (tag == 0) {
     uint64_t count0 = count_tags(filter, tag, block_index);
-    if ((count0 >= QUQU_MAX + 3 && (count0 - (QUQU_MAX + 3)) % QUQU_MAX == 0) || count0 == 0) {
+    if ((count0 >= QUQU_MAX + 3 && (count0 - (QUQU_MAX + 3)) % QUQU_MAX == 0) || count0 <= 3) {
       return false;
     } else {
       return true;
     }
   } else if (tag == QUQU_MAX) {
     uint64_t countmax = count_tags(filter, tag, block_index);
-    if ((countmax >= QUQU_MAX + 1 && (countmax - 2) % (QUQU_MAX - 1) == 0) || countmax == 0) {
+    if ((countmax >= QUQU_MAX + 1 && (countmax - 2) % (QUQU_MAX - 1) == 0) || countmax <= 2) {
       return false;
     } else {
       return true;
     }
   } else {
     uint64_t countn = count_tags(filter, tag, block_index);
-    if ((countn >= QUQU_MAX + 1 && (countn - 2) % (QUQU_MAX - 1) == 0) || countn == 0) {
+    if ((countn >= QUQU_MAX + 1 && (countn - 2) % (QUQU_MAX - 1) == 0) || countn <= 2) {
       return false;
     } else {
       return true;

@@ -165,9 +165,9 @@ int main(int argc, char **argv) {
       else {
         vals[i] = 2;
         uniq_vals[i] = 2;
-      }*/
+      }
       vals[i] = 3;
-      uniq_vals[i] = 3;
+      uniq_vals[i] = 3;*/
     }
 /*    for (uint64_t i = 20; i < 40; i++) {
       vals[i] = 4;
@@ -231,8 +231,6 @@ int main(int argc, char **argv) {
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
     //printf("\n%d/%d\n\n", put_slot, all_slot);
 
-    print_block(filter, 0);
-
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
     for (uint64_t i = 0; i < nvals; i++) {
@@ -247,9 +245,9 @@ int main(int argc, char **argv) {
       
     print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
       
-    for (uint64_t i = 0; i < uniq_vals.size(); i++) {
+/*    for (uint64_t i = 0; i < uniq_vals.size(); i++) {
       printf("[CYDBG] uniq_vals[%ld]: %lx, count: %d\n", i, uniq_vals[i], get_count(filter, uniq_vals[i]));
-    }
+    }*/
       
     gettimeofday(&start, &tzp);
     uint64_t nfps = 0;
