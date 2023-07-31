@@ -1,0 +1,11 @@
+[CYDBG] AVX512 is used
+Size: 174784, total_blocks: 2731
+[CYDBG] nvals: 65536
+[CYDBG] keys_tobe_inserted: 65536, num_succesful_inserts: 65536
+Insertion time Total Time Elapsed: 0.001157 seconds (17.654419 nanoseconds/insert) (Throughput 56.643042 Mops/sec]
+[CYDBG] fslots: 65536
+Lookup time Total Time Elapsed: 0.000738 seconds (11.260986 nanoseconds/successful_lookup) (Throughput 88.802168 Mops/sec]
+Random lookup: Total Time Elapsed: 0.000724 seconds (11.047363 nanoseconds/random_lookup) (Throughput 90.519337 Mops/sec]
+141/65536 positives
+FP rate: 1/464.794326
+Remove time Total Time Elapsed: 0.000957 seconds (14.602661 nanoseconds/remove) (Throughput 68.480669 Mops/sec]

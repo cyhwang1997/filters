@@ -35,10 +35,17 @@
 #include <random>
 #include "zipfian_int_distribution.h"
 
+#include "utils.h"
+#include "zipfian_generator.h"
+#include "scrambled_zipfian_generator.h"
+
 #define TEST_NUM 1
 
 // MD5
 #include <openssl/md5.h>
+
+using namespace ycsbc;
+using namespace std;
 
 #ifdef __AVX512BW__
 extern __m512i SHUFFLE [];
@@ -68,7 +75,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Please specify three arguments: \n \
                      1. Log2 of the number of slots in the CQF.\n \
                      2. Load factor (0 - 95).\n \
-                     3. Skewness (0 - 99).\n");
+                     3. Zipfian constant (double).\n");
     exit(1);
   }
 #ifdef __AVX512BW__
@@ -83,7 +90,7 @@ int main(int argc, char **argv) {
   uint64_t nvals = load_factor*nslots/100;
   uint64_t *vals;
   uint64_t *other_vals;
-  uint64_t skewness = atoi(argv[3]);
+  double zipf_const = std::stod(argv[3]);
 
 //  uint64_t sizeval = atoi(argv[4]);
 //  double sizevalR = 1.0 * sizeval / 100;
@@ -93,7 +100,7 @@ int main(int argc, char **argv) {
   double negative_throughput = 0.0;
   double remove_throughput = 0.0;
 
-  std::vector<uint64_t> uniq_vals(nvals, 0);
+  vector<uint64_t> uniq_vals(nvals, 0);
 
 /*
 #if TAG_BITS == 8
@@ -116,7 +123,7 @@ int main(int argc, char **argv) {
       exit(EXIT_FAILURE);
     }
 
-    if (skewness == 0) {
+    if (zipf_const == 0) {
       // Generate random values
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
       RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
@@ -124,12 +131,18 @@ int main(int argc, char **argv) {
         vals[i] = (1 * vals[i]) % filter->metadata.range;
         uniq_vals[i] = vals[i];
       }
-    } else if (skewness > 99) {
-      fprintf(stderr, "Such skewness not allowed\n");
-      exit(EXIT_FAILURE);
     } else {
-      uint64_t *foo;
+      Generator<uint64_t> *key_chooser_;
+      key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range, zipf_const);
+      vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
+      for (uint64_t i = 0; i < nvals; i++) {
+        vals[i] = key_chooser_->Next() % filter->metadata.range;
+        uniq_vals[i] = vals[i];
+      }
+      printf("Zipfian Created\n");
+/*      uint64_t *foo;
       foo = (uint64_t*)malloc((filter->metadata.range)*sizeof(foo[0]));
+      printf("[CYDBG] %ld\n", filter->metadata.range);
       for (uint64_t i = 0; i < filter->metadata.range; i++) {
         foo[i] = i;
       }
@@ -151,48 +164,48 @@ int main(int argc, char **argv) {
         uniq_vals[i] = vals[i];
       }
 
-      printf("Zipfian Created\n");
-    }
-    printf("[CYDBG] nvals: %ld\n", nvals);
-
-
-//    vals[0] = 0;
-    for (uint64_t i = 0; i < 30000; i++) {
-/*      if (i % 2) {
-        vals[i] = 1;
-        uniq_vals[i] = 1;
-      }
-      else {
-        vals[i] = 2;
-        uniq_vals[i] = 2;
-      }
-      vals[i] = 3;
-      uniq_vals[i] = 3;*/
-    }
-/*    for (uint64_t i = 20; i < 40; i++) {
-      vals[i] = 4;
-    }
-    for (uint64_t i = 40; i < 60; i++) {
-      vals[i] = 3;
-    }
-    for (uint64_t i = 60; i < 80; i++) {
-      vals[i] = 2;
-    }
-    for (uint64_t i = 80; i < 100; i++) {
-      vals[i] = 255;
-    }*/
-    /*CYDBG*/
-
-    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
-    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
-    for (uint64_t i = 0; i < nvals; i++) {
-      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+      printf("Zipfian Created\n");*/
     }
 
     /*CYDBG uniq_vals*/
     std::sort(uniq_vals.begin(), uniq_vals.end());
     uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());
     /*CYDBG*/
+
+    ofstream outFile("vals.txt");
+    if (outFile) {
+      for (uint64_t i = 0; i < nvals; i++) {
+        outFile << vals[i] << "\n";
+      }
+    }
+    outFile.close();
+
+    ofstream outFile2("uniq_vals.txt");
+    if (outFile2) {
+      for (uint64_t i = 0; i < uniq_vals.size(); i++) {
+        outFile2 << uniq_vals[i] << " " << count(vals, vals + nvals, uniq_vals[i]) << "\n";
+      }
+    }
+    outFile2.close();
+
+/*    ifstream file("input.txt");
+    if (file.is_open()) {
+      string line;
+      for (uint64_t i = 0; i < nvals; i++) {
+        getline(file, line);
+        vals[i] = stoull(line);
+      }
+      file.close();
+    }*/
+
+    printf("[CYDBG] nvals: %ld\n", nvals);
+
+
+    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
+    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
+    for (uint64_t i = 0; i < nvals; i++) {
+      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+    }
 
     struct timeval start, end;
     struct timezone tzp;
@@ -210,13 +223,7 @@ int main(int argc, char **argv) {
     uint64_t num_successful_inserts = 0;
     /* Insert hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
-      //clock_gettime(CLOCK_MONOTONIC, &startT);
-      //vqf_insert(filter, vals[i]);
-      //clock_gettime(CLOCK_MONOTONIC, &endT);
-      //printf("%ld\n", 1000000000 * (endT.tv_sec - startT.tv_sec) + (endT.tv_nsec - startT.tv_nsec));
       insert_return = vqf_insert(filter, vals[i]);
-      //put_slot += insert_return;
-      //all_slot++;
       if (insert_return == -1) {
         fprintf(stderr, "Insertion failed\n");
         printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
@@ -224,18 +231,40 @@ int main(int argc, char **argv) {
       }
       num_successful_inserts++;
     }
-    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     gettimeofday(&end, &tzp);
+    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
     //printf("\n%d/%d\n\n", put_slot, all_slot);
 
+    uint64_t fslots = 0;
+    for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
+      uint64_t *block_md = filter->blocks[i].md;
+      uint64_t lower_word = block_md[0];
+      uint64_t higher_word = block_md[1];
+      fslots += __builtin_popcountll(~lower_word) + __builtin_popcountll(~higher_word);
+    }
+    printf("[CYDBG] fslots: %ld\n", fslots);
+
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
     for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_is_present(filter, vals[i])) {
+        uint64_t block_index = vals[i] >> 8;
+        uint64_t alt_block_index = ((vals[i] ^ ((vals[i] & 0xff) * 0x5bd1e995)) % filter->metadata.range) >> 8;
         fprintf(stderr, "Lookup failed for %lx, tag: %ld, i: %ld\n", vals[i], vals[i] & 0xff, i);
+        print_block(filter, block_index / 80);
+        printf("offset: %ld\n", block_index % 80);
+        print_block(filter, alt_block_index / 80);
+        printf("offset: %ld\n", alt_block_index % 80);
+        vqf_insert(filter, vals[i]);
+        printf("Inserted again");
+        print_block(filter, block_index / 80);
+        printf("offset: %ld\n", block_index % 80);
+        print_block(filter, alt_block_index / 80);
+        printf("offset: %ld\n", alt_block_index % 80);
+        printf("%d\n", vqf_is_present(filter, vals[i]));
         exit(EXIT_FAILURE);
       }
     }
