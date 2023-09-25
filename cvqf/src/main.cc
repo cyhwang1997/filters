@@ -26,6 +26,7 @@
 
 #include <cstring>
 #include <vector>
+#include <sstream>
 
 // FOR ZIPFIAN
 #include <algorithm>
@@ -86,6 +87,7 @@ int main(int argc, char **argv) {
 
   uint64_t qbits = atoi(argv[1]);
   uint64_t nslots = (1ULL << qbits);
+//  uint64_t nvals = atoi(argv[2]);
   uint64_t load_factor = atoi(argv[2]);
   uint64_t nvals = load_factor*nslots/100;
   uint64_t *vals;
@@ -99,7 +101,9 @@ int main(int argc, char **argv) {
   double positive_throughput = 0.0;
   double negative_throughput = 0.0;
   double remove_throughput = 0.0;
+  double count_throughput = 0.0;
 
+//  set<uint64_t> uniq_vals;
   vector<uint64_t> uniq_vals(nvals, 0);
 
 /*
@@ -122,15 +126,48 @@ int main(int argc, char **argv) {
       fprintf(stderr, "Can't allocate vqf filter.");
       exit(EXIT_FAILURE);
     }
+    
 
-    if (zipf_const == 0) {
+    if (zipf_const == -2) {
+      nvals = 60000;
+      vals = (uint64_t *)malloc(60000 * sizeof(vals[0]));
+      printf("----------TESTING RESIZING----------\n");
+      for (uint64_t i = 0; i < 20000; i++)
+        vals[i] = 1;
+      for (uint64_t i = 20000; i < 60000; i++)
+        vals[i] = 111009;
+      uniq_vals[0] = 1;
+    }
+    else if (zipf_const == -1) {
+      vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
+      printf("[CYDBG] kosarak.dat used\n");
+      ifstream file("/home/ubuntu/real_datasets/kosarak.dat");
+      if (file.is_open()) {
+        string line;
+        uint64_t i = 0;
+        while (i < nvals) {
+          getline(file, line);
+          stringstream ss(line);
+          string tmp;
+          while (getline(ss, tmp, ' ') && i < nvals) {
+            vals[i] = stoull(tmp);
+            uniq_vals[i] = vals[i];
+            i++;
+          }
+        }
+        file.close();
+      }
+    }
+    else if (zipf_const == 0) {
       // Generate random values
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
       RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
       for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = (1 * vals[i]) % filter->metadata.range;
         uniq_vals[i] = vals[i];
+//        uniq_vals.insert(vals[i]);
       }
+      printf("[CYDBG] Uniform Created\n");
     } else {
       Generator<uint64_t> *key_chooser_;
       key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range, zipf_const);
@@ -138,6 +175,7 @@ int main(int argc, char **argv) {
       for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = key_chooser_->Next() % filter->metadata.range;
         uniq_vals[i] = vals[i];
+//        uniq_vals.insert(vals[i]);
       }
       printf("Zipfian Created\n");
 /*      uint64_t *foo;
@@ -172,7 +210,7 @@ int main(int argc, char **argv) {
     uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());
     /*CYDBG*/
 
-    ofstream outFile("vals.txt");
+/*    ofstream outFile("vals.txt");
     if (outFile) {
       for (uint64_t i = 0; i < nvals; i++) {
         outFile << vals[i] << "\n";
@@ -182,11 +220,11 @@ int main(int argc, char **argv) {
 
     ofstream outFile2("uniq_vals.txt");
     if (outFile2) {
-      for (uint64_t i = 0; i < uniq_vals.size(); i++) {
-        outFile2 << uniq_vals[i] << " " << count(vals, vals + nvals, uniq_vals[i]) << "\n";
+      for (auto itr = uniq_vals.begin(); itr != uniq_vals.end(); itr++) {
+        outFile2 << (*itr) << " " << count(vals, vals + nvals, (*itr)) << "\n";
       }
     }
-    outFile2.close();
+    outFile2.close();*/
 
 /*    ifstream file("input.txt");
     if (file.is_open()) {
@@ -198,7 +236,13 @@ int main(int argc, char **argv) {
       file.close();
     }*/
 
-    printf("[CYDBG] nvals: %ld\n", nvals);
+    uint64_t uniq_nvals = uniq_vals.size();
+    printf("[CYDBG] nvals: %ld, uniq_nvals: %ld\n", nvals, uniq_nvals);
+
+    vector<uint64_t> uniq_count (uniq_nvals, 0);
+    for (uint64_t i = 0; i < uniq_nvals; i++) {
+      uniq_count[i] = count(vals, vals + nvals, uniq_vals[i]);
+    }
 
 
     other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
@@ -240,12 +284,13 @@ int main(int argc, char **argv) {
 
     uint64_t fslots = 0;
     for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
-      uint64_t *block_md = filter->blocks[i].md;
+      uint64_t *block_md = filter->blocks[i].block.md;
       uint64_t lower_word = block_md[0];
       uint64_t higher_word = block_md[1];
       fslots += __builtin_popcountll(~lower_word) + __builtin_popcountll(~higher_word);
     }
     printf("[CYDBG] fslots: %ld\n", fslots);
+
 
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
@@ -258,21 +303,37 @@ int main(int argc, char **argv) {
         printf("offset: %ld\n", block_index % 80);
         print_block(filter, alt_block_index / 80);
         printf("offset: %ld\n", alt_block_index % 80);
-        vqf_insert(filter, vals[i]);
-        printf("Inserted again");
-        print_block(filter, block_index / 80);
-        printf("offset: %ld\n", block_index % 80);
-        print_block(filter, alt_block_index / 80);
-        printf("offset: %ld\n", alt_block_index % 80);
-        printf("%d\n", vqf_is_present(filter, vals[i]));
         exit(EXIT_FAILURE);
-      }
+     }
     }
     gettimeofday(&end, &tzp);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     positive_throughput += 1.0 * nvals / elapsed_usecs;
       
     print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
+
+//    uint64_t count_fail = 0;
+    gettimeofday(&start, &tzp);
+    /*Get Count*/
+//    for (auto i :uniq_vals) {
+//    for (uint64_t i = 0; i < uniq_nvals; i++) {
+//      get_count(filter, uniq_vals[i]);
+//      if (get_count(filter, uniq_vals[i]) != uniq_count[i])
+//        count_fail++;
+/*      if (get_count(filter, vals[i]) != count(vals, vals + nvals, vals[i])) {
+       if (outFile3) {
+          outFile3 << "value: " << vals[i] << ", get_count: " << get_count(filter, vals[i]) << ", count: " << count(vals, vals + nvals, vals[i]) << "\n";
+        }
+        count_fail++;
+      }*/
+//    }
+    gettimeofday(&end, &tzp);
+//    outFile3.close();
+    elapsed_usecs = tv2usec(&end) - tv2usec(&start);
+    count_throughput += 1.0 * nvals / elapsed_usecs;
+//    printf("[CYDBG] count_fail: %ld\n", count_fail);
+      
+//    print_time_elapsed("Get Count time", &start, &end, uniq_nvals, "count_time");
       
 /*    for (uint64_t i = 0; i < uniq_vals.size(); i++) {
       printf("[CYDBG] uniq_vals[%ld]: %lx, count: %d\n", i, uniq_vals[i], get_count(filter, uniq_vals[i]));

@@ -54,6 +54,13 @@ extern "C" {
 	} vqf_block;
 #endif
 
+  /*CY*/
+  typedef struct linked_blocks{
+    vqf_block block;
+    linked_blocks *next;
+  } linked_blocks;
+  /*CY*/
+
 	typedef struct vqf_metadata {
 		uint64_t total_size_in_bytes;
 		uint64_t key_remainder_bits;
@@ -65,7 +72,8 @@ extern "C" {
 
 	typedef struct vqf_filter {
 		vqf_metadata metadata;
-		vqf_block blocks[];
+//		vqf_block blocks[];
+    linked_blocks blocks[]; /*CY*/
 	} vqf_filter;
 
 	vqf_filter * vqf_init(uint64_t nslots);
@@ -83,6 +91,8 @@ extern "C" {
         void print_bits(__uint128_t num, int numbits);
         bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index);
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index);
+  vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
+
 
 #ifdef __cplusplus
 }
