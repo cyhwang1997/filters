@@ -129,14 +129,16 @@ int main(int argc, char **argv) {
     
 
     if (zipf_const == -2) {
-      nvals = 60000;
-      vals = (uint64_t *)malloc(60000 * sizeof(vals[0]));
+      nvals = 40000;
+      vals = (uint64_t *)malloc(40000 * sizeof(vals[0]));
       printf("----------TESTING RESIZING----------\n");
-      for (uint64_t i = 0; i < 20000; i++)
-        vals[i] = 1;
-      for (uint64_t i = 20000; i < 60000; i++)
+/*      for (uint64_t i = 0; i < 20000; i++)
+        vals[i] = 1;*/
+      for (uint64_t i = 0; i < 40000; i++)
         vals[i] = 111009;
-      uniq_vals[0] = 1;
+      uniq_vals.resize(1);
+//      uniq_vals[0] = 1;
+      uniq_vals[0] = 111009;
     }
     else if (zipf_const == -1) {
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
@@ -316,8 +318,8 @@ int main(int argc, char **argv) {
     gettimeofday(&start, &tzp);
     /*Get Count*/
 //    for (auto i :uniq_vals) {
-//    for (uint64_t i = 0; i < uniq_nvals; i++) {
-//      get_count(filter, uniq_vals[i]);
+    for (uint64_t i = 0; i < uniq_nvals; i++) {
+      printf("[CYDBG] val: %ld, get_count: %d\n" , uniq_vals[i], get_count(filter, uniq_vals[i]));
 //      if (get_count(filter, uniq_vals[i]) != uniq_count[i])
 //        count_fail++;
 /*      if (get_count(filter, vals[i]) != count(vals, vals + nvals, vals[i])) {
@@ -326,7 +328,7 @@ int main(int argc, char **argv) {
         }
         count_fail++;
       }*/
-//    }
+    }
     gettimeofday(&end, &tzp);
 //    outFile3.close();
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);

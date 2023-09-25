@@ -60,10 +60,6 @@ extern __m512i SHUFFLE_REMOVE16 [];
 #define LOCK_MASK (1ULL << 63)
 #define UNLOCK_MASK ~(1ULL << 63)
 
-/*CY*/
-bool flag = false;
-/*CY*/
-
 static inline bool check_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index);
 
 static inline void lock(vqf_block& block)
@@ -449,7 +445,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    /*CY*/
    linked_blocks *last_block = &blocks[block_index/QUQU_BUCKETS_PER_BLOCK];
    while (last_block->next != NULL) {
-     printf("next block exists\n");
      last_block = last_block->next;
    }
    vqf_block * cur_block = &last_block->block;
@@ -492,7 +487,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
       // pick the least loaded block
       if (alt_block_free > block_free) {
         unlock(*cur_block);
-/*        block_index = alt_block_index;*/
+        block_index = alt_block_index;
         cur_block = cur_alt_block;
         block_md = alt_block_md;
         block_free = alt_block_free;
@@ -501,7 +496,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
           unlock(*cur_alt_block);
         } else if (check_space(filter, tag, alt_block_index)) {
           unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK].block);
-//          block_index = alt_block_index;
+          block_index = alt_block_index;
           cur_block = cur_alt_block;
           block_md = alt_block_md;
           block_free = alt_block_free;
@@ -518,8 +513,7 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
           print_tags(cur_block->tags, QUQU_SLOTS_PER_BLOCK);
           printf("[CYDBG] hash: %ld, tag: %ld\n", hash, tag);*/
           fprintf(stderr, "vqf filter is full.\n");
-          flag = true;
-//          return -1;
+          return -1;
         }
       } else {
         unlock(*cur_block);
@@ -537,11 +531,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
        unlock(blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].block);
        cur_block = &blocks[block_index/QUQU_BUCKETS_PER_BLOCK].block;
      }
-   }
-
-   if (flag) {
-     printf("NEW BLOCK EXISTS\n");
-     print_next_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
    }
 
 //   uint64_t index = block_index / QUQU_BUCKETS_PER_BLOCK;
@@ -2069,8 +2058,6 @@ int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index)
 
    uint64_t check_indexes = mask & result;
 
-//   printf("[CYDBG] check_indexes: %d\n", word_rank(check_indexes));
-
    if (word_rank(check_indexes) == 1) /*CY. only 1 tag*/
       return 1;
 
@@ -2091,466 +2078,428 @@ int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index)
 #endif
 
       if (tag == QUQU_MAX) {
-	 if (((check_indexes >> (slot_end - 1)) & 1) == 1) {
-	    slot_check = slot_end - 1;
-	    // can only be only one 255
-	    if (slot_check == slot_start) {
-	       return 1;
-	    }
-
-	    // check the one before slot_check
-	    else {
-
-	       // if it is 255
-	       if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == QUQU_MAX) {
-		  return 2;
-	       }
-
-	       // if it is 0
-	       else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
-		  return 1;
-	       }
-
-	       // if not
-	       else {
-
-		  // cannot make sequence
-		  if (slot_check == slot_start + 1) {
-		     return 1;
-		  }
-
-		  // could be counter sequence embedded
-		  else {
-		     uint8_t temp_tag = blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT];
-		     uint64_t slot_temp = slot_check - 2;
-		     while (slot_temp != slot_start) {
-			if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
-
-			   // 255 is not counter
-			   if (blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT] == QUQU_MAX) {
-			      return 1;
-			   }
-
-			   // 255 might not be counter
-			   else if (blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT] == 0) {
-
-			      // only one 0
-			      if (slot_temp == slot_start + 1) {
-				 int sum = 0;
-				 for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
-				    sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-				 }
-				 return 2 + sum;
-			      }
-
-			      // something even before
-			      else {
-
-				 // 255 is not counter
-				 if (blocks[index].block.tags[slot_temp - 2 - QUQU_PRESLOT] == temp_tag) {
-				    return 1;
-				 }
-
-				 // decrease counter
-				 else {
-				    int sum = 0;
-				    for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
-				       sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-				    }
-				    return 2 + sum;
-				 }
-			      }
-			   }
-
-			   // counter embedded for sure
-			   else {
-			      int sum = 0;
-			      for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
-				 sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-			      }
-			      return 2 + sum;
-			   }
-			}
-
-			// not a counter sequence
-			if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] < QUQU_MAX - 1) {
-			   return 1;
-			}
-
-			slot_temp--;
-		     } // end of while
-
-		     // a big counter, consuming all bucket space
-		     if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
-			int sum = 0;
-			for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
-			   sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-			}
-			return 2 + sum;
-		     }
-
-		     // while-d till end
-		     else {
-			return 1;
-		     }
-		  }
-	       }
-	    }
-	 }
-	 else {
-	    return false;
-	 }
+        if (((check_indexes >> (slot_end - 1)) & 1) == 1) {
+          slot_check = slot_end - 1;
+          // can only be only one 255
+          if (slot_check == slot_start) {
+            return 1;
+          }
+          // check the one before slot_check
+          else {
+          // if it is 255
+            if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == QUQU_MAX) {
+              return 2;
+            }
+            // if it is 0
+            else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
+              return 1;
+            }
+            // if not
+            else {
+            // cannot make sequence
+              if (slot_check == slot_start + 1) {
+                return 1;
+              }
+              // could be counter sequence embedded
+              else {
+                uint8_t temp_tag = blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT];
+                uint64_t slot_temp = slot_check - 2;
+                while (slot_temp != slot_start) {
+                  if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
+                  // 255 is not counter
+                    if (blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT] == QUQU_MAX) {
+                      return 1;
+                    }
+                    // 255 might not be counter
+                    else if (blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT] == 0) {
+                      // only one 0
+                      if (slot_temp == slot_start + 1) {
+                        int sum = 0;
+                        for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
+                          sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                        }
+                        return 2 + sum;
+                      }
+                      // something even before
+                      else {
+                        // 255 is not counter
+                        if (blocks[index].block.tags[slot_temp - 2 - QUQU_PRESLOT] == temp_tag) {
+                          return 1;
+                        }
+                        // decrease counter
+                        else {
+                          int sum = 0;
+                          for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
+                            sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                          }
+                          return 2 + sum;
+                        }
+                      }
+                    }
+                    // counter embedded for sure
+                    else {
+                      int sum = 0;
+                      for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
+                        sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                      }
+                      return 2 + sum;
+                    }
+                  }
+                  // not a counter sequence
+                  if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] < QUQU_MAX - 1) {
+                    return 1;
+                  }
+                  slot_temp--;
+                } // end of while
+                // a big counter, consuming all bucket space
+                if (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
+                  int sum = 0;
+                  for (uint64_t i = slot_temp + 1; i < slot_check; i++) {
+                    sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                  }
+                  return 2 + sum;
+                }
+                // while-d till end
+                else {
+                  return 1;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
       }
       else if (tag == 0) {
-	 if (((check_indexes >> slot_start) & 1) == 1) {
-	    slot_check = slot_start;
-
-	    // only one item, 0
-	    if (slot_end == slot_start + 1) {
-	       return 1;
-	    }
-
-	    // more than one item
-	    else {
-	       uint8_t temp_tag = blocks[index].block.tags[slot_check + 1 - QUQU_PRESLOT];
-	       uint64_t slot_temp = slot_check + 1;
-
-	       // if 0, 0, ...
-	       if (temp_tag == 0) {
-		  if (slot_temp + 1 == slot_end)
-		     return 2;
-		  else {
-		     if (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
-			return 3;
-		     else
-			return 2;
-		  }
-	       }
-
+        if (((check_indexes >> slot_start) & 1) == 1) {
+          slot_check = slot_start;
+          // only one item, 0
+        if (slot_end == slot_start + 1) {
+          return 1;
+        }
+        // more than one item
+        else {
+          uint8_t temp_tag = blocks[index].block.tags[slot_check + 1 - QUQU_PRESLOT];
+          uint64_t slot_temp = slot_check + 1;
+	        // if 0, 0, ...
+          if (temp_tag == 0) {
+            if (slot_temp + 1 == slot_end)
+              return 2;
+            else {
+              if (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
+                return 3;
+              else
+                return 2;
+            }
+         }
 	       // if 0, value, ...
-	       else {
-
-		  // cannot make sequence
-		  if (slot_end < slot_start + 4) {
-		     return 1;
-		  }
-
-		  // maybe long counter
-		  else if (temp_tag == QUQU_MAX) {
-		     while (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
-			slot_temp++;
-			if (slot_temp == slot_end) {
-			   return 1;
-			}
-		     }
-		     temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-		     if (temp_tag == 0) {
-			if (slot_temp > slot_end - 2) {
-			   return 1;
-			}
-			else {
-			   if (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0) {
-			      int sum = 0;
-			      for (uint64_t i = slot_check + 1; i < slot_temp; i++) {
-				 sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-			      }
-			      return 3 + sum;
-			   }
-			   else {
-			      return 1;
-			   }
-			}
-		     }
-		     else {
-			if (slot_temp > slot_end - 3) {
-			   return 1;
-			}
-			else {
-			   if (  (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
-				 && (blocks[index].block.tags[slot_temp + 2 - QUQU_PRESLOT] == 0)) {
-			      int sum = 0;
-			      for (uint64_t i = slot_check + 1; i <= slot_temp; i++) {
-				 sum += blocks[index].block.tags[i - QUQU_PRESLOT];
-			      }
-			      return 3 + sum;
-			   }
-			   else {
-			      return 1;
-			   }
-			}
-		     }
-		  }
-
-		  // could be short counter
-		  else {
-
-		     // counter
-		     if (  (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
-			   && (blocks[index].block.tags[slot_temp + 2 - QUQU_PRESLOT] == 0)) {
-			return 3 + temp_tag;
-		     }
-
-		     // not counter
-		     else {
-			return 1;
-		     }
-		  }
-	       }
-	    }
-	 }
-	 else {
-	    return false;
-	 }
-      }
-
+         else {
+           // cannot make sequence
+           if (slot_end < slot_start + 4) {
+             return 1;
+           }
+           // maybe long counter
+           else if (temp_tag == QUQU_MAX) {
+             while (blocks[index].block.tags[slot_temp - QUQU_PRESLOT] == QUQU_MAX) {
+               slot_temp++;
+               if (slot_temp == slot_end) {
+                 return 1;
+               }
+             }
+             temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+             if (temp_tag == 0) {
+               if (slot_temp > slot_end - 2) {
+                 return 1;
+               }
+               else {
+                 if (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0) {
+                   int sum = 0;
+                   for (uint64_t i = slot_check + 1; i < slot_temp; i++) {
+                     sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                   }
+                   return 3 + sum;
+                 }
+                 else {
+                   return 1;
+                 }
+               }
+             }
+             else {
+               if (slot_temp > slot_end - 3) {
+                 return 1;
+               }
+               else {
+                 if ((blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
+                   && (blocks[index].block.tags[slot_temp + 2 - QUQU_PRESLOT] == 0)) {
+                   int sum = 0;
+                   for (uint64_t i = slot_check + 1; i <= slot_temp; i++) {
+                     sum += blocks[index].block.tags[i - QUQU_PRESLOT];
+                   }
+                   return 3 + sum;
+                 }
+                 else {
+                   return 1;
+                 }
+               }
+             }
+           }
+           // could be short counter
+           else {
+             // counter
+             if (  (blocks[index].block.tags[slot_temp + 1 - QUQU_PRESLOT] == 0)
+               && (blocks[index].block.tags[slot_temp + 2 - QUQU_PRESLOT] == 0)) {
+               return 3 + temp_tag;
+             }
+             // not counter
+             else {
+               return 1;
+             }
+           }
+         }
+       }
+     }
+     else {
+      return false;
+     }
+   }
       // other tags than 0, 255
       else {
-	 while (check_indexes != 0) {
-	    slot_check = _tzcnt_u64(check_indexes);
-	    if (slot_check == slot_start) {
-
-	       //ultimatum >>>>>>>>>>
-	       if (slot_check == slot_end - 1) {
-		  return 1;
-	       }
-	       else {
-		  uint64_t slot_temp = slot_check + 1;
-		  uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-		  if (temp_tag == 0) {
-		     check_indexes &= ~(one[0] << slot_check);
-		     slot_temp = _tzcnt_u64(check_indexes);
-		     if (slot_temp >= slot_end) {
-			printf("ERROR6\n");
-			return false; // This will not happen
-		     }
-		     else {
-			uint64_t slot_diff = slot_temp - slot_check - 3;
-			uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
-			if (slot_diff < 0) {
-			   printf("ERROR7\n");
-			   return false;
-			}
-			else {
-			   if (ret_tag > tag) ret_tag--;
-			   return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
-			}
-		     }
-		  }
-		  else if (temp_tag < tag) {
-		     return 2 + temp_tag;
-		  }
-		  // equal to
-		  else if (temp_tag == tag) {
-		     return 2;
-		  }
-		  // greater than
-		  else {
-		     return 1;
-		  }
-	       }
-	       // ultimatum <<<<<<<<<<
-
-	    }
-	    else if (slot_check == slot_end - 1) {
-	       return 1;
-	    }
-	    else {
-	       if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] > tag) {
-	       }
-	       else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
-		  if (slot_check == slot_start + 1) {
-		     if (slot_check < slot_end - 2) {
-			if (blocks[index].block.tags[slot_check + 1 - QUQU_PRESLOT] == 0
-			      && blocks[index].block.tags[slot_check + 2 - QUQU_PRESLOT] == 0) {
-			}
-			else {
-
-			   //ultimatum >>>>>>>>>>
-			   if (slot_check == slot_end - 1) {
-			      return 1;
-			   }
-			   else {
-			      uint64_t slot_temp = slot_check + 1;
-			      uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-			      if (temp_tag == 0) {
-				 check_indexes &= ~(one[0] << slot_check);
-				 slot_temp = _tzcnt_u64(check_indexes);
-				 if (slot_temp >= slot_end) {
-				    printf("ERROR\n");
-				    return false; // This will not happen
-				 }
-				 else {
-				    uint64_t slot_diff = slot_temp - slot_check - 3;
-				    uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
-				    if (slot_diff < 0) {
-				       printf("ERROR\n");
-				       return false;
-				    }
-				    else {
-				       if (ret_tag > tag) ret_tag--;
-				       return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
-				    }
-				 }
-			      }
-			      else if (temp_tag < tag) {
-				 return 2 + temp_tag;
-			      }
-			      // equal to
-			      else if (temp_tag == tag) {
-				 return 2;
-			      }
-			      // greater than
-			      else {
-				 return 1;
-			      }
-			   }
-			   // ultimatum <<<<<<<<<<
-
-			}
-		     }
-		     else {
-
-			//ultimatum >>>>>>>>>>
-			if (slot_check == slot_end - 1) {
-			   return 1;
-			}
-			else {
-			   uint64_t slot_temp = slot_check + 1;
-			   uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-			   if (temp_tag == 0) {
-			      check_indexes &= ~(one[0] << slot_check);
-			      slot_temp = _tzcnt_u64(check_indexes);
-			      if (slot_temp >= slot_end) {
-				 printf("ERROR\n");
-				 return false; // This will not happen
-			      }
-			      else {
-				 uint64_t slot_diff = slot_temp - slot_check - 3;
-				 uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
-				 if (slot_diff < 0) {
-				    printf("ERROR\n");
-				    return false;
-				 }
-				 else {
-				    if (ret_tag > tag) ret_tag--;
-				    return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
-				 }
-			      }
-			   }
-			   else if (temp_tag < tag) {
-			      return 2 + temp_tag;
-			   }
-			   // equal to
-			   else if (temp_tag == tag) {
-			      return 2;
-			   }
-			   // greater than
-			   else {
-			      return 1;
-			   }
-			}
-			// ultimatum <<<<<<<<<<
-
-		     }
-		  }
-		  else {
-		     if (blocks[index].block.tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
-
-			//ultimatum >>>>>>>>>>
-			if (slot_check == slot_end - 1) {
-			   return 1;
-			}
-			else {
-			   uint64_t slot_temp = slot_check + 1;
-			   uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-			   if (temp_tag == 0) {
-			      check_indexes &= ~(one[0] << slot_check);
-			      slot_temp = _tzcnt_u64(check_indexes);
-			      if (slot_temp >= slot_end) {
-				 printf("ERROR\n");
-				 return false; // This will not happen
-			      }
-			      else {
-				 uint64_t slot_diff = slot_temp - slot_check - 3;
-				 uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
-				 if (slot_diff < 0) {
-				    printf("ERROR\n");
-				    return false;
-				 }
-				 else {
-				    if (ret_tag > tag) ret_tag--;
-				    return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
-				 }
-			      }
-			   }
-			   else if (temp_tag < tag) {
-			      return 2 + temp_tag;
-			   }
-			   // equal to
-			   else if (temp_tag == tag) {
-			      return 2;
-			   }
-			   // greater than
-			   else {
-			      return 1;
-			   }
-			}
-			// ultimatum <<<<<<<<<<
-
-		     }
-		     else {
-		     }
-		  }
-	       }
-	       else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
-
-		  //ultimatum >>>>>>>>>>
-		  if (slot_check == slot_end - 1) {
-		     return 1;
-		  }
-		  else {
-		     uint64_t slot_temp = slot_check + 1;
-		     uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
-		     if (temp_tag == 0) {
-			check_indexes &= ~(one[0] << slot_check);
-			slot_temp = _tzcnt_u64(check_indexes);
-			if (slot_temp >= slot_end) {
-			   printf("ERROR\n");
-			   return false; // This will not happen
-			}
-			else {
-			   uint64_t slot_diff = slot_temp - slot_check - 3;
-			   uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
-			   if (slot_diff < 0) {
-			      printf("ERROR\n");
-			      return false;
-			   }
-			   else {
-			      if (ret_tag > tag) ret_tag--;
-			      return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
-			   }
-			}
-		     }
-		     else if (temp_tag < tag) {
-			return 2 + temp_tag;
-		     }
-		     // equal to
-		     else if (temp_tag == tag) {
-			return 2;
-		     }
-		     // greater than
-		     else {
-			return 1;
-		     }
-		  }
-		  // ultimatum <<<<<<<<<<
-
-	       }
-	       else {
-	       }
-	    }
-	    check_indexes &= ~(one[0] << slot_check);
-	 }
+        while (check_indexes != 0) {
+          slot_check = _tzcnt_u64(check_indexes);
+          if (slot_check == slot_start) {
+            //ultimatum >>>>>>>>>>
+            if (slot_check == slot_end - 1) {
+              return 1;
+            }
+            else {
+              uint64_t slot_temp = slot_check + 1;
+              uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+              if (temp_tag == 0) {
+                check_indexes &= ~(one[0] << slot_check);
+                slot_temp = _tzcnt_u64(check_indexes);
+                if (slot_temp >= slot_end) {
+                  printf("ERROR6\n");
+                  return false; // This will not happen
+                }
+                else {
+                  uint64_t slot_diff = slot_temp - slot_check - 3;
+                  uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
+                  if (slot_diff < 0) {
+                    printf("ERROR7\n");
+                    return false;
+                  }
+                  else {
+                    if (ret_tag > tag) ret_tag--;
+                      return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
+                  }
+                }
+              }
+              else if (temp_tag < tag) {
+                return 2 + temp_tag;
+              }
+              // equal to
+              else if (temp_tag == tag) {
+                return 2;
+              }
+              // greater than
+              else {
+                return 1;
+              }
+            }
+            // ultimatum <<<<<<<<<<
+          }
+          else if (slot_check == slot_end - 1) {
+            return 1;
+          }
+          else {
+            if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] > tag) {
+            }
+            else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] == 0) {
+              if (slot_check == slot_start + 1) {
+                if (slot_check < slot_end - 2) {
+                  if (blocks[index].block.tags[slot_check + 1 - QUQU_PRESLOT] == 0
+                    && blocks[index].block.tags[slot_check + 2 - QUQU_PRESLOT] == 0) {
+                  }
+                  else {
+                    //ultimatum >>>>>>>>>>
+                    if (slot_check == slot_end - 1) {
+                      return 1;
+                    }
+                    else {
+                      uint64_t slot_temp = slot_check + 1;
+                      uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+                      if (temp_tag == 0) {
+                        check_indexes &= ~(one[0] << slot_check);
+                        slot_temp = _tzcnt_u64(check_indexes);
+                        if (slot_temp >= slot_end) {
+                          printf("ERROR\n");
+                          return false; // This will not happen
+                        }
+                        else {
+                          uint64_t slot_diff = slot_temp - slot_check - 3;
+                          uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
+                          if (slot_diff < 0) {
+                            printf("ERROR\n");
+                            return false;
+                          }
+                          else {
+                            if (ret_tag > tag) ret_tag--;
+                              return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
+                          }
+                        }
+                      }
+                      else if (temp_tag < tag) {
+                        return 2 + temp_tag;
+                      }
+                      // equal to
+                      else if (temp_tag == tag) {
+                        return 2;
+                      }
+                      // greater than
+                      else {
+                        return 1;
+                      }
+                    }
+                    // ultimatum <<<<<<<<<<
+                  }
+                }
+                else {
+                  //ultimatum >>>>>>>>>>
+                  if (slot_check == slot_end - 1) {
+                    return 1;
+                  }
+                  else {
+                    uint64_t slot_temp = slot_check + 1;
+                    uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+                    if (temp_tag == 0) {
+                      check_indexes &= ~(one[0] << slot_check);
+                      slot_temp = _tzcnt_u64(check_indexes);
+                      if (slot_temp >= slot_end) {
+                        printf("ERROR\n");
+                        return false; // This will not happen
+                      }
+                      else {
+                        uint64_t slot_diff = slot_temp - slot_check - 3;
+                        uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
+                        if (slot_diff < 0) {
+                          printf("ERROR\n");
+                          return false;
+                        }
+                        else {
+                          if (ret_tag > tag) ret_tag--;
+                            return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
+                        }
+                      }
+                    }
+                    else if (temp_tag < tag) {
+                      return 2 + temp_tag;
+                    }
+                    // equal to
+                    else if (temp_tag == tag) {
+                      return 2;
+                    }
+                    // greater than
+                    else {
+                      return 1;
+                    }
+                  }
+                  // ultimatum <<<<<<<<<<
+                }
+              }
+              else {
+                if (blocks[index].block.tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
+                //ultimatum >>>>>>>>>>
+                  if (slot_check == slot_end - 1) {
+                    return 1;
+                  }
+                  else {
+                    uint64_t slot_temp = slot_check + 1;
+                    uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+                    if (temp_tag == 0) {
+                      check_indexes &= ~(one[0] << slot_check);
+                      slot_temp = _tzcnt_u64(check_indexes);
+                      if (slot_temp >= slot_end) {
+                        printf("ERROR\n");
+                        return false; // This will not happen
+                      }
+                      else {
+                        uint64_t slot_diff = slot_temp - slot_check - 3;
+                        uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
+                        if (slot_diff < 0) {
+                          printf("ERROR\n");
+                          return false;
+                        }
+                        else {
+                          if (ret_tag > tag) ret_tag--;
+                          return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
+                        }
+                      }
+                    }
+                    else if (temp_tag < tag) {
+                      return 2 + temp_tag;
+                    }
+                    // equal to
+                    else if (temp_tag == tag) {
+                      return 2;
+                    }
+                    // greater than
+                    else {
+                      return 1;
+                    }
+                  }
+                  // ultimatum <<<<<<<<<<
+                }
+                else {
+                }
+              }
+            }
+            else if (blocks[index].block.tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
+              //ultimatum >>>>>>>>>>
+              if (slot_check == slot_end - 1) {
+                return 1;
+              }
+              else {
+                uint64_t slot_temp = slot_check + 1;
+                uint8_t temp_tag = blocks[index].block.tags[slot_temp - QUQU_PRESLOT];
+                if (temp_tag == 0) {
+                  check_indexes &= ~(one[0] << slot_check);
+                  slot_temp = _tzcnt_u64(check_indexes);
+                  if (slot_temp >= slot_end) {
+                    printf("ERROR\n");
+                    return false; // This will not happen
+                  }
+                  else {
+                    uint64_t slot_diff = slot_temp - slot_check - 3;
+                    uint8_t ret_tag = blocks[index].block.tags[slot_temp - 1 - QUQU_PRESLOT];
+                    if (slot_diff < 0) {
+                      printf("ERROR\n");
+                      return false;
+                    }
+                    else {
+                      if (ret_tag > tag) ret_tag--;
+                      return 2 + (QUQU_MAX - 1)*slot_diff + ret_tag;
+                    }
+                  }
+                }
+                else if (temp_tag < tag) {
+                  return 2 + temp_tag;
+                }
+                // equal to
+                else if (temp_tag == tag) {
+                  return 2;
+                }
+                // greater than
+                else {
+                  return 1;
+                }
+              }
+              // ultimatum <<<<<<<<<<
+            }
+            else {
+            }
+          }
+          check_indexes &= ~(one[0] << slot_check);
+        }
       }
       //return true;
 
@@ -2627,6 +2576,9 @@ bool check_space(vqf_filter* restrict filter, uint64_t tag, uint64_t block_index
     }
   } else {
     uint64_t countn = count_tags(filter, tag, block_index);
+    if (block_index / QUQU_BUCKETS_PER_BLOCK == 987) {
+      printf("[CYDBG] tag: %ld, countn: %ld\n", tag, countn);
+    }
     if ((countn >= QUQU_MAX + 1 && (countn - 2) % (QUQU_MAX - 1) == 0) || countn <= 2) {
       return false;
     } else {

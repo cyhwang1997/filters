@@ -90,7 +90,7 @@ extern "C" {
         void print_tags(uint8_t *tags, uint32_t size);
         void print_bits(__uint128_t num, int numbits);
         bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index);
-        int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index);
+        int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
   vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
 
 
