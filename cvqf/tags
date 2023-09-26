@@ -7,7 +7,13 @@
 ARCH	Makefile	/^ARCH=-msse4.2$/;"	m
 CC	Makefile	/^CC = gcc -std=gnu11 -fgnu-tm -frename-registers  -march=native -fsanitize=address$/;"	m
 CXX	Makefile	/^CXX = g++ -std=c++11 -fgnu-tm -frename-registers  -march=native$/;"	m
+Eta	src/zipfian_generator.h	/^  double Eta() {$/;"	f	class:ycsbc::ZipfianGenerator
+Exception	src/utils.h	/^  Exception(const std::string &message) : message_(message) { }$/;"	f	class:ycsbc::utils::Exception
+Exception	src/utils.h	/^class Exception : public std::exception {$/;"	c	namespace:ycsbc::utils
+FNVHash64	src/utils.h	/^inline uint64_t FNVHash64(uint64_t val) {$/;"	f	namespace:ycsbc::utils
+Generator	src/generator.h	/^class Generator {$/;"	c	namespace:ycsbc
 HAVE_AVX512	Makefile	/^HAVE_AVX512=$(filter-out 0,$(shell lscpu | grep avx512bw | wc -l))$/;"	m
+Hash	src/utils.h	/^inline uint64_t Hash(uint64_t val) { return FNVHash64(val); }$/;"	f	namespace:ycsbc::utils
 ITR	src/main_id.cc	25;"	d	file:
 K	include/vqf_precompute.h	/^const __m256i K[] = {K0, K1};$/;"	v
 K0	include/vqf_precompute.h	/^const __m256i K0 = _mm256_setr_epi8( $/;"	v
@@ -49,6 +55,11 @@ LM9	src/shuffle_matrix_256.c	/^const __m256i LM9 = _mm256_setr_epi8($/;"	v
 LOCK_MASK	src/vqf_filter.c	60;"	d	file:
 LOC_INCLUDE	Makefile	/^LOC_INCLUDE=include$/;"	m
 LOC_SRC	Makefile	/^LOC_SRC=src$/;"	m
+Last	src/scrambled_zipfian_generator.h	/^inline uint64_t ScrambledZipfianGenerator::Last() {$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+Last	src/zipfian_generator.h	/^inline uint64_t ZipfianGenerator::Last() {$/;"	f	class:ycsbc::ZipfianGenerator
+Next	src/scrambled_zipfian_generator.h	/^inline uint64_t ScrambledZipfianGenerator::Next() {$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+Next	src/zipfian_generator.h	/^  uint64_t Next() { return Next(items_); }$/;"	f	class:ycsbc::ZipfianGenerator
+Next	src/zipfian_generator.h	/^inline uint64_t ZipfianGenerator::Next(uint64_t num) {$/;"	f	class:ycsbc::ZipfianGenerator
 OBJDIR	Makefile	/^OBJDIR=obj$/;"	m
 OPT	Makefile	/^   OPT=-g -no-pie$/;"	m
 OPT	Makefile	/^OPT=-Ofast -g$/;"	m
@@ -194,6 +205,7 @@ RM6	src/shuffle_matrix_256.c	/^const __m256i RM6 = _mm256_setr_epi8($/;"	v
 RM7	src/shuffle_matrix_256.c	/^const __m256i RM7 = _mm256_setr_epi8($/;"	v
 RM8	src/shuffle_matrix_256.c	/^const __m256i RM8 = _mm256_setr_epi8($/;"	v
 RM9	src/shuffle_matrix_256.c	/^const __m256i RM9 = _mm256_setr_epi8($/;"	v
+RandomPrintChar	src/utils.h	/^inline char RandomPrintChar() {$/;"	f	namespace:ycsbc::utils
 S0	src/shuffle_matrix_512.c	/^const __m512i S0 = _mm512_set_epi8($/;"	v
 S1	src/shuffle_matrix_512.c	/^const __m512i S1 = _mm512_set_epi8($/;"	v
 S10	src/shuffle_matrix_512.c	/^const __m512i S10 = _mm512_set_epi8($/;"	v
@@ -297,14 +309,33 @@ SHUFFLE_REMOVE16	src/shuffle_matrix_512_16.c	/^__m512i SHUFFLE_REMOVE16 [] = {R1
 SHUFFLE_SIZE	src/generate_shuffle_matrix.cc	140;"	d	file:
 SHUFFLE_SIZE	src/generate_shuffle_matrix.cc	84;"	d	file:
 STATELEN	src/bm.cc	/^  int STATELEN;$/;"	m	struct:uniform_online_state	file:
+Scramble	src/scrambled_zipfian_generator.h	/^inline uint64_t ScrambledZipfianGenerator::Scramble(uint64_t value) const {$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+ScrambledZipfianGenerator	src/scrambled_zipfian_generator.h	/^  ScrambledZipfianGenerator(uint64_t min, uint64_t max) :$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+ScrambledZipfianGenerator	src/scrambled_zipfian_generator.h	/^  ScrambledZipfianGenerator(uint64_t min, uint64_t max, double zipfian_const) :$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+ScrambledZipfianGenerator	src/scrambled_zipfian_generator.h	/^  ScrambledZipfianGenerator(uint64_t num_items) :$/;"	f	class:ycsbc::ScrambledZipfianGenerator
+ScrambledZipfianGenerator	src/scrambled_zipfian_generator.h	/^class ScrambledZipfianGenerator : public Generator<uint64_t> {$/;"	c	namespace:ycsbc
+StrToBool	src/utils.h	/^inline bool StrToBool(std::string str) {$/;"	f	namespace:ycsbc::utils
 TAG_BITS	include/vqf_filter.h	24;"	d
 TAG_MASK	src/vqf_filter.c	26;"	d	file:
 TAG_MASK	src/vqf_filter.c	36;"	d	file:
 TAG_MASK	src/vqf_filter.c	42;"	d	file:
 TARGETS	Makefile	/^TARGETS= main main_tx main_id bm$/;"	m
-TEST_NUM	src/main.cc	35;"	d	file:
+TEST_NUM	src/main.cc	43;"	d	file:
+ThreadLocalRandomDouble	src/utils.h	/^inline double ThreadLocalRandomDouble(double min = 0.0, double max = 1.0) {$/;"	f	namespace:ycsbc::utils
+ThreadLocalRandomInt	src/utils.h	/^inline uint32_t ThreadLocalRandomInt() {$/;"	f	namespace:ycsbc::utils
+Trim	src/utils.h	/^inline std::string Trim(const std::string &str) {$/;"	f	namespace:ycsbc::utils
 UNLOCK_MASK	src/vqf_filter.c	61;"	d	file:
 VQF_WRAPPER_H	include/vqf_wrapper.h	13;"	d
+YCSB_C_GENERATOR_H_	src/generator.h	10;"	d
+YCSB_C_SCRAMBLED_ZIPFIAN_GENERATOR_H_	src/scrambled_zipfian_generator.h	10;"	d
+YCSB_C_UTILS_H_	src/utils.h	10;"	d
+YCSB_C_ZIPFIAN_GENERATOR_H_	src/zipfian_generator.h	10;"	d
+Zeta	src/zipfian_generator.h	/^  static double Zeta(uint64_t last_num, uint64_t cur_num, double theta, double last_zeta) {$/;"	f	class:ycsbc::ZipfianGenerator
+Zeta	src/zipfian_generator.h	/^  static double Zeta(uint64_t num, double theta) {$/;"	f	class:ycsbc::ZipfianGenerator
+ZipfianGenerator	src/zipfian_generator.h	/^  ZipfianGenerator(uint64_t min, uint64_t max, double zipfian_const = kZipfianConst) :$/;"	f	class:ycsbc::ZipfianGenerator
+ZipfianGenerator	src/zipfian_generator.h	/^  ZipfianGenerator(uint64_t min, uint64_t max, double zipfian_const, double zeta_n) :$/;"	f	class:ycsbc::ZipfianGenerator
+ZipfianGenerator	src/zipfian_generator.h	/^  ZipfianGenerator(uint64_t num_items) :$/;"	f	class:ycsbc::ZipfianGenerator
+ZipfianGenerator	src/zipfian_generator.h	/^class ZipfianGenerator : public Generator<uint64_t> {$/;"	c	namespace:ycsbc
 _M_a	src/zipfian_int_distribution.h	/^    _IntType _M_a;$/;"	m	struct:zipfian_int_distribution::param_type
 _M_b	src/zipfian_int_distribution.h	/^    _IntType _M_b;$/;"	m	struct:zipfian_int_distribution::param_type
 _M_param	src/zipfian_int_distribution.h	/^  param_type _M_param;$/;"	m	class:zipfian_int_distribution
@@ -314,29 +345,39 @@ _M_zeta2theta	src/zipfian_int_distribution.h	/^    double _M_zeta2theta;$/;"	m	s
 _VQF_FILTER_H_	include/vqf_filter.h	13;"	d
 a	src/zipfian_int_distribution.h	/^    result_type	a() const { return _M_a; }$/;"	f	struct:zipfian_int_distribution::param_type
 a	src/zipfian_int_distribution.h	/^  result_type a() const { return _M_param.a(); }$/;"	f	class:zipfian_int_distribution
+add_block	src/vqf_filter.c	/^vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index) {$/;"	f
+allow_count_decrease_	src/zipfian_generator.h	/^  bool allow_count_decrease_;$/;"	m	class:ycsbc::ZipfianGenerator
+alpha_	src/zipfian_generator.h	/^  double theta_, zeta_n_, eta_, alpha_, zeta_2_;$/;"	m	class:ycsbc::ZipfianGenerator
 args	src/main_tx.cc	/^typedef struct args {$/;"	s	file:
 args	src/main_tx.cc	/^} args;$/;"	t	typeref:struct:args	file:
 b	src/zipfian_int_distribution.h	/^    result_type	b() const { return _M_b; }$/;"	f	struct:zipfian_int_distribution::param_type
 b	src/zipfian_int_distribution.h	/^  result_type b() const { return _M_param.b(); }$/;"	f	class:zipfian_int_distribution
-blocks	include/vqf_filter.h	/^		vqf_block blocks[];$/;"	m	struct:vqf_filter
+base_	src/scrambled_zipfian_generator.h	/^  const uint64_t base_;$/;"	m	class:ycsbc::ScrambledZipfianGenerator
+base_	src/zipfian_generator.h	/^  uint64_t base_; \/\/\/ Min number of items to generate$/;"	m	class:ycsbc::ZipfianGenerator
+block	include/vqf_filter.h	/^    vqf_block block;$/;"	m	struct:linked_blocks
+blocks	include/vqf_filter.h	/^    linked_blocks blocks[]; \/*CY*\/$/;"	m	struct:vqf_filter
 buf	src/bm.cc	/^  char *buf;$/;"	m	struct:uniform_online_state	file:
 cf	src/bm.cc	/^filter cf = {q_init, q_insert, q_lookup, q_remove, q_range, q_destroy};$/;"	v
 cf	src/main_tx.cc	/^   vqf_filter *cf;$/;"	m	struct:args	file:
+check_space	src/vqf_filter.c	/^bool check_space(vqf_filter* restrict filter, uint64_t tag, uint64_t block_index) {$/;"	f
 check_tags	src/vqf_filter.c	/^static inline bool check_tags(vqf_filter * restrict filter, uint64_t tag,$/;"	f	file:
 cmp_uint64_t	src/bm.cc	/^int cmp_uint64_t(const void *a, const void *b) {$/;"	f
-count_tags	src/vqf_filter.c	/^static inline int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index){$/;"	f	file:
+count_for_zeta_	src/zipfian_generator.h	/^  uint64_t count_for_zeta_; \/\/\/ Number of items used to compute zeta_n$/;"	m	class:ycsbc::ZipfianGenerator
+count_tags	src/vqf_filter.c	/^int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index){$/;"	f
 destroy	src/bm.cc	/^  destroy_op destroy;$/;"	m	struct:filter	file:
 destroy_op	src/bm.cc	/^typedef int (*destroy_op)();$/;"	t	file:
 distribution_type	src/zipfian_int_distribution.h	/^    typedef zipfian_int_distribution<_IntType> distribution_type;$/;"	t	struct:zipfian_int_distribution::param_type
 dup	src/bm.cc	/^  duplicate_rand dup;$/;"	m	struct:rand_generator	file:
 duplicate_rand	src/bm.cc	/^typedef void *(*duplicate_rand)(void *state);$/;"	t	file:
 end	src/main_tx.cc	/^   uint64_t end;$/;"	m	struct:args	file:
+eta_	src/zipfian_generator.h	/^  double theta_, zeta_n_, eta_, alpha_, zeta_2_;$/;"	m	class:ycsbc::ZipfianGenerator
 filter	src/bm.cc	/^typedef struct filter {$/;"	s	file:
 filter	src/bm.cc	/^} filter;$/;"	t	typeref:struct:filter	file:
 gen	src/bm.cc	/^  gen_rand gen;$/;"	m	struct:rand_generator	file:
 gen_rand	src/bm.cc	/^typedef int (*gen_rand)(void *state, uint64_t noutputs, __uint128_t *outputs);$/;"	t	file:
 generate_shuffle_512	src/generate_shuffle_matrix.cc	/^void generate_shuffle_512(void) {$/;"	f
 generate_shuffle_512_16	src/generate_shuffle_matrix.cc	/^void generate_shuffle_512_16(void) {$/;"	f
+generator_	src/scrambled_zipfian_generator.h	/^  ZipfianGenerator generator_;$/;"	m	class:ycsbc::ScrambledZipfianGenerator
 get_block_free_space	src/vqf_filter.c	/^static inline uint64_t get_block_free_space(uint64_t *vector) {$/;"	f	file:
 get_block_free_space	src/vqf_filter.c	/^static inline uint64_t get_block_free_space(uint64_t vector) {$/;"	f	file:
 get_count	src/vqf_filter.c	/^int get_count(vqf_filter * restrict filter, uint64_t hash) {$/;"	f
@@ -347,7 +388,16 @@ init_op	src/bm.cc	/^typedef int (*init_op)(uint64_t nvals);$/;"	t	file:
 insert	src/bm.cc	/^  insert_op insert;$/;"	m	struct:filter	file:
 insert_bm	src/main_tx.cc	/^void *insert_bm(void *arg)$/;"	f
 insert_op	src/bm.cc	/^typedef int (*insert_op)(__uint128_t val);$/;"	t	file:
+items_	src/zipfian_generator.h	/^  uint64_t items_;$/;"	m	class:ycsbc::ZipfianGenerator
+kFNVOffsetBasis64	src/utils.h	/^const uint64_t kFNVOffsetBasis64 = 0xCBF29CE484222325ull;$/;"	m	namespace:ycsbc::utils
+kFNVPrime64	src/utils.h	/^const uint64_t kFNVPrime64 = 1099511628211ull;$/;"	m	namespace:ycsbc::utils
+kMaxNumItems	src/zipfian_generator.h	/^  static constexpr uint64_t kMaxNumItems = (UINT64_MAX >> 24);$/;"	m	class:ycsbc::ZipfianGenerator
+kZetan	src/scrambled_zipfian_generator.h	/^  static constexpr double kZetan = 26.46902820178302;$/;"	m	class:ycsbc::ScrambledZipfianGenerator
+kZipfianConst	src/zipfian_generator.h	/^  static constexpr double kZipfianConst = 0.99;$/;"	m	class:ycsbc::ZipfianGenerator
 key_remainder_bits	include/vqf_filter.h	/^		uint64_t key_remainder_bits;$/;"	m	struct:vqf_metadata
+last_value_	src/zipfian_generator.h	/^  uint64_t last_value_;$/;"	m	class:ycsbc::ZipfianGenerator
+linked_blocks	include/vqf_filter.h	/^  typedef struct linked_blocks{$/;"	s
+linked_blocks	include/vqf_filter.h	/^  } linked_blocks;$/;"	t	typeref:struct:linked_blocks
 lock	src/vqf_filter.c	/^static inline void lock(vqf_block& block)$/;"	f	file:
 lock_blocks	src/vqf_filter.c	/^static inline void lock_blocks(vqf_filter * restrict filter, uint64_t index1, uint64_t index2)  {$/;"	f	file:
 lookup	src/bm.cc	/^  lookup_op lookup;$/;"	m	struct:filter	file:
@@ -365,13 +415,17 @@ maxoutputs	src/bm.cc	/^  uint64_t maxoutputs;$/;"	m	struct:uniform_pregen_state	
 maxvalue	src/bm.cc	/^  __uint128_t maxvalue;$/;"	m	struct:uniform_online_state	file:
 md	include/vqf_filter.h	/^		uint64_t md;$/;"	m	struct:vqf_block
 md	include/vqf_filter.h	/^		uint64_t md[2];$/;"	m	struct:vqf_block
+message_	src/utils.h	/^  std::string message_;$/;"	m	class:ycsbc::utils::Exception
 metadata	include/vqf_filter.h	/^		vqf_metadata metadata;$/;"	m	struct:vqf_filter
 min	src/zipfian_int_distribution.h	/^  result_type min() const { return this->a(); }$/;"	f	class:zipfian_int_distribution
 multi_threaded_insertion	src/main_tx.cc	/^void multi_threaded_insertion(args args[], int tcnt)$/;"	f
+mutex_	src/zipfian_generator.h	/^  std::mutex mutex_;$/;"	m	class:ycsbc::ZipfianGenerator
 nblocks	include/vqf_filter.h	/^		uint64_t nblocks;$/;"	m	struct:vqf_metadata
 nelts	include/vqf_filter.h	/^		uint64_t nelts;$/;"	m	struct:vqf_metadata
+next	include/vqf_filter.h	/^    linked_blocks *next;$/;"	m	struct:linked_blocks
 nextoutput	src/bm.cc	/^  uint64_t nextoutput;$/;"	m	struct:uniform_pregen_state	file:
 nslots	include/vqf_filter.h	/^		uint64_t nslots;$/;"	m	struct:vqf_metadata
+num_items_	src/scrambled_zipfian_generator.h	/^  const uint64_t num_items_;$/;"	m	class:ycsbc::ScrambledZipfianGenerator
 one	include/vqf_precompute.h	/^static uint64_t *one = pre_one + 64;$/;"	v
 operator ()	src/zipfian_int_distribution.h	/^  result_type operator()(_UniformRandomNumberGenerator& __urng)$/;"	f	class:zipfian_int_distribution
 operator ()	src/zipfian_int_distribution.h	/^  result_type operator()(_UniformRandomNumberGenerator& __urng, const param_type& __p)$/;"	f	class:zipfian_int_distribution
@@ -389,6 +443,7 @@ print_bits	src/vqf_filter.c	/^void print_bits(uint64_t num, int numbits)$/;"	f
 print_block	src/vqf_filter.c	/^void print_block(vqf_filter *filter, uint64_t block_index) {$/;"	f
 print_block_special	src/vqf_filter.c	/^void print_block_special(vqf_filter *filter, uint64_t block_index, uint64_t slot_index) {$/;"	f
 print_m512i	src/vqf_filter.c	/^void print_m512i(__m512i vec) {$/;"	f
+print_next_block	src/vqf_filter.c	/^void print_next_block(vqf_filter *filter, uint64_t block_index) {$/;"	f
 print_tags	src/vqf_filter.c	/^void print_tags(uint16_t *tags, uint32_t size) {$/;"	f
 print_tags	src/vqf_filter.c	/^void print_tags(uint8_t *tags, uint32_t size) {$/;"	f
 print_tags_special	src/vqf_filter.c	/^void print_tags_special(uint8_t *tags, uint32_t size, uint64_t slot_index) {$/;"	f
@@ -427,6 +482,7 @@ tags	include/vqf_filter.h	/^		uint8_t tags[32]; \/\/ 32 12-bit tags$/;"	m	struct
 tags	include/vqf_filter.h	/^		uint8_t tags[48];$/;"	m	struct:vqf_block
 theta	src/zipfian_int_distribution.h	/^    double theta() const { return _M_theta; }$/;"	f	struct:zipfian_int_distribution::param_type
 theta	src/zipfian_int_distribution.h	/^  double theta() const { return _M_param.theta(); }$/;"	f	class:zipfian_int_distribution
+theta_	src/zipfian_generator.h	/^  double theta_, zeta_n_, eta_, alpha_, zeta_2_;$/;"	m	class:ycsbc::ZipfianGenerator
 total_size_in_bytes	include/vqf_filter.h	/^		uint64_t total_size_in_bytes;$/;"	m	struct:vqf_metadata
 tv2msec	src/bm.cc	/^uint64_t tv2msec(struct timeval tv) {$/;"	f
 tv2usec	src/bm.cc	/^uint64_t tv2usec(struct timeval tv) {$/;"	f
@@ -451,6 +507,7 @@ update_md	src/vqf_filter.c	/^static inline void update_md(uint64_t *md, uint8_t 
 update_tags_512	src/vqf_filter.c	/^static inline void update_tags_512(vqf_block * restrict block, uint8_t index, uint16_t tag) {$/;"	f	file:
 update_tags_512	src/vqf_filter.c	/^static inline void update_tags_512(vqf_block * restrict block, uint8_t index, uint8_t tag) {$/;"	f	file:
 usage	src/bm.cc	/^void usage(char *name) {$/;"	f
+utils	src/utils.h	/^namespace utils {$/;"	n	namespace:ycsbc
 vals	src/main_tx.cc	/^   uint64_t *vals;$/;"	m	struct:args	file:
 vqf_block	include/vqf_filter.h	/^	typedef struct __attribute__ ((__packed__)) vqf_block {$/;"	s
 vqf_block	include/vqf_filter.h	/^	} vqf_block;$/;"	t	typeref:struct:vqf_block
@@ -464,9 +521,16 @@ vqf_metadata	include/vqf_filter.h	/^	} vqf_metadata;$/;"	t	typeref:struct:vqf_me
 vqf_remove	src/vqf_filter.c	/^bool vqf_remove(vqf_filter * restrict filter, uint64_t hash) {$/;"	f
 word_rank	src/vqf_filter.c	/^static inline int word_rank(uint64_t val) {$/;"	f	file:
 word_select	src/vqf_filter.c	/^static inline uint64_t word_select(uint64_t val, int rank) {$/;"	f	file:
+ycsbc	src/generator.h	/^namespace ycsbc {$/;"	n
+ycsbc	src/scrambled_zipfian_generator.h	/^namespace ycsbc {$/;"	n
+ycsbc	src/utils.h	/^namespace ycsbc {$/;"	n
+ycsbc	src/zipfian_generator.h	/^namespace ycsbc {$/;"	n
 zeta	src/zipfian_int_distribution.h	/^    double zeta() const { return _M_zeta; }$/;"	f	struct:zipfian_int_distribution::param_type
 zeta	src/zipfian_int_distribution.h	/^    double zeta(unsigned long __n, double __theta)$/;"	f	struct:zipfian_int_distribution::param_type
 zeta2theta	src/zipfian_int_distribution.h	/^    double zeta2theta() const { return _M_zeta2theta; }$/;"	f	struct:zipfian_int_distribution::param_type
+zeta_2_	src/zipfian_generator.h	/^  double theta_, zeta_n_, eta_, alpha_, zeta_2_;$/;"	m	class:ycsbc::ZipfianGenerator
+zeta_n_	src/zipfian_generator.h	/^  double theta_, zeta_n_, eta_, alpha_, zeta_2_;$/;"	m	class:ycsbc::ZipfianGenerator
 zipfian_int_distribution	src/zipfian_int_distribution.h	/^  explicit zipfian_int_distribution(_IntType __a = _IntType(0), _IntType __b = _IntType(1), double __theta = 0.99)$/;"	f	class:zipfian_int_distribution
 zipfian_int_distribution	src/zipfian_int_distribution.h	/^  explicit zipfian_int_distribution(const param_type& __p) : _M_param(__p)$/;"	f	class:zipfian_int_distribution
 zipfian_int_distribution	src/zipfian_int_distribution.h	/^class zipfian_int_distribution$/;"	c
+~Generator	src/generator.h	/^  virtual ~Generator() { }$/;"	f	class:ycsbc::Generator

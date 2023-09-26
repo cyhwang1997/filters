@@ -86,10 +86,10 @@ extern "C" {
 
 	int get_count(vqf_filter * restrict filter, uint64_t hash);
         /*CYDBG print functions added for debugging*/
-        void print_block(vqf_filter * filter, uint64_t block_index);
+        void print_block(vqf_filter * filter, uint64_t block_index, vqf_block * cur_block);
         void print_tags(uint8_t *tags, uint32_t size);
         void print_bits(__uint128_t num, int numbits);
-        bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index);
+        bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
   vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
 

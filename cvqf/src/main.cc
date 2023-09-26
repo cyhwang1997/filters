@@ -90,6 +90,7 @@ int main(int argc, char **argv) {
 //  uint64_t nvals = atoi(argv[2]);
   uint64_t load_factor = atoi(argv[2]);
   uint64_t nvals = load_factor*nslots/100;
+/*CY*/ nvals = 40000;
   uint64_t *vals;
   uint64_t *other_vals;
   double zipf_const = std::stod(argv[3]);
@@ -134,11 +135,13 @@ int main(int argc, char **argv) {
       printf("----------TESTING RESIZING----------\n");
 /*      for (uint64_t i = 0; i < 20000; i++)
         vals[i] = 1;*/
-      for (uint64_t i = 0; i < 40000; i++)
-        vals[i] = 111009;
-      uniq_vals.resize(1);
-//      uniq_vals[0] = 1;
-      uniq_vals[0] = 111009;
+      for (uint64_t i = 0; i < 30000; i++)
+        vals[i] = 1;
+      for (uint64_t i = 30000; i < 40000; i++)
+        vals[i] = 2;
+      uniq_vals.resize(2);
+      uniq_vals[0] = 1;
+      uniq_vals[1] = 2;
     }
     else if (zipf_const == -1) {
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
@@ -273,6 +276,7 @@ int main(int argc, char **argv) {
       if (insert_return == -1) {
         fprintf(stderr, "Insertion failed\n");
         printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
+        printf("[CYDBG] val: %d, get_count: %d\n" , 111009, get_count(filter, 111009));
         exit(EXIT_FAILURE);
       }
       num_successful_inserts++;
@@ -296,15 +300,22 @@ int main(int argc, char **argv) {
 
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
+    printf("LOOKUP 1\n");
+    if (vqf_is_present(filter, 1))
+      printf("true\n");
+    else
+      printf("false\n");
+    printf("LOOKUP 2\n");
+    if (vqf_is_present(filter, 2))
+      printf("true\n");
+    else
+      printf("false\n");
+
     for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_is_present(filter, vals[i])) {
         uint64_t block_index = vals[i] >> 8;
         uint64_t alt_block_index = ((vals[i] ^ ((vals[i] & 0xff) * 0x5bd1e995)) % filter->metadata.range) >> 8;
         fprintf(stderr, "Lookup failed for %lx, tag: %ld, i: %ld\n", vals[i], vals[i] & 0xff, i);
-        print_block(filter, block_index / 80);
-        printf("offset: %ld\n", block_index % 80);
-        print_block(filter, alt_block_index / 80);
-        printf("offset: %ld\n", alt_block_index % 80);
         exit(EXIT_FAILURE);
      }
     }
@@ -360,7 +371,17 @@ int main(int argc, char **argv) {
     gettimeofday(&start, &tzp);
     /* Delete hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
-      vqf_remove(filter, vals[i]);
+      bool remove = vqf_remove(filter, vals[i]);
+      uint64_t block_index = vals[i] >> 8;
+      uint64_t alt_block_index = ((vals[i] ^ ((vals[i] & 0xff) * 0x5bd1e995)) % filter->metadata.range) >> 8;
+      printf("hash: %ld, i: %ld\n", vals[i], i);
+      print_block(filter, block_index / 80, &filter->blocks[block_index / 80].block);
+      print_block(filter, alt_block_index / 80, &filter->blocks[alt_block_index / 80].block);
+      printf("\n");
+      if (!remove) {
+        printf("Remove failed for %ld, hash: %ld\n", i, vals[i, vals[i]]);
+        print_block(filter, 0, &filter->blocks[0].block);
+      }
       //bool success;
       //success = vqf_remove(filter, vals[i]);
       //if (success == false) {
