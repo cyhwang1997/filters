@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
 //  uint64_t nvals = atoi(argv[2]);
   uint64_t load_factor = atoi(argv[2]);
   uint64_t nvals = load_factor*nslots/100;
-/*CY*/ nvals = 40000;
+// nvals = 40000;
   uint64_t *vals;
   uint64_t *other_vals;
   double zipf_const = std::stod(argv[3]);
@@ -130,18 +130,18 @@ int main(int argc, char **argv) {
     
 
     if (zipf_const == -2) {
-      nvals = 40000;
-      vals = (uint64_t *)malloc(40000 * sizeof(vals[0]));
+      nvals = 110000;
+      vals = (uint64_t *)malloc(110000 * sizeof(vals[0]));
       printf("----------TESTING RESIZING----------\n");
 /*      for (uint64_t i = 0; i < 20000; i++)
         vals[i] = 1;*/
-      for (uint64_t i = 0; i < 30000; i++)
-        vals[i] = 1;
-      for (uint64_t i = 30000; i < 40000; i++)
-        vals[i] = 2;
-      uniq_vals.resize(2);
-      uniq_vals[0] = 1;
-      uniq_vals[1] = 2;
+      for (uint64_t i = 0; i < 110000; i++)
+        vals[i] = 512;
+/*      for (uint64_t i = 30000; i < 40000; i++)
+        vals[i] = 2;*/
+      uniq_vals.resize(1);
+      uniq_vals[0] = 512;
+//      uniq_vals[1] = 2;
     }
     else if (zipf_const == -1) {
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
@@ -275,8 +275,17 @@ int main(int argc, char **argv) {
       insert_return = vqf_insert(filter, vals[i]);
       if (insert_return == -1) {
         fprintf(stderr, "Insertion failed\n");
-        printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
-        printf("[CYDBG] val: %d, get_count: %d\n" , 111009, get_count(filter, 111009));
+        printf("[CYDBG] keys_to_be_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
+        printf("[CYDBG] insertion failed for value: %ld, block index: %ld\n", vals[i], (vals[i] >> 8 )/ 80);
+        linked_blocks *cur_lblock = &filter->blocks[0];
+        int index = 1;
+        do {
+          printf("%d\n", index);
+          print_block(filter, 0, &cur_lblock->block);
+          cur_lblock = cur_lblock->next;
+          printf("\n");
+          index++;
+        } while(cur_lblock != NULL);
         exit(EXIT_FAILURE);
       }
       num_successful_inserts++;
@@ -287,6 +296,7 @@ int main(int argc, char **argv) {
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
     //printf("\n%d/%d\n\n", put_slot, all_slot);
+    printf("[CYDBG] SIZE: %ld, total_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks);
 
     uint64_t fslots = 0;
     for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
@@ -300,7 +310,7 @@ int main(int argc, char **argv) {
 
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
-    printf("LOOKUP 1\n");
+/*    printf("LOOKUP 1\n");
     if (vqf_is_present(filter, 1))
       printf("true\n");
     else
@@ -309,7 +319,7 @@ int main(int argc, char **argv) {
     if (vqf_is_present(filter, 2))
       printf("true\n");
     else
-      printf("false\n");
+      printf("false\n");*/
 
     for (uint64_t i = 0; i < nvals; i++) {
       if (!vqf_is_present(filter, vals[i])) {
@@ -330,7 +340,7 @@ int main(int argc, char **argv) {
     /*Get Count*/
 //    for (auto i :uniq_vals) {
     for (uint64_t i = 0; i < uniq_nvals; i++) {
-      printf("[CYDBG] val: %ld, get_count: %d\n" , uniq_vals[i], get_count(filter, uniq_vals[i]));
+//      printf("[CYDBG] val: %ld, get_count: %d\n" , uniq_vals[i], get_count(filter, uniq_vals[i]));
 //      if (get_count(filter, uniq_vals[i]) != uniq_count[i])
 //        count_fail++;
 /*      if (get_count(filter, vals[i]) != count(vals, vals + nvals, vals[i])) {
@@ -372,16 +382,17 @@ int main(int argc, char **argv) {
     /* Delete hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
       bool remove = vqf_remove(filter, vals[i]);
+//      printf("[CYDBG] val: %ld, get_count: %d\n" , vals[i], get_count(filter, vals[i]));
       uint64_t block_index = vals[i] >> 8;
       uint64_t alt_block_index = ((vals[i] ^ ((vals[i] & 0xff) * 0x5bd1e995)) % filter->metadata.range) >> 8;
-      printf("hash: %ld, i: %ld\n", vals[i], i);
+/*      printf("hash: %ld, i: %ld\n", vals[i], i);
       print_block(filter, block_index / 80, &filter->blocks[block_index / 80].block);
-      print_block(filter, alt_block_index / 80, &filter->blocks[alt_block_index / 80].block);
-      printf("\n");
+      print_block(filter, alt_block_index / 80, &filter->blocks[alt_block_index / 80].block);*/
       if (!remove) {
         printf("Remove failed for %ld, hash: %ld\n", i, vals[i, vals[i]]);
         print_block(filter, 0, &filter->blocks[0].block);
       }
+//      printf("\n");
       //bool success;
       //success = vqf_remove(filter, vals[i]);
       //if (success == false) {
