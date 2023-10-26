@@ -68,6 +68,7 @@ extern "C" {
 		uint64_t nblocks;
 		uint64_t nelts;
 		uint64_t nslots;
+    uint64_t add_blocks;
 	} vqf_metadata;
 
 	typedef struct vqf_filter {
@@ -78,9 +79,9 @@ extern "C" {
 
 	vqf_filter * vqf_init(uint64_t nslots);
 
-	int vqf_insert(vqf_filter * restrict filter, uint64_t hash); // bool
+	uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash); // bool
 	
-	bool vqf_remove(vqf_filter * restrict filter, uint64_t hash);
+	uint64_t vqf_remove(vqf_filter * restrict filter, uint64_t hash, bool flag);
 
 	bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash); /*bool ->int*/
 
@@ -91,6 +92,7 @@ extern "C" {
         void print_bits(__uint128_t num, int numbits);
         bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
+  void print_filter(vqf_filter * filter);
   vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
 
 
