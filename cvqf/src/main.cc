@@ -220,24 +220,38 @@ int main(int argc, char **argv) {
       printf("Zipfian Created\n");
     }
 
+    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
+    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
+    for (uint64_t i = 0; i < nvals; i++) {
+      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+    }
+
     /*CYDBG uniq_vals*/
 /*    std::sort(uniq_vals.begin(), uniq_vals.end());
     uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());*/
 
-    uint64_t uniq_nvals = uniq_vals.size();
+/*    uint64_t uniq_nvals = uniq_vals.size();
     printf("[CYDBG] nvals: %ld, uniq_nvals: %ld\n", nvals, uniq_nvals);
     uint64_t lower = pow(2, floor(log2(filter->metadata.range)));
     uint64_t upper = pow(2, ceil(log2(filter->metadata.range)));
-    printf("[CYDBG] range: %ld, lower: %ld, upper: %ld\n", filter->metadata.range, lower, upper);
+    printf("[CYDBG] range: %ld, lower: %ld, upper: %ld\n", filter->metadata.range, lower, upper);*/
     /*CYDBG*/
 
-   ofstream outFile("vals.txt");
+/*    ofstream outFile("vals.txt");
     if (outFile) {
       for (uint64_t i = 0; i < nvals; i++) {
         outFile << vals[i] << "\n";
       }
     }
     outFile.close();
+
+    ofstream outFile3("other_vals.txt");
+    if (outFile3) {
+      for (uint64_t i = 0; i < nvals; i++) {
+        outFile3 << other_vals[i] << "\n";
+      }
+    }
+    outFile3.close();*/
 
 /*    ofstream outFile2("uniq_vals.txt");
     if (outFile2) {
@@ -247,27 +261,31 @@ int main(int argc, char **argv) {
     }
     outFile2.close();*/
 
-/*    ifstream file("vals.txt");
-    if (file.is_open()) {
+    ifstream inFile("vals.txt");
+    if (inFile.is_open()) {
       string line;
       for (uint64_t i = 0; i < nvals; i++) {
-        getline(file, line);
+        getline(inFile, line);
         vals[i] = stoull(line);
       }
-      file.close();
-    }*/
+      inFile.close();
+    }
+
+    ifstream inFile2("other_vals.txt");
+    if (inFile2.is_open()) {
+      string line;
+      for (uint64_t i = 0; i < nvals; i++) {
+        getline(inFile2, line);
+        other_vals[i] = stoull(line);
+      }
+      inFile2.close();
+    }
 
 /*    vector<uint64_t> uniq_count (uniq_nvals, 0);
     for (uint64_t i = 0; i < uniq_nvals; i++) {
       uniq_count[i] = count(vals, vals + nvals, uniq_vals[i]);
     }*/
 
-
-    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
-    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
-    for (uint64_t i = 0; i < nvals; i++) {
-      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
-    }
 
     struct timeval start, end;
     struct timezone tzp;
@@ -277,7 +295,6 @@ int main(int argc, char **argv) {
 
     gettimeofday(&start, &tzp);
     uint64_t num_successful_inserts = 0;
-    linked_blocks *p;
 //    ofstream insertFile("insert.txt");
     /* Insert hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
@@ -285,16 +302,6 @@ int main(int argc, char **argv) {
       if (insert_return == -1) {
         fprintf(stderr, "Insertion failed\n");
         printf("[CYDBG] keys_to_be_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
-        printf("[CYDBG] insertion failed for value: %ld, block index: %ld\n", vals[i], (vals[i] >> 8 )/ 80);
-        linked_blocks *cur_lblock = &filter->blocks[0];
-        int index = 1;
-        do {
-          printf("%d\n", index);
-          print_block(filter, 0, &cur_lblock->block);
-          cur_lblock = cur_lblock->next;
-          printf("\n");
-          index++;
-        } while(cur_lblock != NULL);
         exit(EXIT_FAILURE);
       }
       /*CYDBG*/
@@ -411,20 +418,18 @@ int main(int argc, char **argv) {
     }
     filterFile.close();*/
 
-//    printf("[CYDBG] Start Removal\n"); 
     gettimeofday(&start, &tzp);
     /* Delete hashes in the vqf filter */
-    bool flag = false;
 //    ofstream removeFile("remove.txt");
 //    ofstream removeFailFile("removeFail.txt");
-    linked_blocks * blocks = filter->blocks;
+//    linked_blocks * blocks = filter->blocks;
     for (uint64_t i = 0; i < nvals; i++) {
-      uint64_t remove;
-      remove = vqf_remove(filter, vals[i], flag);
-//      printf("[CYDBG] val: %ld, get_count: %d\n" , vals[i], get_count(filter, vals[i]));
-      if (remove == UINT64_MAX) {
+      vqf_remove(filter, vals[i]);
+/*      bool remove;
+      remove = vqf_remove(filter, vals[i]);
+      if (!remove) {
         printf("Remove failed for %ld, hash: %ld\n", i, vals[i]); 
-/*        uint64_t block_index = vals[i] >> 8;
+        uint64_t block_index = vals[i] >> 8;
         uint64_t tag = vals[i] & 0xff;
         uint64_t alt_block_index = ((vals[i] ^ (tag * 0x5bd1e995)) % filter->metadata.range) >> 8;
         linked_blocks *l_block = &blocks[block_index / 80];
@@ -450,8 +455,8 @@ int main(int argc, char **argv) {
           file_block(filter, remove, &last_block->block, removeFile);
           last_block = last_block->next;
         } while (last_block != NULL);
-        removeFile << "\n";*/
-      }
+        removeFile << "\n";
+      }*/
 //      printf("\n");
       //bool success;
       //success = vqf_remove(filter, vals[i]);
@@ -468,13 +473,18 @@ int main(int argc, char **argv) {
       
       
     print_time_elapsed("Remove time", &start, &end, nvals, "remove");
-    for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
-      linked_blocks    *blocks             = filter->blocks;
-      linked_blocks *last_block = filter->blocks[i].next;
-      while (last_block != NULL) {
-        linked_blocks *to_be_freed = last_block;
-        last_block = last_block->next;
-        free(to_be_freed);
+
+    /*Free Linked Blocks*/
+    if (filter->metadata.add_blocks != 0) {
+      printf("[CYDBG] Deleting add_blocks\n");
+      for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
+        linked_blocks    *blocks             = filter->blocks;
+        linked_blocks *last_block = filter->blocks[i].next;
+        while (last_block != NULL) {
+          linked_blocks *to_be_freed = last_block;
+          last_block = last_block->next;
+          free(to_be_freed);
+        }
       }
     }
 

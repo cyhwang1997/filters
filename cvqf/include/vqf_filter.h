@@ -81,7 +81,7 @@ extern "C" {
 
 	uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash); // bool
 	
-	uint64_t vqf_remove(vqf_filter * restrict filter, uint64_t hash, bool flag);
+	bool vqf_remove(vqf_filter * restrict filter, uint64_t hash);
 
 	bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash); /*bool ->int*/
 

@@ -1,18 +1,16 @@
 #!/bin/bash
 
-FILE='/home/ubuntu/filter_data/max_allowed_keys/cvqf17.dat'
+DIR="/home/ubuntu/filter_data/data/cvqf_overhead/10/cvqf17_"
 
-rm -rf $FILE
-
-for i in 0 0.9 0.99
+for i in {1..10..1}
 do
-  echo $i
 	for j in {10..90..10}
 	do
+		FILE="$DIR$i.dat"
+		echo "[zipf_const: 0, load_factor: $j]" >> $FILE
 		sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"
  		sleep 10
-		echo "[zipf_const: $i, load_factor: $j]" >> $FILE
-		./main 17 $j $i >> $FILE
+		./main 17 $j 0 >> $FILE
 		echo "" >> $FILE
 	done
 done
