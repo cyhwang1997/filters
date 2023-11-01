@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <immintrin.h>  // portable to all x86 compilers
 #include <tmmintrin.h>
+#include <sys/time.h> /*CY*/
 
 #include "vqf_filter.h"
 #include "vqf_precompute.h"
@@ -444,11 +445,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 
    // block_index is over 75% full && the two candidate blocks are different
    if (block_free < QUQU_CHECK_ALT && block_index/QUQU_BUCKETS_PER_BLOCK != alt_block_index/QUQU_BUCKETS_PER_BLOCK) {
-/*      if (index1 == 1358120 || index2 == 1358120) {
-        printf("[CYDBG] tag COUNT: %d, alt_block tag COUNT: %d, hash: %ld, tag: %ld\n", count_tags(filter, tag, block_index), count_tags(filter, tag, alt_block_index), hash, tag);
-        print_block(filter, 1358120);
-      } */
-      
       unlock(blocks[block_index/QUQU_BUCKETS_PER_BLOCK]);
       lock_blocks(filter, block_index, alt_block_index);
 #if TAG_BITS == 8
@@ -498,6 +494,13 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
      }
    }
 
+   if (block_free == QUQU_BUCKETS_PER_BLOCK + 1 && tag == 1) {
+     if (count_tags (filter, tag, block_index) == 2) {
+       fprintf(stderr, "vqf filter is full.\n");
+       return -1;
+     }
+   }
+
    uint64_t index = block_index / QUQU_BUCKETS_PER_BLOCK;
    uint64_t offset = block_index % QUQU_BUCKETS_PER_BLOCK;
 
@@ -529,11 +532,6 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    uint64_t target_index;
    uint64_t end_target_index;
    uint8_t temp_tag;
-
-   if (hash == 0x679dcc3be){
-     printf("[CYDBG] block_index: %ld, offset: %ld\n", index, offset);
-     print_block(filter, index);
-   }
 
    // bucket is empty
    if (preslot_index == slot_index) {
@@ -914,13 +912,8 @@ int vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
    }
 
    //print_block(filter, index);
-   // something wrong
-   return false;
-
-   /*update_tags_512(&blocks[index], target_index, tag);
-   update_md(block_md, select_index);
-   unlock(blocks[index]);
-   return true;*/
+   // something went wrong
+   return -1;
 }
 
 static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
@@ -969,10 +962,6 @@ static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
 #endif
 #endif
 
-   //printf("TAG %ld\n", tag);
-   //print_block(filter, index);
-   //printf("-----------------\n");
-
    if (result == 0) {
       // no matching tags, can bail
       return false;
@@ -992,22 +981,6 @@ static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
    uint64_t check_indexes = mask & result;
    if (check_indexes != 0) { // remove the first available tag
       vqf_block    * restrict blocks             = filter->blocks;
-
-      // original
-      /*
-	 uint64_t remove_index = __builtin_ctzll(check_indexes);
-	 remove_tags_512(&blocks[index], remove_index);
-#if TAG_BITS == 8
-remove_index = remove_index + offset - sizeof(__uint128_t);
-uint64_t *block_md = blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
-#elif TAG_BITS == 16
-remove_index = remove_index + offset - sizeof(uint64_t);
-uint64_t *block_md = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].md;
-remove_md(block_md, remove_index);
-#endif
-return true;
-*/
 
       // CVQF
       // check check_tags for comment
@@ -1341,9 +1314,9 @@ return true;
                     temp_tag--;
                   if (temp_tag == 0) {
                     if (slot_temp == slot_check + 2) {
-                      remove_tags_512(&blocks[index], slot_check);
+                      remove_tags_512(&blocks[index], slot_check + 1);
                       remove_md(block_md, remove_index);
-                      remove_tags_512(&blocks[index], slot_check);
+                      remove_tags_512(&blocks[index], slot_check + 1);
                       remove_md(block_md, remove_index);
                       //print_block(filter, index);
                       return true;
@@ -1564,227 +1537,217 @@ return true;
                          //print_block(filter, index);
                          return true;
                        }
-				 else {
-				    blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				    //print_block(filter, index);
-				    return true;
-				 }
-			      }
-			   }
-			   else if (temp_tag < tag) {
-			      temp_tag--;
-			      if (temp_tag == 0) {
-				 remove_tags_512(&blocks[index], slot_temp);
-				 remove_md(block_md, remove_index);
-				 //print_block(filter, index);
-				 return true;
-			      }
-			      else {
-				 blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				 //print_block(filter, index);
-				 return true;
-			      }
-			   }
-			   // greater than or equal to
-			   else {
-			      remove_tags_512(&blocks[index], slot_check);
-			      remove_md(block_md, remove_index);
-			      //print_block(filter, index);
-			      return true;
-			   }
-			}
-			// ultimatum
-			// NO THINK
-		     }
-		  }
-		  else {
-		     if (blocks[index].tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
-			// NO THINK
-			//ultimatum
-			if (slot_check == slot_end - 1) {
-			   remove_tags_512(&blocks[index], slot_check);
-			   remove_md(block_md, remove_index);
-			   //print_block(filter, index);
-			   return true;
-			}
-			else {
-			   uint64_t slot_temp = slot_check + 1;
-			   uint8_t temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
-			   if (temp_tag == 0) {
-			      check_indexes &= ~(one[0] << slot_check);
-			      slot_temp = _tzcnt_u64(check_indexes);
-			      if (slot_temp >= slot_end) {
-				 printf("ERROR4\n");
-				 return false;
-			      }
-			      else {
-				 slot_temp--;
-				 temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
-				 temp_tag--;
-				 if (temp_tag == tag) {
-				    temp_tag--;
-				    if (temp_tag == 0) {
-				       if (slot_temp == slot_check + 2) {
-					  remove_tags_512(&blocks[index], slot_check);
-					  remove_md(block_md, remove_index);
-					  remove_tags_512(&blocks[index], slot_check);
-					  remove_md(block_md, remove_index);
-					  //print_block(filter, index);
-					  return true;
-				       }
-				       else {
-					  remove_tags_512(&blocks[index], slot_temp);
-					  remove_md(block_md, remove_index);
-					  //print_block(filter, index);
-					  return true;
-				       }
-				    }
-				    else {
-				       blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				       if (slot_temp == slot_check + 2) {
-					  remove_tags_512(&blocks[index], slot_check + 1);
-					  remove_md(block_md, remove_index);
-				       }
-				       //print_block(filter, index);
-				       return true;
-				    }
-				 }
-				 else if (temp_tag == 0) {
-				    remove_tags_512(&blocks[index], slot_temp);
-				    remove_md(block_md, remove_index);
-				    //print_block(filter, index);
-				    return true;
-				 }
-				 else {
-				    blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				    //print_block(filter, index);
-				    return true;
-				 }
-			      }
-			   }
-			   else if (temp_tag < tag) {
-			      temp_tag--;
-			      if (temp_tag == 0) {
-				 remove_tags_512(&blocks[index], slot_temp);
-				 remove_md(block_md, remove_index);
-				 //print_block(filter, index);
-				 return true;
-			      }
-			      else {
-				 blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				 //print_block(filter, index);
-				 return true;
-			      }
-			   }
-			   // greater than or equal to
-			   else {
-			      remove_tags_512(&blocks[index], slot_check);
-			      remove_md(block_md, remove_index);
-			      //print_block(filter, index);
-			      return true;
-			   }
-			}
-			// ultimatum
-			// NO THINK
-		     }
-		     else {
-		     }
-		  }
-	       }
-	       else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
-		  // NO THINK
-		  //ultimatum
-		  if (slot_check == slot_end - 1) {
-		     remove_tags_512(&blocks[index], slot_check);
-		     remove_md(block_md, remove_index);
-		     //print_block(filter, index);
-		     return true;
-		  }
-		  else {
-		     uint64_t slot_temp = slot_check + 1;
-		     uint8_t temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
-		     if (temp_tag == 0) {
-			check_indexes &= ~(one[0] << slot_check);
-			slot_temp = _tzcnt_u64(check_indexes);
-			if (slot_temp >= slot_end) {
-			   printf("ERROR5\n");
-			   return false;
-			}
-			else {
-			   slot_temp--;
-			   temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
-			   temp_tag--;
-			   if (temp_tag == tag) {
-			      temp_tag--;
-			      if (temp_tag == 0) {
-				 if (slot_temp == slot_check + 2) {
-				    remove_tags_512(&blocks[index], slot_check);
-				    remove_md(block_md, remove_index);
-				    remove_tags_512(&blocks[index], slot_check);
-				    remove_md(block_md, remove_index);
-				    //print_block(filter, index);
-				    return true;
-				 }
-				 else {
-				    remove_tags_512(&blocks[index], slot_temp);
-				    remove_md(block_md, remove_index);
-				    //print_block(filter, index);
-				    return true;
-				 }
-			      }
-			      else {
-				 blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-				 if (slot_temp == slot_check + 2) {
-				    remove_tags_512(&blocks[index], slot_check + 1);
-				    remove_md(block_md, remove_index);
-				 }
-				 //print_block(filter, index);
-				 return true;
-			      }
-			   }
-			   else if (temp_tag == 0) {
-			      remove_tags_512(&blocks[index], slot_temp);
-			      remove_md(block_md, remove_index);
-			      //print_block(filter, index);
-			      return true;
-			   }
-			   else {
-			      blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-			      //print_block(filter, index);
-			      return true;
-			   }
-			}
-		     }
-		     else if (temp_tag < tag) {
-			temp_tag--;
-			if (temp_tag == 0) {
-			   remove_tags_512(&blocks[index], slot_temp);
-			   remove_md(block_md, remove_index);
-			   //print_block(filter, index);
-			   return true;
-			}
-			else {
-			   blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
-			   //print_block(filter, index);
-			   return true;
-			}
-		     }
-		     // greater than or equal to
-		     else {
-			remove_tags_512(&blocks[index], slot_check);
-			remove_md(block_md, remove_index);
-			//print_block(filter, index);
-			return true;
-		     }
-		  }
-		  // ultimatum
-		  // NO THINK
-	       }
-	       else {
-	       }
-	    }
-	    check_indexes &= ~(one[0] << slot_check);
-	 }
+                       else {
+                         blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                         //print_block(filter, index);
+                         return true;
+                       }
+                     }
+                   }
+                   else if (temp_tag < tag) {
+                     temp_tag--;
+                     if (temp_tag == 0) {
+                       remove_tags_512(&blocks[index], slot_temp);
+                       remove_md(block_md, remove_index);
+                       //print_block(filter, index);
+                       return true;
+                     }
+                     else {
+                       blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                       //print_block(filter, index);
+                       return true;
+                     }
+                   }
+                   // greater than or equal to
+                   else {
+                     remove_tags_512(&blocks[index], slot_check);
+                     remove_md(block_md, remove_index);
+                     //print_block(filter, index);
+                     return true;
+                   }
+                 }
+               }
+             }
+             else {
+               if (blocks[index].tags[slot_check - 2 - QUQU_PRESLOT] == 0) {
+                 if (slot_check == slot_end - 1) {
+                   remove_tags_512(&blocks[index], slot_check);
+                   remove_md(block_md, remove_index);
+                   //print_block(filter, index);
+                   return true;
+                 }
+                 else {
+                   uint64_t slot_temp = slot_check + 1;
+                   uint8_t temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
+                   if (temp_tag == 0) {
+                     check_indexes &= ~(one[0] << slot_check);
+                     slot_temp = _tzcnt_u64(check_indexes);
+                     if (slot_temp >= slot_end) {
+                       printf("ERROR4\n");
+                       return false;
+                     }
+                     else {
+                       slot_temp--;
+                       temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
+                       temp_tag--;
+                       if (temp_tag == tag) {
+                         temp_tag--;
+                         if (temp_tag == 0) {
+                           if (slot_temp == slot_check + 2) {
+                             remove_tags_512(&blocks[index], slot_check);
+                             remove_md(block_md, remove_index);
+                             remove_tags_512(&blocks[index], slot_check);
+                             remove_md(block_md, remove_index);
+                             //print_block(filter, index);
+                             return true;
+                           }
+                           else {
+                             remove_tags_512(&blocks[index], slot_temp);
+                             remove_md(block_md, remove_index);
+                             //print_block(filter, index);
+                             return true;
+                           }
+                         }
+                         else {
+                           blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                           if (slot_temp == slot_check + 2) {
+                             remove_tags_512(&blocks[index], slot_check + 1);
+                             remove_md(block_md, remove_index);
+                           }
+                           //print_block(filter, index);
+                           return true;
+                         }
+                       }
+                       else if (temp_tag == 0) {
+                         remove_tags_512(&blocks[index], slot_temp);
+                         remove_md(block_md, remove_index);
+                         //print_block(filter, index);
+                         return true;
+                       }
+                       else {
+                         blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                         //print_block(filter, index);
+                         return true;
+                       }
+                     }
+                   }
+                   else if (temp_tag < tag) {
+                     temp_tag--;
+                     if (temp_tag == 0) {
+                       remove_tags_512(&blocks[index], slot_temp);
+                       remove_md(block_md, remove_index);
+                       //print_block(filter, index);
+                       return true;
+                     }
+                     else {
+                       blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                       //print_block(filter, index);
+                       return true;
+                     }
+                   }
+                   // greater than or equal to
+                   else {
+                     remove_tags_512(&blocks[index], slot_check);
+                     remove_md(block_md, remove_index);
+                     //print_block(filter, index);
+                     return true;
+                   }
+                 }
+               }
+               else {
+               }
+             }
+           }
+           else if (blocks[index].tags[slot_check - 1 - QUQU_PRESLOT] < tag) {
+             if (slot_check == slot_end - 1) {
+               remove_tags_512(&blocks[index], slot_check);
+               remove_md(block_md, remove_index);
+               //print_block(filter, index);
+               return true;
+             }
+             else {
+               uint64_t slot_temp = slot_check + 1;
+               uint8_t temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
+               if (temp_tag == 0) {
+                 check_indexes &= ~(one[0] << slot_check);
+                 slot_temp = _tzcnt_u64(check_indexes);
+                 if (slot_temp >= slot_end) {
+                   printf("ERROR5\n");
+                   return false;
+                 }
+                 else {
+                   slot_temp--;
+                   temp_tag = blocks[index].tags[slot_temp - QUQU_PRESLOT];
+                   temp_tag--;
+                   if (temp_tag == tag) {
+                     temp_tag--;
+                     if (temp_tag == 0) {
+                       if (slot_temp == slot_check + 2) {
+                         remove_tags_512(&blocks[index], slot_check);
+                         remove_md(block_md, remove_index);
+                         remove_tags_512(&blocks[index], slot_check);
+                         remove_md(block_md, remove_index);
+                         //print_block(filter, index);
+                         return true;
+                       }
+                       else {
+                         remove_tags_512(&blocks[index], slot_temp);
+                         remove_md(block_md, remove_index);
+                         //print_block(filter, index);
+                         return true;
+                       }
+                     }
+                     else {
+                       blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                       if (slot_temp == slot_check + 2) {
+                         remove_tags_512(&blocks[index], slot_check + 1);
+                         remove_md(block_md, remove_index);
+                       }
+                       //print_block(filter, index);
+                       return true;
+                     }
+                   }
+                   else if (temp_tag == 0) {
+                     remove_tags_512(&blocks[index], slot_temp);
+                     remove_md(block_md, remove_index);
+                     //print_block(filter, index);
+                     return true;
+                   }
+                   else {
+                     blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                     //print_block(filter, index);
+                     return true;
+                   }
+                 }
+               }
+               else if (temp_tag < tag) {
+                 temp_tag--;
+                 if (temp_tag == 0) {
+                   remove_tags_512(&blocks[index], slot_temp);
+                   remove_md(block_md, remove_index);
+                   //print_block(filter, index);
+                   return true;
+                 }
+                 else {
+                   blocks[index].tags[slot_temp - QUQU_PRESLOT] = temp_tag;
+                   //print_block(filter, index);
+                   return true;
+                 }
+               }
+               // greater than or equal to
+               else {
+                 remove_tags_512(&blocks[index], slot_check);
+                 remove_md(block_md, remove_index);
+                 //print_block(filter, index);
+                 return true;
+               }
+             }
+           }
+           else {
+           }
+         }
+         check_indexes &= ~(one[0] << slot_check);
+        }
       }
       //return true;
 
@@ -2566,14 +2529,7 @@ bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash) { /*CYDBG retur
 
    __builtin_prefetch(&filter->blocks[alt_block_index / QUQU_BUCKETS_PER_BLOCK]);
 
-//   printf("[CYDBG] hash: %lx\n", hash);
    return check_tags(filter, tag, block_index) || check_tags(filter, tag, alt_block_index);
-/*   if (!re) {
-     printf("\nLOOKUP FAIL hash: %lx, tag: %ld,\n", hash, tag);
-     print_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
-     print_block(filter, alt_block_index / QUQU_BUCKETS_PER_BLOCK);
-   }
-   return re;*/
 }
 
 

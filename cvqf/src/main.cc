@@ -102,17 +102,6 @@ int main(int argc, char **argv) {
 
   vector<uint64_t> uniq_vals(nvals, 0);
 
-/*
-#if TAG_BITS == 8
-   uint64_t filterMetadataRange = (nslots + 48)/48;
-   filterMetadataRange = filterMetadataRange * 80 * (1ULL << TAG_BITS);
-#elif TAG_BITS == 16
-   uint64_t filterMetadataRange = (nslots + 28)/28;
-   filterMetadataRange = filterMetadataRange * 36 * (1ULL << TAG_BITS);
-#endif
-   printf("filter->metadata.range = %ld, nvals = %ld, nslots = %ld\n", filterMetadataRange, nvals, nslots);
-*/
-
   /* Repeat the test for TEST_NUM times. */
   for (int test_num = 0; test_num < TEST_NUM; test_num++) {
     vqf_filter *filter;	
@@ -126,10 +115,13 @@ int main(int argc, char **argv) {
     if (zipf_const == 0) {
       // Generate random values
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
-      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
+      mt19937 rng(42);
+      uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
       for (uint64_t i = 0; i < nvals; i++) {
-        vals[i] = (1 * vals[i]) % filter->metadata.range;
-        uniq_vals[i] = vals[i];
+        vals[i] = dist(rng);
+//        vals[i] = (1 * vals[i]) % filter->metadata.range;i
+//        uniq_vals[i] = vals[i];
       }
     } else {
       Generator<uint64_t> *key_chooser_;
@@ -168,17 +160,34 @@ int main(int argc, char **argv) {
     }
 
     /*CYDBG uniq_vals*/
-    std::sort(uniq_vals.begin(), uniq_vals.end());
-    uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());
+//    std::sort(uniq_vals.begin(), uniq_vals.end());
+//    uniq_vals.erase(std::unique(uniq_vals.begin(), uniq_vals.end()), uniq_vals.end());
     /*CYDBG*/
 
-    ofstream outFile("vals.txt");
+    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
+    mt19937 seed(50);
+    uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
+    for (uint64_t i = 0; i < nvals; i++) {
+      other_vals[i] = dist(seed);
+//      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+    }
+
+/*    ofstream outFile("vals.txt");
     if (outFile) {
       for (uint64_t i = 0; i < nvals; i++) {
         outFile << vals[i] << "\n";
       }
     }
     outFile.close();
+
+    ofstream outFile3("other_vals.txt");
+    if (outFile3) {
+      for (uint64_t i = 0; i < nvals; i++) {
+        outFile3 << other_vals[i] << "\n";
+      }
+    }
+    outFile3.close();
 
     ofstream outFile2("uniq_vals.txt");
     if (outFile2) {
@@ -188,24 +197,28 @@ int main(int argc, char **argv) {
     }
     outFile2.close();
 
-/*    ifstream file("input.txt");
-    if (file.is_open()) {
+    ifstream inFile("/home/ubuntu/filters/cvqf/vals.txt");
+    if (inFile.is_open()) {
       string line;
       for (uint64_t i = 0; i < nvals; i++) {
-        getline(file, line);
+        getline(inFile, line);
         vals[i] = stoull(line);
       }
-      file.close();
+      inFile.close();
+    }
+
+    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
+    ifstream inFile2("/home/ubuntu/filters/cvqf/other_vals.txt");
+    if (inFile2.is_open()) {
+      string line;
+      for (uint64_t i = 0; i < nvals; i++) {
+        getline(inFile2, line);
+        other_vals[i] = stoull(line);
+      }
+      inFile2.close();
     }*/
 
     printf("[CYDBG] nvals: %ld\n", nvals);
-
-
-    other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
-    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
-    for (uint64_t i = 0; i < nvals; i++) {
-      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
-    }
 
     struct timeval start, end;
     struct timezone tzp;
@@ -254,17 +267,6 @@ int main(int argc, char **argv) {
         uint64_t block_index = vals[i] >> 8;
         uint64_t alt_block_index = ((vals[i] ^ ((vals[i] & 0xff) * 0x5bd1e995)) % filter->metadata.range) >> 8;
         fprintf(stderr, "Lookup failed for %lx, tag: %ld, i: %ld\n", vals[i], vals[i] & 0xff, i);
-        print_block(filter, block_index / 80);
-        printf("offset: %ld\n", block_index % 80);
-        print_block(filter, alt_block_index / 80);
-        printf("offset: %ld\n", alt_block_index % 80);
-        vqf_insert(filter, vals[i]);
-        printf("Inserted again");
-        print_block(filter, block_index / 80);
-        printf("offset: %ld\n", block_index % 80);
-        print_block(filter, alt_block_index / 80);
-        printf("offset: %ld\n", alt_block_index % 80);
-        printf("%d\n", vqf_is_present(filter, vals[i]));
         exit(EXIT_FAILURE);
       }
     }
@@ -298,12 +300,11 @@ int main(int argc, char **argv) {
     /* Delete hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
       vqf_remove(filter, vals[i]);
-      //bool success;
-      //success = vqf_remove(filter, vals[i]);
-      //if (success == false) {
-      //  fprintf(stderr, "Remove failed for %ld\n", vals[i]);
-      //  exit(EXIT_FAILURE);
-      //}
+/*      bool remove;
+      remove = vqf_remove(filter, vals[i]);
+      if (!remove) {
+        printf("Remove failed for %ld, hash: %ld\n", i, vals[i]);
+      }*/
     }
     gettimeofday(&end, &tzp);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
