@@ -132,17 +132,6 @@ int main(int argc, char **argv) {
 //  set<uint64_t> uniq_vals;
   vector<uint64_t> uniq_vals(nvals, 0);
 
-/*
-#if TAG_BITS == 8
-   uint64_t filterMetadataRange = (nslots + 48)/48;
-   filterMetadataRange = filterMetadataRange * 80 * (1ULL << TAG_BITS);
-#elif TAG_BITS == 16
-   uint64_t filterMetadataRange = (nslots + 28)/28;
-   filterMetadataRange = filterMetadataRange * 36 * (1ULL << TAG_BITS);
-#endif
-   printf("filter->metadata.range = %ld, nvals = %ld, nslots = %ld\n", filterMetadataRange, nvals, nslots);
-*/
-
   /* Repeat the test for TEST_NUM times. */
   for (int test_num = 0; test_num < TEST_NUM; test_num++) {
     vqf_filter *filter;	
@@ -172,15 +161,6 @@ int main(int argc, char **argv) {
 //      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
       printf("[CYDBG] vals.txt used\n");
 //      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
-    ifstream file("vals.txt");
-    if (file.is_open()) {
-      string line;
-      for (uint64_t i = 0; i < nvals; i++) {
-        getline(file, line);
-        vals[i] = stoull(line);
-      }
-      file.close();
-    }
 /*      if (file.is_open()) {
         string line;
         uint64_t i = 0;
@@ -201,10 +181,13 @@ int main(int argc, char **argv) {
     else if (zipf_const == 0) {
       // Generate random values
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
-      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
+      mt19937 rng(42);
+      uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
       for (uint64_t i = 0; i < nvals; i++) {
-        vals[i] = (1 * vals[i]) % filter->metadata.range;
-        uniq_vals[i] = vals[i];
+        vals[i] = dist(rng);
+//        vals[i] = (1 * vals[i]) % filter->metadata.range;
+//        uniq_vals[i] = vals[i];
 //        uniq_vals.insert(vals[i]);
       }
       printf("[CYDBG] Uniform Created\n");
@@ -221,9 +204,12 @@ int main(int argc, char **argv) {
     }
 
     other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
-    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
+    mt19937 seed(50);
+    uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
     for (uint64_t i = 0; i < nvals; i++) {
-      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+//      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+      other_vals[i] = dist(seed);
     }
 
     /*CYDBG uniq_vals*/
@@ -251,15 +237,15 @@ int main(int argc, char **argv) {
         outFile3 << other_vals[i] << "\n";
       }
     }
-    outFile3.close();*/
+    outFile3.close();
 
-/*    ofstream outFile2("uniq_vals.txt");
+    ofstream outFile2("uniq_vals.txt");
     if (outFile2) {
       for (auto itr = uniq_vals.begin(); itr != uniq_vals.end(); itr++) {
         outFile2 << (*itr) << " " << count(vals, vals + nvals, (*itr)) << "\n";
       }
     }
-    outFile2.close();*/
+    outFile2.close();
 
     ifstream inFile("vals.txt");
     if (inFile.is_open()) {
@@ -281,7 +267,7 @@ int main(int argc, char **argv) {
       inFile2.close();
     }
 
-/*    vector<uint64_t> uniq_count (uniq_nvals, 0);
+    vector<uint64_t> uniq_count (uniq_nvals, 0);
     for (uint64_t i = 0; i < uniq_nvals; i++) {
       uniq_count[i] = count(vals, vals + nvals, uniq_vals[i]);
     }*/

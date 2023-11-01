@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="/home/ubuntu/filter_data/data/cvqf_overhead/10/cvqf17_"
+DIR="/home/ubuntu/filter_data/data/cvqf_overhead/1101_2/cvqf17_"
 
 for i in {1..10..1}
 do
