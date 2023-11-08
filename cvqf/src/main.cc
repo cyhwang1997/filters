@@ -63,9 +63,9 @@ uint64_t tv2usec(struct timeval *tv) {
 void print_time_elapsed(const char* desc, struct timeval* start, struct
       timeval* end, uint64_t ops, const char *opname) {
   uint64_t elapsed_usecs = tv2usec(end) - tv2usec(start);
-  printf("%s Total Time Elapsed: %f seconds", desc, 1.0*elapsed_usecs / 1000000);
+  printf("%s Total Time Elapsed: %f seconds(", desc, 1.0*elapsed_usecs / 1000000);
   if (ops) {
-    printf(" (%f nanoseconds/%s)", 1000.0 * elapsed_usecs / ops, opname);
+    printf(" %f nanoseconds/%s)", 1000.0 * elapsed_usecs / ops, opname);
     printf(" (Throughput %f Mops/sec]", 1.0 * ops / elapsed_usecs);
   }
   printf("\n");
@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
   double positive_throughput = 0.0;
   double negative_throughput = 0.0;
   double remove_throughput = 0.0;
-  double count_throughput = 0.0;
+//  double count_throughput = 0.0;
 
 //  set<uint64_t> uniq_vals;
   vector<uint64_t> uniq_vals(nvals, 0);
@@ -292,15 +292,15 @@ int main(int argc, char **argv) {
       }
       /*CYDBG*/
 /*      else {
-        linked_blocks * blocks = filter->blocks;
-        linked_blocks * last_block = &blocks[insert_return];
+        linked_list * blocks = filter->blocks;
+        linked_blocks * last_block = &blocks[insert_return].head_block;
         insertFile << "i: " << i << "\n";
         insertFile << "hash: " << vals[i] << "\n";
         insertFile << "tag: " << (vals[i] & 0xff) << "\n";
         uint64_t block_index = vals[i] >> 8;
         uint64_t tag = vals[i] & 0xff;
         uint64_t alt_block_index = ((vals[i] ^ (tag * 0x5bd1e995)) % filter->metadata.range) >> 8;
-        insertFile << "block_index: " << block_index << ", alt_block_index: " << alt_block_index << "\n";
+        insertFile << "block_index: " << block_index / 80 << ", alt_block_index: " << alt_block_index / 80 << "\n";
         insertFile << "block_index: " << block_index / 80;
         insertFile << "\noffset: " << block_index % 80;
         insertFile << "\nalt_block_index: " << alt_block_index / 80;
@@ -320,16 +320,16 @@ int main(int argc, char **argv) {
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
-    printf("[CYDBG] SIZE: %ld, total_blocks: %ld, add_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks, filter->metadata.add_blocks);
+//    printf("[CYDBG] SIZE: %ld, total_blocks: %ld, add_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks, filter->metadata.add_blocks);
 
-    uint64_t fslots = 0;
+/*    uint64_t fslots = 0;
     for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
       uint64_t *block_md = filter->blocks[i].block.md;
       uint64_t lower_word = block_md[0];
       uint64_t higher_word = block_md[1];
       fslots += __builtin_popcountll(~lower_word) + __builtin_popcountll(~higher_word);
     }
-    printf("[CYDBG] fslots: %ld\n", fslots);
+    printf("[CYDBG] fslots: %ld\n", fslots);*/
 
 
     gettimeofday(&start, &tzp);
@@ -387,14 +387,14 @@ int main(int argc, char **argv) {
     print_time_elapsed("Random lookup:", &start, &end, nvals, "random_lookup");
     printf("%lu/%lu positives\nFP rate: 1/%f\n", nfps, nvals, 1.0 * nvals / nfps);
 
-/*    printf("[CYDBG] Print Filter\n");
+    printf("[CYDBG] Print Filter\n");
     ofstream filterFile("filter.txt");
     if (filterFile) {
       filterFile << "total blocks: " << filter->metadata.nblocks << "\n";
       filterFile << "add blocks: " << filter->metadata.add_blocks << "\n";
       for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
-        linked_blocks    *blocks             = filter->blocks;
-        linked_blocks *last_block = &blocks[i];
+        linked_list    *blocks             = filter->blocks;
+        linked_blocks *last_block = &blocks[i].head_block;
         do {
           file_block(filter, i, &last_block->block, filterFile);
           last_block = last_block->next;
@@ -402,7 +402,7 @@ int main(int argc, char **argv) {
         filterFile << "\n";
       }
     }
-    filterFile.close();*/
+    filterFile.close();
 
     gettimeofday(&start, &tzp);
     /* Delete hashes in the vqf filter */
@@ -460,12 +460,12 @@ int main(int argc, char **argv) {
       
     print_time_elapsed("Remove time", &start, &end, nvals, "remove");
 
+
     /*Free Linked Blocks*/
     if (filter->metadata.add_blocks != 0) {
       printf("[CYDBG] Deleting add_blocks\n");
       for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
-        linked_blocks    *blocks             = filter->blocks;
-        linked_blocks *last_block = filter->blocks[i].next;
+        linked_blocks *last_block = filter->blocks[i].head_block.next;
         while (last_block != NULL) {
           linked_blocks *to_be_freed = last_block;
           last_block = last_block->next;

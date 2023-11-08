@@ -59,6 +59,12 @@ extern "C" {
     vqf_block block;
     linked_blocks *next;
   } linked_blocks;
+
+  typedef struct linked_list{
+    linked_blocks head_block;
+    linked_blocks *tail;
+    int block_num;
+  } linked_list;
   /*CY*/
 
 	typedef struct vqf_metadata {
@@ -74,7 +80,8 @@ extern "C" {
 	typedef struct vqf_filter {
 		vqf_metadata metadata;
 //		vqf_block blocks[];
-    linked_blocks blocks[]; /*CY*/
+//    linked_blocks blocks[]; /*CY*/
+    linked_list blocks[]; /*CY*/
 	} vqf_filter;
 
 	vqf_filter * vqf_init(uint64_t nslots);
@@ -93,6 +100,7 @@ extern "C" {
         bool check_space(vqf_filter * filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
   void print_filter(vqf_filter * filter);
+  void print_time(uint64_t nvals);
   vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
 
 
