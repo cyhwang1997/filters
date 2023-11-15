@@ -63,7 +63,7 @@ extern "C" {
   typedef struct linked_list{
     linked_blocks head_block;
     linked_blocks *tail;
-    int block_num;
+//    int block_num;
   } linked_list;
   /*CY*/
 

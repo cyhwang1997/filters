@@ -112,6 +112,7 @@ int main(int argc, char **argv) {
 #else
   printf("[CYDBG] AVX2 is used\n");
 #endif
+  printf("[CYDBG] [SIZE] vqf_block: %ld, linked_blocks: %ld, linked_list: %ld\n", sizeof(vqf_block), sizeof(linked_blocks), sizeof(linked_list));
 
   uint64_t qbits = atoi(argv[1]);
   uint64_t nslots = (1ULL << qbits);
@@ -141,27 +142,27 @@ int main(int argc, char **argv) {
       fprintf(stderr, "Can't allocate vqf filter.");
       exit(EXIT_FAILURE);
     }
+
+    printf("[CYDBG] range: %ld\n", filter->metadata.range);
     
 
     if (zipf_const == -2) {
-      nvals = 3;
-      vals = (uint64_t *)malloc(3 * sizeof(vals[0]));
+      nvals = 40000;
+      vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
       printf("----------TESTING RESIZING----------\n");
-      for (uint64_t i = 0; i < 3; i++) {
-        vals[i] = (84 << 8) + 1;
+      for (uint64_t i = 0; i < nvals; i++) {
+        vals[i] = 1;
       }
-      uniq_vals.resize(1);
-      uniq_vals[0] = 1;
     }
     else if (zipf_const == -1) {
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
-//      printf("[CYDBG] kosarak.dat used\n");
-//      ifstream file("/home/ubuntu/real_datasets/kosarak.dat");
+      printf("[CYDBG] kosarak.dat used\n");
+      ifstream file("/home/ubuntu/real_datasets/kosarak.dat");
 //      printf("[CYDBG] vals.txt used\n");
 //      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
-      printf("[CYDBG] vals.txt used\n");
+//      printf("[CYDBG] vals.txt used\n");
 //      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
-/*      if (file.is_open()) {
+      if (file.is_open()) {
         string line;
         uint64_t i = 0;
         while (i < nvals) {
@@ -169,14 +170,14 @@ int main(int argc, char **argv) {
           stringstream ss(line);
           string tmp;
           while (getline(ss, tmp, ' ') && i < nvals) {
-//            vals[i] = stoull(tmp) * 1234567 % filter->metadata.range;
-            vals[i] = stoull(tmp) % filter->metadata.range;
+            vals[i] = stoull(tmp) * 1234567 % filter->metadata.range;
+//            vals[i] = stoull(tmp) % filter->metadata.range;
             uniq_vals[i] = vals[i];
             i++;
           }
         }
         file.close();
-      }*/
+      }
     }
     else if (zipf_const == 0) {
       // Generate random values
@@ -193,7 +194,7 @@ int main(int argc, char **argv) {
       printf("[CYDBG] Uniform Created\n");
     } else {
       Generator<uint64_t> *key_chooser_;
-      key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range, zipf_const);
+      key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range - 1, zipf_const);
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
       for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = key_chooser_->Next() % filter->metadata.range;
@@ -277,7 +278,7 @@ int main(int argc, char **argv) {
     struct timezone tzp;
     uint64_t elapsed_usecs;
 
-    int insert_return = 1;
+    uint64_t insert_return = 1;
 
     gettimeofday(&start, &tzp);
     uint64_t num_successful_inserts = 0;
@@ -320,7 +321,7 @@ int main(int argc, char **argv) {
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
-//    printf("[CYDBG] SIZE: %ld, total_blocks: %ld, add_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks, filter->metadata.add_blocks);
+    printf("[CYDBG] SIZE: %ld, total_blocks: %ld, add_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks, filter->metadata.add_blocks);
 
 /*    uint64_t fslots = 0;
     for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
@@ -330,7 +331,6 @@ int main(int argc, char **argv) {
       fslots += __builtin_popcountll(~lower_word) + __builtin_popcountll(~higher_word);
     }
     printf("[CYDBG] fslots: %ld\n", fslots);*/
-
 
     gettimeofday(&start, &tzp);
     /* Lookup hashes in the vqf filter (Successful Lookup) */
@@ -385,9 +385,9 @@ int main(int argc, char **argv) {
     negative_throughput += 1.0 * nvals / elapsed_usecs;
       
     print_time_elapsed("Random lookup:", &start, &end, nvals, "random_lookup");
-    printf("%lu/%lu positives\nFP rate: 1/%f\n", nfps, nvals, 1.0 * nvals / nfps);
+    printf("%lu/%lu positives\nFP rate: %f\n", nfps, nvals, 1.0 * nfps / nvals);
 
-    printf("[CYDBG] Print Filter\n");
+/*    printf("[CYDBG] Print Filter\n");
     ofstream filterFile("filter.txt");
     if (filterFile) {
       filterFile << "total blocks: " << filter->metadata.nblocks << "\n";
@@ -402,7 +402,7 @@ int main(int argc, char **argv) {
         filterFile << "\n";
       }
     }
-    filterFile.close();
+    filterFile.close();*/
 
     gettimeofday(&start, &tzp);
     /* Delete hashes in the vqf filter */
@@ -463,7 +463,6 @@ int main(int argc, char **argv) {
 
     /*Free Linked Blocks*/
     if (filter->metadata.add_blocks != 0) {
-      printf("[CYDBG] Deleting add_blocks\n");
       for (uint64_t i = 0; i < filter->metadata.nblocks; i++) {
         linked_blocks *last_block = filter->blocks[i].head_block.next;
         while (last_block != NULL) {

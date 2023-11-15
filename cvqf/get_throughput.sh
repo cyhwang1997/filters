@@ -1,16 +1,12 @@
 #!/bin/bash
 
-DIR="/home/ubuntu/filter_data/data/cvqf_overhead/1106/cvqf17_"
+FILE="/home/ubuntu/filter_data/data/zipf/cvqf/cvqf26_9.dat"
 
-for i in {10..90..10}
+for i in {1..10..1}
 do
-	for j in {1..10..1}
-	do
-		FILE="$DIR$i.dat"
-		echo "[zipf_const: 0, load_factor: $i]" >> $FILE
-		sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"
- 		sleep 10
-		./main 17 $i 0 >> $FILE
-		echo "" >> $FILE
-	done
+	echo "[[$i] zipf_const: 0.9, load_factor: 90]" >> $FILE
+	sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"
+ 	sleep 10
+	./main 26 90 0.9 >> $FILE
+	echo "" >> $FILE
 done
