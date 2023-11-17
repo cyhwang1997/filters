@@ -101,7 +101,7 @@ extern "C" {
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
   void print_filter(vqf_filter * filter);
   void print_time(uint64_t nvals);
-  vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index);
+  void add_block(vqf_filter * restrict filter, uint64_t block_index);
 
 
 #ifdef __cplusplus

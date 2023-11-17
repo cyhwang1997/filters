@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
 //  double count_throughput = 0.0;
 
 //  set<uint64_t> uniq_vals;
-  vector<uint64_t> uniq_vals(nvals, 0);
+//  vector<uint64_t> uniq_vals(nvals, 0);
 
   /* Repeat the test for TEST_NUM times. */
   for (int test_num = 0; test_num < TEST_NUM; test_num++) {
@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
           while (getline(ss, tmp, ' ') && i < nvals) {
             vals[i] = stoull(tmp) * 1234567 % filter->metadata.range;
 //            vals[i] = stoull(tmp) % filter->metadata.range;
-            uniq_vals[i] = vals[i];
+//            uniq_vals[i] = vals[i];
             i++;
           }
         }
@@ -198,7 +198,7 @@ int main(int argc, char **argv) {
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
       for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = key_chooser_->Next() % filter->metadata.range;
-        uniq_vals[i] = vals[i];
+//        uniq_vals[i] = vals[i];
 //        uniq_vals.insert(vals[i]);
       }
       printf("Zipfian Created\n");
@@ -286,7 +286,7 @@ int main(int argc, char **argv) {
     /* Insert hashes in the vqf filter */
     for (uint64_t i = 0; i < nvals; i++) {
       insert_return = vqf_insert(filter, vals[i]);
-      if (insert_return == -1) {
+      if (insert_return == UINT64_MAX) {
         fprintf(stderr, "Insertion failed\n");
         printf("[CYDBG] keys_to_be_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
         exit(EXIT_FAILURE);
@@ -387,7 +387,7 @@ int main(int argc, char **argv) {
     print_time_elapsed("Random lookup:", &start, &end, nvals, "random_lookup");
     printf("%lu/%lu positives\nFP rate: %f\n", nfps, nvals, 1.0 * nfps / nvals);
 
-/*    printf("[CYDBG] Print Filter\n");
+    printf("[CYDBG] Print Filter\n");
     ofstream filterFile("filter.txt");
     if (filterFile) {
       filterFile << "total blocks: " << filter->metadata.nblocks << "\n";
@@ -402,7 +402,7 @@ int main(int argc, char **argv) {
         filterFile << "\n";
       }
     }
-    filterFile.close();*/
+    filterFile.close();
 
     gettimeofday(&start, &tzp);
     /* Delete hashes in the vqf filter */

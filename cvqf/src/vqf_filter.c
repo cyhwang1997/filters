@@ -19,6 +19,7 @@
 #include <math.h>
 #include <sys/time.h> /*CY*/
 #include <time.h>
+#include <pthread.h>
 
 #include "vqf_filter.h"
 #include "vqf_precompute.h"
@@ -29,6 +30,7 @@
 #define QUQU_SLOTS_PER_BLOCK 48
 #define QUQU_BUCKETS_PER_BLOCK 80
 #define QUQU_CHECK_ALT 92
+#define QUQU_CHECK_SPACE 82
 
 // additional
 #define QUQU_MAX 255
@@ -39,12 +41,14 @@
 #define QUQU_SLOTS_PER_BLOCK 32
 #define QUQU_BUCKETS_PER_BLOCK 96
 #define QUQU_CHECK_ALT 104
+#define QUQU_CHECK_SPACE 98
 
 #elif TAG_BITS == 16
 #define TAG_MASK 0xffff
 #define QUQU_SLOTS_PER_BLOCK 28 
 #define QUQU_BUCKETS_PER_BLOCK 36
 #define QUQU_CHECK_ALT 43
+#define QUQU_CHECK_SPACE 38
 
 // additional
 #define QUQU_MAX 65535
@@ -501,6 +505,11 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 
    __builtin_prefetch(&blocks[alt_block_index/QUQU_BUCKETS_PER_BLOCK].head_block);
 
+   pthread_t thread;
+   if (block_free <= QUQU_CHECK_SPACE && last_block->next == NULL) {
+     add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+   }
+
    // block_index is over 75% full && the two candidate blocks are different
    if (block_free < QUQU_CHECK_ALT && block_index/QUQU_BUCKETS_PER_BLOCK != alt_block_index/QUQU_BUCKETS_PER_BLOCK) {
 //      unlock(*cur_block);
@@ -531,7 +540,8 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
         } else { //both blocks are full
 //          unlock_blocks(filter, block_index, alt_block_index);
 //          if (block_num < alt_block_num) {
-            cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+            blocks[block_index/QUQU_BUCKETS_PER_BLOCK].tail = last_block->next;
+            cur_block = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].tail->block;
 //            blocks[block_index/QUQU_BUCKETS_PER_BLOCK].block_num++;
 //            printf("[CYDBG] block_index %ld added\n", block_index / QUQU_BUCKETS_PER_BLOCK);
             block_md = cur_block->md;
@@ -544,7 +554,7 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
             block_md = cur_block->md;
             block_free = get_block_free_space(block_md);
           }*/
-          filter->metadata.add_blocks++;
+//          filter->metadata.add_blocks++;
           filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
         }
       } else {
@@ -555,11 +565,13 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 //       printf("[CYDBG] insert check\n");
        if (!check_space(filter, tag, block_index, cur_block)) {
 //         unlock_blocks(filter, block_index, alt_block_index);
-         cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+         blocks[block_index/QUQU_BUCKETS_PER_BLOCK].tail = last_block->next;
+         cur_block = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].tail->block;
+//         cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
 //         printf("[CYDBG] block_index %ld added\n", block_index / QUQU_BUCKETS_PER_BLOCK);
          block_md = cur_block->md;
          block_free = get_block_free_space(block_md);
-         filter->metadata.add_blocks++;
+//         filter->metadata.add_blocks++;
          filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
        }
      } else {  
@@ -569,10 +581,12 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 
    if (block_free == QUQU_BUCKETS_PER_BLOCK + 1 && tag == 1) {
      if (count_tags (filter, tag, block_index, cur_block) == 2) {
-       cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
+       blocks[block_index/QUQU_BUCKETS_PER_BLOCK].tail = last_block->next;
+       cur_block = &blocks[block_index / QUQU_BUCKETS_PER_BLOCK].tail->block;
+//       cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
        block_md = cur_block->md;
        block_free = get_block_free_space(block_md);
-       filter->metadata.add_blocks++;
+//       filter->metadata.add_blocks++;
        filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
      }
    }
@@ -784,7 +798,7 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
            //update_md(block_md, select_index);
 //           unlock(*cur_block);
            //return false;
-           return -1;
+           return UINT64_MAX;
          }
        }
 
@@ -799,7 +813,7 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
              printf("ERROR1\n");
 //             unlock(*cur_block);
              //return false;
-             return -1;
+             return UINT64_MAX;
            }
 
            // can insert two tags
@@ -984,7 +998,7 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
 
    //print_block(filter, index);
    // something went wrong
-   return -1;
+   return UINT64_MAX;
 }
 
 static inline bool remove_tags(vqf_filter * restrict filter, uint64_t tag,
@@ -2661,7 +2675,7 @@ bool check_space(vqf_filter* restrict filter, uint64_t tag, uint64_t block_index
   }
 }
 
-vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index) {
+void add_block(vqf_filter * restrict filter, uint64_t block_index) {
   linked_blocks *new_block;
   new_block = (linked_blocks *)malloc(sizeof(linked_blocks));
   linked_list * restrict blocks = filter->blocks;
@@ -2683,7 +2697,8 @@ vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index) {
 
   linked_blocks *last_block = blocks[block_index].tail;
   last_block->next = new_block;
-  blocks[block_index].tail = new_block;
+  filter->metadata.add_blocks++;
+//  blocks[block_index].tail = new_block; /*adds block when the last block is not full. keeps the tail to the previous block*/
 
-  return &new_block->block;
+//  return &new_block->block;
 }
