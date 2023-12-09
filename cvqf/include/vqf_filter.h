@@ -57,12 +57,13 @@ extern "C" {
   /*CY*/
   typedef struct linked_blocks{
     vqf_block block;
-    linked_blocks *next;
+    linked_blocks *child0;
+    linked_blocks *child1;
   } linked_blocks;
 
   typedef struct linked_list{
     linked_blocks head_block;
-    linked_blocks *tail;
+//    linked_blocks *tail;
 //    int block_num;
   } linked_list;
   /*CY*/
@@ -101,7 +102,7 @@ extern "C" {
         int count_tags(vqf_filter * restrict filter, uint64_t tag, uint64_t block_index, vqf_block *cur_block);
   void print_filter(vqf_filter * filter);
   void print_time(uint64_t nvals);
-  void add_block(vqf_filter * restrict filter, uint64_t block_index);
+  vqf_block* add_block(vqf_filter * restrict filter, linked_blocks * parent, bool child_node);
 
 
 #ifdef __cplusplus
