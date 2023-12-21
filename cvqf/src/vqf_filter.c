@@ -17,8 +17,7 @@
 #include <immintrin.h>  // portable to all x86 compilers
 #include <tmmintrin.h>
 #include <math.h>
-#include <sys/time.h> /*CY*/
-#include <time.h>
+#include <openssl/rand.h> /*CY*/
 
 #include "vqf_filter.h"
 #include "vqf_precompute.h"
@@ -541,18 +540,25 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
         } else { //both blocks are full
 //          unlock_blocks(filter, block_index, alt_block_index);
 //          if (block_num < alt_block_num) {
-           node_level = 0;
-           linked_blocks *parent;
+            node_level = 0;
+            linked_blocks *parent;
+/*            unsigned char rand_buf[4];
+            RAND_bytes(rand_buf, sizeof(rand_buf));
+            unsigned int rand_num = *((unsigned int*) rand_buf);
+            if (rand_num % 2) {
+              last_block = last_alt_block;
+              block_index = alt_block_index;
+            }*/
             while (true) {
               parent = last_block;
-              bool child_node = tag & (1 << node_level);
-              if (child_node) {
+//              bool child_node = tag & (1 << node_level);
+              if ((bool)(tag & (1 << node_level))) {
                 last_block = last_block->child1;
               } else {
                 last_block = last_block->child0;
               }
               if (last_block == NULL) {
-                cur_block = add_block(filter, parent, child_node);
+                cur_block = add_block(filter, parent, (bool)(tag & (1 << node_level)));
                 block_md = cur_block->md;
                 block_free = get_block_free_space(block_md);
                 break;
@@ -1900,20 +1906,31 @@ bool vqf_remove(vqf_filter * restrict filter, uint64_t hash) {
      return remove_tags(filter, tag, block_index, &cur_lblock->block) || remove_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
    } else {
 //     printf("[CYDBG] Resizing\n");
-     bool remove = remove_tags(filter, tag, block_index, &cur_lblock->block) || remove_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
-     if (remove) return remove;
+     if (remove_tags(filter, tag, block_index, &cur_lblock->block) || remove_tags(filter, tag, alt_block_index, &cur_alt_lblock->block))
+       return true;
      uint64_t i = 0;
      while (cur_lblock != NULL) {
-       bool child_node = tag & (1 << i);
-       if (child_node)
+//       bool child_node = tag & (1 << i);
+       if ((bool)(tag & (1 << i)))
          cur_lblock = cur_lblock->child1;
        else
          cur_lblock = cur_lblock->child0;
        if (cur_lblock == NULL) return false;
-       remove = remove_tags(filter, tag, block_index, &cur_lblock->block);
-       if (remove) return remove;
+       if (remove_tags(filter, tag, block_index, &cur_lblock->block))
+         return remove;
        i = (i + 1) % 8;
      };
+/*     while (cur_alt_lblock != NULL) {
+       bool child_node = tag & (1 << i);
+       if (child_node)
+         cur_alt_lblock = cur_alt_lblock->child1;
+       else
+         cur_alt_lblock = cur_alt_lblock->child0;
+       if (cur_alt_lblock == NULL) return false;
+       remove = remove_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
+       if (remove) return remove;
+       i = (i + 1) % 8;
+     };*/
    }
 }
 
@@ -2612,20 +2629,32 @@ bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash) { /*CYDBG retur
      return check_tags(filter, tag, block_index, &cur_lblock->block) || check_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
    } else { /*CY*/
 //     printf("[CYDBG] Resizing\n");
-     bool check = check_tags(filter, tag, block_index, &cur_lblock->block) || check_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
-     if (check) return true;
+     if (check_tags(filter, tag, block_index, &cur_lblock->block) || check_tags(filter, tag, alt_block_index, &cur_alt_lblock->block))
+       return true;
      uint64_t i = 0;
      while(cur_lblock != NULL) {
-       bool child_node = tag & (1 << i);
-       if (child_node)
+//       bool child_node = tag & (1 << i);
+       if ((bool)(tag & (1 << i)))
          cur_lblock = cur_lblock->child1;
        else
          cur_lblock = cur_lblock->child0;
        if (cur_lblock == NULL) return false;
-       check = check_tags(filter, tag, block_index, &cur_lblock->block);
-       if (check) return true;
+       if (check_tags(filter, tag, block_index, &cur_lblock->block))
+         return true;
        i = (i + 1) % 8;
      };
+
+/*     while(cur_alt_lblock != NULL) {
+       bool child_node = tag & (1 << i);
+       if (child_node)
+         cur_alt_lblock = cur_alt_lblock->child1;
+       else
+         cur_alt_lblock = cur_alt_lblock->child0;
+       if (cur_alt_lblock == NULL) return false;
+       check = check_tags(filter, tag, alt_block_index, &cur_alt_lblock->block);
+       if (check) return true;
+       i = (i + 1) % 8;
+     };*/
    } /*CY*/
 }
 
@@ -2656,11 +2685,12 @@ int get_count(vqf_filter * restrict filter, uint64_t hash) {
    if (block_index == alt_block_index) {
       while (cur_lblock != NULL) {
         count += count_tags (filter, tag, block_index, &cur_lblock->block);
-        if (tag & (1 << i) == 0) {
-          cur_lblock = cur_lblock->child0;
+//        bool child_node = tag & (1 << i);
+        if ((bool)(tag & (1 << i))) {
+          cur_lblock = cur_lblock->child1;
         }
         else {
-          cur_lblock = cur_lblock->child1;
+          cur_lblock = cur_lblock->child0;
         }
         i = (i + 1) % 8;
       };
@@ -2669,16 +2699,28 @@ int get_count(vqf_filter * restrict filter, uint64_t hash) {
    else {
       while (cur_lblock != NULL) {
         count += count_tags (filter, tag, block_index, &cur_lblock->block);
-        if (tag & (1 << i) == 0) {
-          cur_lblock = cur_lblock->child0;
+//        bool child_node = tag & (1 << i);
+        if ((bool)(tag & (1 << i))) {
+          cur_lblock = cur_lblock->child1;
         }
         else {
-          cur_lblock = cur_lblock->child1;
+          cur_lblock = cur_lblock->child0;
         }
         i = (i + 1) % 8;
       };
-
+/*      while (cur_alt_lblock != NULL) {
+        count += count_tags (filter, tag, alt_block_index, &cur_alt_lblock->block);
+        bool child_node = tag & (1 << i);
+        if (child_node) {
+          cur_alt_lblock = cur_alt_lblock->child1;
+        }
+        else {
+          cur_alt_lblock = cur_alt_lblock->child0;
+        }
+        i = (i + 1) % 8;
+      };*/
       count += count_tags (filter, tag, alt_block_index, &cur_alt_lblock->block);
+
       return count;
 //      return count_tags(filter, tag, block_index, cur_block) + count_tags(filter, tag, alt_block_index, cur_alt_block);
    }
