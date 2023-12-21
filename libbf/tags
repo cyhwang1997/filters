@@ -1,0 +1,918 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	432;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	435;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	438;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	441;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	445;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	447;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	449;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	453;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	456;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	459;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	464;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	467;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	470;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	475;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	478;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	481;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	484;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	487;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	490;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	493;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	496;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	499;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	502;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	507;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	510;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	513;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	516;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	519;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	522;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	525;"	d	file:
+BF_ALL_HPP	bf/all.hpp	2;"	d
+BF_ALL_HPP	include/bf/all.hpp	2;"	d
+BF_BITVECTOR_HPP	bf/bitvector.hpp	2;"	d
+BF_BITVECTOR_HPP	include/bf/bitvector.hpp	2;"	d
+BF_BLOOM_FILTER_A2_HPP	bf/bloom_filter/a2.hpp	2;"	d
+BF_BLOOM_FILTER_A2_HPP	include/bf/bloom_filter/a2.hpp	2;"	d
+BF_BLOOM_FILTER_BASIC_HPP	bf/bloom_filter/basic.hpp	2;"	d
+BF_BLOOM_FILTER_BASIC_HPP	include/bf/bloom_filter/basic.hpp	2;"	d
+BF_BLOOM_FILTER_BITWISE_HPP	bf/bloom_filter/bitwise.hpp	2;"	d
+BF_BLOOM_FILTER_BITWISE_HPP	include/bf/bloom_filter/bitwise.hpp	2;"	d
+BF_BLOOM_FILTER_COUNTING_HPP	bf/bloom_filter/counting.hpp	2;"	d
+BF_BLOOM_FILTER_COUNTING_HPP	include/bf/bloom_filter/counting.hpp	2;"	d
+BF_BLOOM_FILTER_HPP	bf/bloom_filter.hpp	2;"	d
+BF_BLOOM_FILTER_HPP	include/bf/bloom_filter.hpp	2;"	d
+BF_BLOOM_FILTER_STABLE_HPP	bf/bloom_filter/stable.hpp	2;"	d
+BF_BLOOM_FILTER_STABLE_HPP	include/bf/bloom_filter/stable.hpp	2;"	d
+BF_COUNTER_VECTOR_HPP	bf/counter_vector.hpp	2;"	d
+BF_COUNTER_VECTOR_HPP	include/bf/counter_vector.hpp	2;"	d
+BF_H3_HPP	bf/h3.hpp	2;"	d
+BF_H3_HPP	include/bf/h3.hpp	2;"	d
+BF_HASH_POLICY_HPP	bf/hash.hpp	2;"	d
+BF_HASH_POLICY_HPP	include/bf/hash.hpp	2;"	d
+BF_OBJECT_HPP	bf/object.hpp	2;"	d
+BF_OBJECT_HPP	include/bf/object.hpp	2;"	d
+BF_WRAP_HPP	bf/wrap.hpp	2;"	d
+BF_WRAP_HPP	include/bf/wrap.hpp	2;"	d
+CAF_CHECK	test/unit_test.hpp	432;"	d
+CAF_CHECK_EQUAL	test/unit_test.hpp	543;"	d
+CAF_CHECK_FAIL	test/unit_test.hpp	465;"	d
+CAF_CHECK_FUNC	test/unit_test.hpp	453;"	d
+CAF_CHECK_GREATER	test/unit_test.hpp	548;"	d
+CAF_CHECK_GREATER_EQUAL	test/unit_test.hpp	549;"	d
+CAF_CHECK_LESS	test/unit_test.hpp	546;"	d
+CAF_CHECK_LESS_EQUAL	test/unit_test.hpp	547;"	d
+CAF_CHECK_NOT_EQUAL	test/unit_test.hpp	544;"	d
+CAF_CHECK_PRED	test/unit_test.hpp	441;"	d
+CAF_ERROR	test/unit_test.hpp	423;"	d
+CAF_FAIL	test/unit_test.hpp	474;"	d
+CAF_FUNC_EXPR	test/unit_test.hpp	421;"	d
+CAF_MESSAGE	test/unit_test.hpp	560;"	d
+CAF_PASTE	test/unit_test.hpp	407;"	d
+CAF_PASTE_CONCAT	test/unit_test.hpp	405;"	d
+CAF_PRED_EXPR	test/unit_test.hpp	419;"	d
+CAF_REQUIRE	test/unit_test.hpp	482;"	d
+CAF_REQUIRE_EQUAL	test/unit_test.hpp	552;"	d
+CAF_REQUIRE_FUNC	test/unit_test.hpp	510;"	d
+CAF_REQUIRE_GREATER	test/unit_test.hpp	557;"	d
+CAF_REQUIRE_GREATER_EQUAL	test/unit_test.hpp	558;"	d
+CAF_REQUIRE_LESS	test/unit_test.hpp	555;"	d
+CAF_REQUIRE_LESS_EQUAL	test/unit_test.hpp	556;"	d
+CAF_REQUIRE_NOT_EQUAL	test/unit_test.hpp	553;"	d
+CAF_REQUIRE_PRED	test/unit_test.hpp	494;"	d
+CAF_STR	test/unit_test.hpp	415;"	d
+CAF_SUITE	test/test.hpp	5;"	d
+CAF_SUITE	test/unit_test.hpp	412;"	d
+CAF_TEST	test/unit_test.hpp	526;"	d
+CAF_TEST_FIXTURE_SCOPE	test/unit_test.hpp	536;"	d
+CAF_TEST_FIXTURE_SCOPE_END	test/unit_test.hpp	540;"	d
+CAF_TEST_PRINT	test/unit_test.hpp	395;"	d
+CAF_TEST_PRINT_ERROR	test/unit_test.hpp	401;"	d
+CAF_TEST_PRINT_INFO	test/unit_test.hpp	402;"	d
+CAF_TEST_PRINT_VERBOSE	test/unit_test.hpp	403;"	d
+CAF_TEST_UNIT_TEST_HPP	test/unit_test.hpp	21;"	d
+CAF_TEST_UNIT_TEST_IMPL_HPP	test/unit_test_impl.hpp	21;"	d
+CAF_UNIQUE	test/unit_test.hpp	409;"	d
+CAF_XSTR	test/unit_test.hpp	417;"	d
+CHECK	test/test.hpp	24;"	d
+CHECK_EQUAL	test/test.hpp	25;"	d
+CHECK_FAIL	test/test.hpp	26;"	d
+CMAKE_BINARY_DIR	build/Makefile	/^CMAKE_BINARY_DIR = \/home\/ubuntu\/libbf\/build$/;"	m
+CMAKE_BINARY_DIR	build/test/Makefile	/^CMAKE_BINARY_DIR = \/home\/ubuntu\/libbf\/build$/;"	m
+CMAKE_BINARY_DIR	build/test/bf/Makefile	/^CMAKE_BINARY_DIR = \/home\/ubuntu\/libbf\/build$/;"	m
+CMAKE_COMMAND	build/Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_COMMAND	build/test/Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_COMMAND	build/test/bf/Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_SOURCE_DIR	build/Makefile	/^CMAKE_SOURCE_DIR = \/home\/ubuntu\/libbf$/;"	m
+CMAKE_SOURCE_DIR	build/test/Makefile	/^CMAKE_SOURCE_DIR = \/home\/ubuntu\/libbf$/;"	m
+CMAKE_SOURCE_DIR	build/test/bf/Makefile	/^CMAKE_SOURCE_DIR = \/home\/ubuntu\/libbf$/;"	m
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	108;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	115;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	122;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	129;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	137;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	13;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	144;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	151;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	159;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	164;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	171;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	174;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	183;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	186;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	19;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	201;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	216;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	223;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	237;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	251;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	269;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	278;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	296;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	299;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	56;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	64;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	70;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	76;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	85;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	94;"	d	file:
+COMPILER_VERSION_INTERNAL	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	220;"	d	file:
+COMPILER_VERSION_INTERNAL	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	283;"	d	file:
+COMPILER_VERSION_INTERNAL	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	288;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	102;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	110;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	117;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	124;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	130;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	139;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	146;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	152;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	15;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	160;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	166;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	177;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	189;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	194;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	205;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	217;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	227;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	239;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	241;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	253;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	272;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	27;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	280;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	285;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	57;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	65;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	72;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	78;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	87;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	97;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	103;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	111;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	118;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	125;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	131;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	140;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	147;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	153;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	161;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	167;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	16;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	178;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	190;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	195;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	206;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	218;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	228;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	244;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	254;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	273;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	281;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	286;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	28;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	58;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	66;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	73;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	79;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	88;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	98;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	104;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	112;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	119;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	126;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	132;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	141;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	148;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	155;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	168;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	179;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	191;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	196;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	207;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	219;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	229;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	247;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	258;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	261;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	274;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	282;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	287;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	30;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	32;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	60;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	67;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	81;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	90;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	99;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	133;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	213;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	265;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	36;"	d	file:
+CONFIGURATION_H	test/bf/configuration.h	2;"	d
+CXX_STD	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	608;"	d	file:
+CXX_STD	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	610;"	d	file:
+CXX_STD	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	613;"	d	file:
+CXX_STD	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	616;"	d	file:
+CXX_STD	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	618;"	d	file:
+DEC	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	529;"	d	file:
+DIRS	Makefile	/^DIRS := build$/;"	m
+EQUALS	build/Makefile	/^EQUALS = =$/;"	m
+EQUALS	build/test/Makefile	/^EQUALS = =$/;"	m
+EQUALS	build/test/bf/Makefile	/^EQUALS = =$/;"	m
+ERROR	test/test.hpp	11;"	d
+FAIL	test/test.hpp	27;"	d
+FIXTURE_SCOPE	test/test.hpp	18;"	d
+FIXTURE_SCOPE_END	test/test.hpp	19;"	d
+HEX	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	540;"	d	file:
+INFO	test/test.hpp	12;"	d
+MESSAGE	test/test.hpp	14;"	d
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	324;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	327;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	330;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	333;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	336;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	339;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	342;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	345;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	348;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	351;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	354;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	357;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	360;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	363;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	366;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	369;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	372;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	375;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	378;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	381;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	384;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	387;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	390;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	393;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	397;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	400;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	403;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	406;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	409;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	414;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	417;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	421;"	d	file:
+REPO	doc/Makefile	/^REPO := git@github.com:mavam\/libbf.git$/;"	m
+REQUIRE	test/test.hpp	22;"	d
+REQUIRE_EQUAL	test/test.hpp	23;"	d
+RM	build/Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+RM	build/test/Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+RM	build/test/bf/Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+SHELL	build/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	build/test/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	build/test/bf/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SIMULATE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	203;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	21;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	225;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	24;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	210;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	232;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	40;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	44;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	46;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	211;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	233;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	41;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	49;"	d	file:
+SIMULATE_VERSION_PATCH	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	52;"	d	file:
+STRINGIFY	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	320;"	d	file:
+STRINGIFY_HELPER	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	319;"	d	file:
+SUFFIXES	build/Makefile	/^SUFFIXES =$/;"	m
+SUFFIXES	build/test/Makefile	/^SUFFIXES =$/;"	m
+SUFFIXES	build/test/bf/Makefile	/^SUFFIXES =$/;"	m
+TEST	test/test.hpp	17;"	d
+TEST	test/tests.cpp	/^TEST(bloom_filter_a2) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_basic) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_bitwise) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_counting) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_spectral_mi) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_spectral_rm) {$/;"	f
+TEST	test/tests.cpp	/^TEST(bloom_filter_stable) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_adding) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_adding_big) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_decrementing_width3) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_incrementing_width2) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_incrementing_width3) {$/;"	f
+TEST	test/tests.cpp	/^TEST(counter_vector_mergin) {$/;"	f
+TEST_TEST_H	test/test.hpp	2;"	d
+UTIL_CONFIGURATION_H	test/bf/util/configuration.h	2;"	d
+UTIL_ERROR_H	test/bf/util/error.h	2;"	d
+UTIL_TRIAL_H	test/bf/util/trial.h	2;"	d
+VERBOSE	test/test.hpp	13;"	d
+a2_bloom_filter	bf/bloom_filter/a2.hpp	/^class a2_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+a2_bloom_filter	include/bf/bloom_filter/a2.hpp	/^class a2_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+a2_bloom_filter	src/bloom_filter/a2.cpp	/^a2_bloom_filter::a2_bloom_filter(size_t k, size_t cells, size_t capacity,$/;"	f	class:bf::a2_bloom_filter
+add	bf/bloom_filter.hpp	/^  void add(T const& x)$/;"	f	class:bf::bloom_filter
+add	include/bf/bloom_filter.hpp	/^  void add(T const& x)$/;"	f	class:bf::bloom_filter
+add	src/bloom_filter/a2.cpp	/^void a2_bloom_filter::add(object const& o) {$/;"	f	class:bf::a2_bloom_filter
+add	src/bloom_filter/basic.cpp	/^void basic_bloom_filter::add(object const& o) {$/;"	f	class:bf::basic_bloom_filter
+add	src/bloom_filter/bitwise.cpp	/^void bitwise_bloom_filter::add(object const& o) {$/;"	f	class:bf::bitwise_bloom_filter
+add	src/bloom_filter/counting.cpp	/^void counting_bloom_filter::add(object const& o) {$/;"	f	class:bf::counting_bloom_filter
+add	src/bloom_filter/counting.cpp	/^void spectral_mi_bloom_filter::add(object const& o) {$/;"	f	class:bf::spectral_mi_bloom_filter
+add	src/bloom_filter/counting.cpp	/^void spectral_rm_bloom_filter::add(object const& o) {$/;"	f	class:bf::spectral_rm_bloom_filter
+add	src/bloom_filter/stable.cpp	/^void stable_bloom_filter::add(object const& o) {$/;"	f	class:bf::stable_bloom_filter
+add	test/bf/util/configuration.h	/^    option& add(char shortcut, std::string const& name, std::string desc) {$/;"	f	class:util::configuration::block
+add	test/bf/util/configuration.h	/^    option& add(std::string const& name, std::string desc) {$/;"	f	class:util::configuration::block
+add	test/unit_test_impl.hpp	/^void engine::add(const char* cstr_name, std::unique_ptr<test> ptr) {$/;"	f	class:caf::test::engine
+add_conflict	test/bf/util/configuration.h	/^  void add_conflict(std::string opt1, std::string opt2) {$/;"	f	class:util::configuration
+add_dependencies	test/bf/util/configuration.h	/^  void add_dependencies(std::string needy, std::vector<std::string> required) {$/;"	f	class:util::configuration
+add_dependency	test/bf/util/configuration.h	/^  void add_dependency(std::string needy, std::string required) {$/;"	f	class:util::configuration
+adder	test/unit_test.hpp	/^  adder(const char* suite_name, const char* test_name) {$/;"	f	struct:caf::test::logger::detail::adder
+adder	test/unit_test.hpp	/^struct adder {$/;"	s	namespace:caf::test::logger::detail
+append	bf/bitvector.hpp	/^  void append(Iterator first, Iterator last)$/;"	f	class:bf::bitvector
+append	include/bf/bitvector.hpp	/^  void append(Iterator first, Iterator last)$/;"	f	class:bf::bitvector
+append	src/bitvector.cpp	/^void bitvector::append(block_type block) {$/;"	f	class:bf::bitvector
+append_cache_entry	configure	/^append_cache_entry () {$/;"	f
+argc	test/unit_test_impl.hpp	/^int engine::argc() {$/;"	f	class:caf::test::engine
+argc_	test/unit_test.hpp	/^  int argc_ = 0;$/;"	m	class:caf::test::logger::engine
+args	test/unit_test_impl.hpp	/^void engine::args(int argc, char** argv) {$/;"	f	class:caf::test::engine
+argv	test/unit_test_impl.hpp	/^char** engine::argv() {$/;"	f	class:caf::test::engine
+argv_	test/unit_test.hpp	/^  char** argv_ = nullptr;$/;"	m	class:caf::test::logger::engine
+as	test/bf/util/configuration.h	/^  trial<T> as(std::string const& opt) const {$/;"	f	class:util::configuration
+available_suites	test/unit_test_impl.hpp	/^std::vector<std::string> engine::available_suites() {$/;"	f	class:caf::test::engine
+bad	test/unit_test.hpp	/^  inline size_t bad() {$/;"	f	class:caf::test::test
+bad_	test/unit_test.hpp	/^  size_t bad_;$/;"	m	class:caf::test::test
+banner	test/bf/configuration.cc	/^std::string config::banner() const {$/;"	f	class:config
+basic_bloom_filter	bf/bloom_filter/basic.hpp	/^class basic_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+basic_bloom_filter	include/bf/bloom_filter/basic.hpp	/^class basic_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+basic_bloom_filter	src/bloom_filter/basic.cpp	/^basic_bloom_filter::basic_bloom_filter(basic_bloom_filter&& other)$/;"	f	class:bf::basic_bloom_filter
+basic_bloom_filter	src/bloom_filter/basic.cpp	/^basic_bloom_filter::basic_bloom_filter(double fp, size_t capacity, size_t seed,$/;"	f	class:bf::basic_bloom_filter
+basic_bloom_filter	src/bloom_filter/basic.cpp	/^basic_bloom_filter::basic_bloom_filter(hasher h, bitvector b)$/;"	f	class:bf::basic_bloom_filter
+basic_bloom_filter	src/bloom_filter/basic.cpp	/^basic_bloom_filter::basic_bloom_filter(hasher h, size_t cells, bool partition)$/;"	f	class:bf::basic_bloom_filter
+bf	bf/bitvector.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter/a2.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter/basic.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter/bitwise.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter/counting.hpp	/^namespace bf {$/;"	n
+bf	bf/bloom_filter/stable.hpp	/^namespace bf {$/;"	n
+bf	bf/counter_vector.hpp	/^namespace bf {$/;"	n
+bf	bf/h3.hpp	/^namespace bf {$/;"	n
+bf	bf/hash.hpp	/^namespace bf {$/;"	n
+bf	bf/object.hpp	/^namespace bf {$/;"	n
+bf	bf/wrap.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bitvector.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter/a2.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter/basic.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter/bitwise.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter/counting.hpp	/^namespace bf {$/;"	n
+bf	include/bf/bloom_filter/stable.hpp	/^namespace bf {$/;"	n
+bf	include/bf/counter_vector.hpp	/^namespace bf {$/;"	n
+bf	include/bf/h3.hpp	/^namespace bf {$/;"	n
+bf	include/bf/hash.hpp	/^namespace bf {$/;"	n
+bf	include/bf/object.hpp	/^namespace bf {$/;"	n
+bf	include/bf/wrap.hpp	/^namespace bf {$/;"	n
+bf	src/bitvector.cpp	/^namespace bf {$/;"	n	file:
+bf	src/bloom_filter/a2.cpp	/^namespace bf {$/;"	n	file:
+bf	src/bloom_filter/basic.cpp	/^namespace bf {$/;"	n	file:
+bf	src/bloom_filter/bitwise.cpp	/^namespace bf {$/;"	n	file:
+bf	src/bloom_filter/counting.cpp	/^namespace bf {$/;"	n	file:
+bf	src/bloom_filter/stable.cpp	/^namespace bf {$/;"	n	file:
+bf	src/counter_vector.cpp	/^namespace bf {$/;"	n	file:
+bf	src/hash.cpp	/^namespace bf {$/;"	n	file:
+bit_index	bf/bitvector.hpp	/^  static block_type constexpr bit_index(size_type i)$/;"	f	class:bf::bitvector
+bit_index	include/bf/bitvector.hpp	/^  static block_type constexpr bit_index(size_type i)$/;"	f	class:bf::bitvector
+bit_mask	bf/bitvector.hpp	/^  static block_type constexpr bit_mask(size_type i)$/;"	f	class:bf::bitvector
+bit_mask	include/bf/bitvector.hpp	/^  static block_type constexpr bit_mask(size_type i)$/;"	f	class:bf::bitvector
+bits_	bf/bitvector.hpp	/^  std::vector<block_type> bits_;$/;"	m	class:bf::bitvector
+bits_	bf/bloom_filter/basic.hpp	/^  bitvector bits_;$/;"	m	class:bf::basic_bloom_filter
+bits_	bf/counter_vector.hpp	/^  bitvector bits_;$/;"	m	class:bf::counter_vector
+bits_	include/bf/bitvector.hpp	/^  std::vector<block_type> bits_;$/;"	m	class:bf::bitvector
+bits_	include/bf/bloom_filter/basic.hpp	/^  bitvector bits_;$/;"	m	class:bf::basic_bloom_filter
+bits_	include/bf/counter_vector.hpp	/^  bitvector bits_;$/;"	m	class:bf::counter_vector
+bits_per_block	bf/bitvector.hpp	/^  static block_type constexpr bits_per_block = $/;"	m	class:bf::bitvector
+bits_per_block	include/bf/bitvector.hpp	/^  static block_type constexpr bits_per_block = $/;"	m	class:bf::bitvector
+bits_per_byte	bf/h3.hpp	/^  static size_t const bits_per_byte =$/;"	m	class:bf::h3
+bits_per_byte	include/bf/h3.hpp	/^  static size_t const bits_per_byte =$/;"	m	class:bf::h3
+bits_to_blocks	bf/bitvector.hpp	/^  static size_type constexpr bits_to_blocks(size_type bits)$/;"	f	class:bf::bitvector
+bits_to_blocks	include/bf/bitvector.hpp	/^  static size_type constexpr bits_to_blocks(size_type bits)$/;"	f	class:bf::bitvector
+bitvector	bf/bitvector.hpp	/^  bitvector(InputIterator first, InputIterator last)$/;"	f	class:bf::bitvector
+bitvector	bf/bitvector.hpp	/^class bitvector$/;"	c	namespace:bf
+bitvector	include/bf/bitvector.hpp	/^  bitvector(InputIterator first, InputIterator last)$/;"	f	class:bf::bitvector
+bitvector	include/bf/bitvector.hpp	/^class bitvector$/;"	c	namespace:bf
+bitvector	src/bitvector.cpp	/^bitvector::bitvector() : num_bits_(0) {$/;"	f	class:bf::bitvector
+bitvector	src/bitvector.cpp	/^bitvector::bitvector(bitvector const& other)$/;"	f	class:bf::bitvector
+bitvector	src/bitvector.cpp	/^bitvector::bitvector(bitvector&& other)$/;"	f	class:bf::bitvector
+bitvector	src/bitvector.cpp	/^bitvector::bitvector(size_type size, bool value)$/;"	f	class:bf::bitvector
+bitwise_bloom_filter	bf/bloom_filter/bitwise.hpp	/^class bitwise_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+bitwise_bloom_filter	include/bf/bloom_filter/bitwise.hpp	/^class bitwise_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+bitwise_bloom_filter	src/bloom_filter/bitwise.cpp	/^bitwise_bloom_filter::bitwise_bloom_filter(size_t k, size_t cells, size_t seed)$/;"	f	class:bf::bitwise_bloom_filter
+black	test/unit_test.hpp	/^  black,$/;"	e	enum:caf::test::logger::color_value
+block	test/bf/util/configuration.h	/^    block(block&& other)$/;"	f	class:util::configuration::block
+block	test/bf/util/configuration.h	/^    block(std::string name, std::string prefix, configuration* config)$/;"	f	class:util::configuration::block
+block	test/bf/util/configuration.h	/^  class block {$/;"	c	class:util::configuration
+block_	bf/bitvector.hpp	/^    block_type& block_;$/;"	m	class:bf::bitvector::reference
+block_	include/bf/bitvector.hpp	/^    block_type& block_;$/;"	m	class:bf::bitvector::reference
+block_index	bf/bitvector.hpp	/^  static size_type constexpr block_index(size_type i)$/;"	f	class:bf::bitvector
+block_index	include/bf/bitvector.hpp	/^  static size_type constexpr block_index(size_type i)$/;"	f	class:bf::bitvector
+block_type	bf/bitvector.hpp	/^  typedef size_t block_type;$/;"	t	class:bf::bitvector
+block_type	include/bf/bitvector.hpp	/^  typedef size_t block_type;$/;"	t	class:bf::bitvector
+block_type	src/bitvector.cpp	/^typedef bitvector::block_type block_type;$/;"	t	namespace:bf	file:
+blocks	src/bitvector.cpp	/^size_type bitvector::blocks() const {$/;"	f	class:bf::bitvector
+blocks_	test/bf/util/configuration.h	/^  std::vector<block> blocks_;$/;"	m	class:util::configuration
+bloom_filter	bf/bloom_filter.hpp	/^class bloom_filter$/;"	c	namespace:bf
+bloom_filter	include/bf/bloom_filter.hpp	/^class bloom_filter$/;"	c	namespace:bf
+blue	test/unit_test.hpp	/^  blue,$/;"	e	enum:caf::test::logger::color_value
+bold	test/unit_test.hpp	/^enum color_face { normal, bold };$/;"	e	enum:caf::test::logger::color_face
+buf_	test/unit_test.hpp	/^    std::ostringstream buf_;$/;"	m	class:caf::test::logger::level::stream
+byte_range	bf/h3.hpp	/^  constexpr static size_t byte_range =$/;"	m	class:bf::h3
+byte_range	include/bf/h3.hpp	/^  constexpr static size_t byte_range =$/;"	m	class:bf::h3
+bytes_	bf/h3.hpp	/^  T bytes_[N][byte_range];$/;"	m	class:bf::h3
+bytes_	include/bf/h3.hpp	/^  T bytes_[N][byte_range];$/;"	m	class:bf::h3
+caf	test/unit_test.hpp	/^namespace caf {$/;"	n
+caf	test/unit_test_impl.hpp	/^namespace caf {$/;"	n
+canceled_	test/unit_test_impl.hpp	/^  volatile bool canceled_ = false;$/;"	m	class:caf::test::watchdog
+capacity	src/bloom_filter/a2.cpp	/^size_t a2_bloom_filter::capacity(double fp, size_t cells) {$/;"	f	class:bf::a2_bloom_filter
+capacity_	bf/bloom_filter/a2.hpp	/^  size_t capacity_;  \/\/\/< Maximum number of items in the active Bloom filter.$/;"	m	class:bf::a2_bloom_filter
+capacity_	include/bf/bloom_filter/a2.hpp	/^  size_t capacity_;  \/\/\/< Maximum number of items in the active Bloom filter.$/;"	m	class:bf::a2_bloom_filter
+cells_	bf/bloom_filter/bitwise.hpp	/^  size_t cells_;$/;"	m	class:bf::bitwise_bloom_filter
+cells_	bf/bloom_filter/counting.hpp	/^  counter_vector cells_;$/;"	m	class:bf::counting_bloom_filter
+cells_	include/bf/bloom_filter/bitwise.hpp	/^  size_t cells_;$/;"	m	class:bf::bitwise_bloom_filter
+cells_	include/bf/bloom_filter/counting.hpp	/^  counter_vector cells_;$/;"	m	class:bf::counting_bloom_filter
+check	test/bf/util/configuration.h	/^  bool check(std::string const& opt) const {$/;"	f	class:util::configuration
+check	test/unit_test.hpp	/^bool check(test* parent, const char* file, size_t line, const char* expr,$/;"	f	namespace:caf::test::logger::detail
+check	test/unit_test_impl.hpp	/^bool check(test* parent, const char* file, size_t line, const char* expr,$/;"	f	namespace:caf::test::detail
+check_file_	test/unit_test.hpp	/^  const char* check_file_ = "<none>";$/;"	m	class:caf::test::logger::engine
+check_line_	test/unit_test.hpp	/^  size_t check_line_ = 0;$/;"	m	class:caf::test::logger::engine
+clear	src/bloom_filter/a2.cpp	/^void a2_bloom_filter::clear() {$/;"	f	class:bf::a2_bloom_filter
+clear	src/bloom_filter/basic.cpp	/^void basic_bloom_filter::clear() {$/;"	f	class:bf::basic_bloom_filter
+clear	src/bloom_filter/bitwise.cpp	/^void bitwise_bloom_filter::clear() {$/;"	f	class:bf::bitwise_bloom_filter
+clear	src/bloom_filter/counting.cpp	/^void counting_bloom_filter::clear() {$/;"	f	class:bf::counting_bloom_filter
+clear	src/bloom_filter/counting.cpp	/^void spectral_rm_bloom_filter::clear() {$/;"	f	class:bf::spectral_rm_bloom_filter
+clear	src/counter_vector.cpp	/^void counter_vector::clear() {$/;"	f	class:bf::counter_vector
+color	test/unit_test_impl.hpp	/^const char* engine::color(color_value v, color_face t) {$/;"	f	class:caf::test::engine
+color_face	test/unit_test.hpp	/^enum color_face { normal, bold };$/;"	g	class:caf::test::logger
+color_value	test/unit_test.hpp	/^enum color_value {$/;"	g	class:caf::test::logger
+colors_	test/unit_test.hpp	/^  const char* colors_[9][2] = {$/;"	m	class:caf::test::logger::engine
+config	test/bf/configuration.h	/^class config : public util::configuration<config> {$/;"	c
+config_	test/bf/util/configuration.h	/^    configuration* config_;$/;"	m	class:util::configuration::block
+configuration	test/bf/util/configuration.h	/^class configuration {$/;"	c	namespace:util
+conflicts_	test/bf/util/configuration.h	/^  std::multimap<std::string, std::string> conflicts_;$/;"	m	class:util::configuration
+console_	test/unit_test.hpp	/^  std::ostream& console_;$/;"	m	class:caf::test::logger::level
+console_mtx_	test/unit_test.hpp	/^  std::mutex console_mtx_;$/;"	m	class:caf::test::logger::level
+const_reference	bf/bitvector.hpp	/^  typedef bool const_reference;$/;"	t	class:bf::bitvector
+const_reference	include/bf/bitvector.hpp	/^  typedef bool const_reference;$/;"	t	class:bf::bitvector
+construct	test/bf/util/trial.h	/^  void construct(trial const& other) {$/;"	f	class:util::trial
+construct	test/bf/util/trial.h	/^  void construct(trial&& other) {$/;"	f	class:util::trial
+count	src/bitvector.cpp	/^size_type bitvector::count() const {$/;"	f	class:bf::bitvector
+count	src/bloom_filter/counting.cpp	/^size_t counting_bloom_filter::count(size_t index) const {$/;"	f	class:bf::counting_bloom_filter
+count	src/counter_vector.cpp	/^size_t counter_vector::count(size_t cell) const {$/;"	f	class:bf::counter_vector
+count_table	src/bitvector.cpp	/^uint8_t count_table[] = {$/;"	m	namespace:bf::__anon1	file:
+counter_vector	bf/counter_vector.hpp	/^class counter_vector$/;"	c	namespace:bf
+counter_vector	include/bf/counter_vector.hpp	/^class counter_vector$/;"	c	namespace:bf
+counter_vector	src/counter_vector.cpp	/^counter_vector::counter_vector(size_t cells, size_t width)$/;"	f	class:bf::counter_vector
+counting_bloom_filter	bf/bloom_filter/counting.hpp	/^class counting_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+counting_bloom_filter	include/bf/bloom_filter/counting.hpp	/^class counting_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+counting_bloom_filter	src/bloom_filter/counting.cpp	/^counting_bloom_filter::counting_bloom_filter(hasher h, size_t cells,$/;"	f	class:bf::counting_bloom_filter
+create_block	test/bf/util/configuration.h	/^  block& create_block(std::string name, std::string prefix = "") {$/;"	f	class:util::configuration
+current_test	test/unit_test_impl.hpp	/^test* engine::current_test() {$/;"	f	class:caf::test::engine
+current_test_	test/unit_test.hpp	/^  test* current_test_ = nullptr;$/;"	m	class:caf::test::logger::engine
+cv_	test/unit_test_impl.hpp	/^  std::condition_variable cv_;$/;"	m	class:caf::test::watchdog
+cyan	test/unit_test.hpp	/^  cyan,$/;"	e	enum:caf::test::logger::color_value
+d_	bf/bloom_filter/stable.hpp	/^  size_t d_;$/;"	m	class:bf::stable_bloom_filter
+d_	include/bf/bloom_filter/stable.hpp	/^  size_t d_;$/;"	m	class:bf::stable_bloom_filter
+data	bf/object.hpp	/^  void const* data() const$/;"	f	class:bf::object
+data	include/bf/object.hpp	/^  void const* data() const$/;"	f	class:bf::object
+data_	bf/object.hpp	/^  void const* data_ = nullptr;$/;"	m	class:bf::object
+data_	include/bf/object.hpp	/^  void const* data_ = nullptr;$/;"	m	class:bf::object
+declval	test/unit_test.hpp	/^  -> decltype(out << std::declval<const T&>()) {$/;"	f	namespace:caf::test::logger::detail
+decrement	src/bloom_filter/counting.cpp	/^bool counting_bloom_filter::decrement(std::vector<size_t> const& indices,$/;"	f	class:bf::counting_bloom_filter
+decrement	src/counter_vector.cpp	/^bool counter_vector::decrement(size_t cell, size_t value) {$/;"	f	class:bf::counter_vector
+default_hash_function	bf/hash.hpp	/^class default_hash_function$/;"	c	namespace:bf
+default_hash_function	include/bf/hash.hpp	/^class default_hash_function$/;"	c	namespace:bf
+default_hash_function	src/hash.cpp	/^default_hash_function::default_hash_function(size_t seed) : h3_(seed) {$/;"	f	class:bf::default_hash_function
+default_hasher	bf/hash.hpp	/^class default_hasher$/;"	c	namespace:bf
+default_hasher	include/bf/hash.hpp	/^class default_hasher$/;"	c	namespace:bf
+default_hasher	src/hash.cpp	/^default_hasher::default_hasher(std::vector<hash_function> fns)$/;"	f	class:bf::default_hasher
+defaulted_	test/bf/util/configuration.h	/^    bool defaulted_ = true;$/;"	m	class:util::configuration::option
+dependencies_	test/bf/util/configuration.h	/^  std::multimap<std::string, std::vector<std::string>> dependencies_;$/;"	m	class:util::configuration
+derived	test/bf/util/configuration.h	/^  Derived const* derived() const {$/;"	f	class:util::configuration
+derived	test/bf/util/configuration.h	/^  Derived* derived() {$/;"	f	class:util::configuration
+description_	test/bf/util/configuration.h	/^    std::string description_;$/;"	m	class:util::configuration::option
+destroy	test/bf/util/trial.h	/^  void destroy() {$/;"	f	class:util::trial
+detail	test/unit_test.hpp	/^namespace detail {$/;"	n	class:caf::test::logger
+detail	test/unit_test.hpp	/^namespace detail {$/;"	n	namespace:caf::test
+detail	test/unit_test_impl.hpp	/^namespace detail {$/;"	n	namespace:caf::test
+digest	bf/hash.hpp	/^typedef size_t digest;$/;"	t	namespace:bf
+digest	include/bf/hash.hpp	/^typedef size_t digest;$/;"	t	namespace:bf
+dispatch	test/bf/util/configuration.h	/^  trial<T> dispatch(option const& opt, std::false_type) const {$/;"	f	class:util::configuration
+dispatch	test/bf/util/configuration.h	/^  trial<T> dispatch(option const& opt, std::true_type) const {$/;"	f	class:util::configuration
+double_hasher	bf/hash.hpp	/^class double_hasher$/;"	c	namespace:bf
+double_hasher	include/bf/hash.hpp	/^class double_hasher$/;"	c	namespace:bf
+double_hasher	src/hash.cpp	/^double_hasher::double_hasher(size_t k, hash_function h1, hash_function h2)$/;"	f	class:bf::double_hasher
+dummy_fixture	test/unit_test.hpp	/^struct dummy_fixture {};$/;"	s	namespace:caf::test
+empty	src/bitvector.cpp	/^bool bitvector::empty() const {$/;"	f	class:bf::bitvector
+engaged_	test/bf/util/trial.h	/^  bool engaged_;$/;"	m	class:util::trial
+engine	test/unit_test.hpp	/^class engine {$/;"	c	class:caf::test::logger
+equal_to	test/unit_test.hpp	/^bool equal_to(const T& t, const U& u) {$/;"	f	namespace:caf::test
+equal_to	test/unit_test.hpp	/^bool equal_to(const T& x, const U& y) {$/;"	f	namespace:caf::test
+error	test/bf/util/configuration.h	/^    error(std::string msg, char c) : util::error{msg + " (-" + c + ')'} {$/;"	f	struct:util::configuration::error
+error	test/bf/util/configuration.h	/^    error(std::string msg, std::string opt)$/;"	f	struct:util::configuration::error
+error	test/bf/util/configuration.h	/^  struct error : util::error {$/;"	s	class:util::configuration
+error	test/bf/util/error.h	/^  explicit error(char const* msg) : msg_{msg} {$/;"	f	class:util::error
+error	test/bf/util/error.h	/^  explicit error(std::string msg) : msg_{std::move(msg)} {$/;"	f	class:util::error
+error	test/bf/util/error.h	/^class error {$/;"	c	namespace:util
+error	test/unit_test.hpp	/^    error = 1,$/;"	m	class:caf::test::logger::level
+error	test/unit_test_impl.hpp	/^logger::stream logger::error() {$/;"	f	class:caf::test::logger
+error_	test/bf/util/trial.h	/^    error error_;$/;"	m	union:util::trial::__anon3
+expected_failures	test/unit_test_impl.hpp	/^size_t test::expected_failures() const {$/;"	f	class:caf::test::test
+expected_failures_	test/unit_test.hpp	/^  size_t expected_failures_;$/;"	m	class:caf::test::test
+extra_bits	src/bitvector.cpp	/^block_type bitvector::extra_bits() const {$/;"	f	class:bf::bitvector
+fail	test/unit_test_impl.hpp	/^void test::fail(std::string msg, bool expected) {$/;"	f	class:caf::test::test
+failure	test/bf/util/trial.h	/^  error const& failure() const {$/;"	f	class:util::trial
+file_	test/unit_test.hpp	/^  std::ofstream file_;$/;"	m	class:caf::test::logger::level
+file_mtx_	test/unit_test.hpp	/^  std::mutex file_mtx_;$/;"	m	class:caf::test::logger::level
+fill	test/unit_test_impl.hpp	/^const char* fill(size_t line) {$/;"	f	namespace:caf::test::detail
+find_first	src/bitvector.cpp	/^size_type bitvector::find_first() const {$/;"	f	class:bf::bitvector
+find_from	src/bitvector.cpp	/^size_type bitvector::find_from(size_type i) const {$/;"	f	class:bf::bitvector
+find_indices	src/bloom_filter/counting.cpp	/^std::vector<size_t> counting_bloom_filter::find_indices(object const& o) const {$/;"	f	class:bf::counting_bloom_filter
+find_minima	src/bloom_filter/counting.cpp	/^counting_bloom_filter::find_minima(std::vector<size_t> const& indices) const {$/;"	f	class:bf::counting_bloom_filter
+find_minimum	src/bloom_filter/counting.cpp	/^counting_bloom_filter::find_minimum(std::vector<size_t> const& indices) const {$/;"	f	class:bf::counting_bloom_filter
+find_next	src/bitvector.cpp	/^size_type bitvector::find_next(size_type i) const {$/;"	f	class:bf::bitvector
+find_option	test/bf/util/configuration.h	/^  option const* find_option(std::string const& opt) const {$/;"	f	class:util::configuration
+find_option	test/bf/util/configuration.h	/^  option* find_option(std::string const& opt) {$/;"	f	class:util::configuration
+first_	bf/bloom_filter/a2.hpp	/^  basic_bloom_filter first_;$/;"	m	class:bf::a2_bloom_filter
+first_	bf/bloom_filter/counting.hpp	/^  counting_bloom_filter first_;$/;"	m	class:bf::spectral_rm_bloom_filter
+first_	include/bf/bloom_filter/a2.hpp	/^  basic_bloom_filter first_;$/;"	m	class:bf::a2_bloom_filter
+first_	include/bf/bloom_filter/counting.hpp	/^  counting_bloom_filter first_;$/;"	m	class:bf::spectral_rm_bloom_filter
+flip	src/bitvector.cpp	/^bitvector& bitvector::flip() {$/;"	f	class:bf::bitvector
+flip	src/bitvector.cpp	/^bitvector& bitvector::flip(size_type i) {$/;"	f	class:bf::bitvector
+flip	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::flip() {$/;"	f	class:bf::bitvector::reference
+flush	test/unit_test_impl.hpp	/^void logger::stream::flush() {$/;"	f	class:caf::test::logger::stream
+fns_	bf/hash.hpp	/^  std::vector<hash_function> fns_;$/;"	m	class:bf::default_hasher
+fns_	include/bf/hash.hpp	/^  std::vector<hash_function> fns_;$/;"	m	class:bf::default_hasher
+generator_	bf/bloom_filter/stable.hpp	/^  std::mt19937 generator_;$/;"	m	class:bf::stable_bloom_filter
+generator_	include/bf/bloom_filter/stable.hpp	/^  std::mt19937 generator_;$/;"	m	class:bf::stable_bloom_filter
+get	test/bf/util/configuration.h	/^  trial<std::string> get(std::string const& opt) const {$/;"	f	class:util::configuration
+good	test/unit_test.hpp	/^  inline size_t good() {$/;"	f	class:caf::test::test
+good_	test/unit_test.hpp	/^  size_t good_;$/;"	m	class:caf::test::test
+green	test/unit_test.hpp	/^  green,$/;"	e	enum:caf::test::logger::color_value
+grow	src/bloom_filter/bitwise.cpp	/^void bitwise_bloom_filter::grow() {$/;"	f	class:bf::bitwise_bloom_filter
+h1_	bf/hash.hpp	/^  hash_function h1_;$/;"	m	class:bf::double_hasher
+h1_	include/bf/hash.hpp	/^  hash_function h1_;$/;"	m	class:bf::double_hasher
+h2_	bf/hash.hpp	/^  hash_function h2_;$/;"	m	class:bf::double_hasher
+h2_	include/bf/hash.hpp	/^  hash_function h2_;$/;"	m	class:bf::double_hasher
+h3	bf/h3.hpp	/^  h3(T seed = 0)$/;"	f	class:bf::h3
+h3	bf/h3.hpp	/^class h3$/;"	c	namespace:bf
+h3	include/bf/h3.hpp	/^  h3(T seed = 0)$/;"	f	class:bf::h3
+h3	include/bf/h3.hpp	/^class h3$/;"	c	namespace:bf
+h3_	bf/hash.hpp	/^  h3<size_t, max_obj_size> h3_;$/;"	m	class:bf::default_hash_function
+h3_	include/bf/hash.hpp	/^  h3<size_t, max_obj_size> h3_;$/;"	m	class:bf::default_hash_function
+hash_function	bf/hash.hpp	/^typedef std::function<digest(object const&)> hash_function;$/;"	t	namespace:bf
+hash_function	include/bf/hash.hpp	/^typedef std::function<digest(object const&)> hash_function;$/;"	t	namespace:bf
+hasher	bf/hash.hpp	/^typedef std::function<std::vector<digest>(object const&)> hasher;$/;"	t	namespace:bf
+hasher	include/bf/hash.hpp	/^typedef std::function<std::vector<digest>(object const&)> hasher;$/;"	t	namespace:bf
+hasher_	bf/bloom_filter/basic.hpp	/^  hasher hasher_;$/;"	m	class:bf::basic_bloom_filter
+hasher_	bf/bloom_filter/counting.hpp	/^  hasher hasher_;$/;"	m	class:bf::counting_bloom_filter
+hasher_	include/bf/bloom_filter/basic.hpp	/^  hasher hasher_;$/;"	m	class:bf::basic_bloom_filter
+hasher_	include/bf/bloom_filter/counting.hpp	/^  hasher hasher_;$/;"	m	class:bf::counting_bloom_filter
+hasher_function	src/bloom_filter/basic.cpp	/^hasher const& basic_bloom_filter::hasher_function() const {$/;"	f	class:bf::basic_bloom_filter
+increment	src/bloom_filter/counting.cpp	/^bool counting_bloom_filter::increment(std::vector<size_t> const& indices,$/;"	f	class:bf::counting_bloom_filter
+increment	src/counter_vector.cpp	/^bool counter_vector::increment(size_t cell, size_t value) {$/;"	f	class:bf::counter_vector
+info	test/unit_test.hpp	/^    info = 2,$/;"	m	class:caf::test::logger::level
+info	test/unit_test_impl.hpp	/^logger::stream logger::info() {$/;"	f	class:caf::test::logger
+info_arch	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
+info_compiler	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v
+info_cray	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";$/;"	v
+info_language_dialect_default	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^const char* info_language_dialect_default = "INFO" ":" "dialect_default["$/;"	v
+info_platform	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v
+info_simulate	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";$/;"	v
+info_simulate_version	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v
+info_version	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
+info_version_internal	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version_internal[] = {$/;"	v
+init	test/bf/util/configuration.h	/^    option& init(T const& head, Args... tail) {$/;"	f	class:util::configuration::option
+init	test/bf/util/configuration.h	/^    option& init(T const& x) {$/;"	f	class:util::configuration::option
+init	test/unit_test_impl.hpp	/^bool logger::init(int lvl_cons, int lvl_file, const std::string& logfile) {$/;"	f	class:caf::test::logger
+initialize	test/bf/configuration.cc	/^void config::initialize() {$/;"	f	class:config
+instance	test/unit_test_impl.hpp	/^engine& engine::instance() {$/;"	f	class:caf::test::engine
+instance	test/unit_test_impl.hpp	/^logger& logger::instance() {$/;"	f	class:caf::test::logger
+items_	bf/bloom_filter/a2.hpp	/^  size_t items_ = 0; \/\/\/< Number of items in the active Bloom filter.$/;"	m	class:bf::a2_bloom_filter
+items_	include/bf/bloom_filter/a2.hpp	/^  size_t items_ = 0; \/\/\/< Number of items in the active Bloom filter.$/;"	m	class:bf::a2_bloom_filter
+k	src/bloom_filter/a2.cpp	/^size_t a2_bloom_filter::k(double fp) {$/;"	f	class:bf::a2_bloom_filter
+k	src/bloom_filter/basic.cpp	/^size_t basic_bloom_filter::k(size_t cells, size_t capacity) {$/;"	f	class:bf::basic_bloom_filter
+k_	bf/bloom_filter/bitwise.hpp	/^  size_t k_;$/;"	m	class:bf::bitwise_bloom_filter
+k_	bf/hash.hpp	/^  size_t k_;$/;"	m	class:bf::double_hasher
+k_	include/bf/bloom_filter/bitwise.hpp	/^  size_t k_;$/;"	m	class:bf::bitwise_bloom_filter
+k_	include/bf/hash.hpp	/^  size_t k_;$/;"	m	class:bf::double_hasher
+last_check_file	test/unit_test_impl.hpp	/^const char* engine::last_check_file() {$/;"	f	class:caf::test::engine
+last_check_file	test/unit_test_impl.hpp	/^void engine::last_check_file(const char* file) {$/;"	f	class:caf::test::engine
+last_check_line	test/unit_test_impl.hpp	/^size_t engine::last_check_line() {$/;"	f	class:caf::test::engine
+last_check_line	test/unit_test_impl.hpp	/^void engine::last_check_line(size_t line) {$/;"	f	class:caf::test::engine
+level	test/unit_test.hpp	/^  enum class level : int {$/;"	c	class:caf::test::logger
+level_	test/unit_test.hpp	/^    level level_;$/;"	m	class:caf::test::logger::level::stream
+level_console_	test/unit_test.hpp	/^  level level_console_;$/;"	m	class:caf::test::logger::level
+level_file_	test/unit_test.hpp	/^  level level_file_;$/;"	m	class:caf::test::logger::level
+levels_	bf/bloom_filter/bitwise.hpp	/^  std::vector<basic_bloom_filter> levels_;$/;"	m	class:bf::bitwise_bloom_filter
+levels_	include/bf/bloom_filter/bitwise.hpp	/^  std::vector<basic_bloom_filter> levels_;$/;"	m	class:bf::bitwise_bloom_filter
+log	test/unit_test.hpp	/^  void log(level lvl, const T& x) {$/;"	f	class:caf::test::logger::level
+logger	test/unit_test.hpp	/^class logger {$/;"	c	namespace:caf::test
+logger	test/unit_test_impl.hpp	/^logger::logger()$/;"	f	class:caf::test::logger
+logger_	test/unit_test.hpp	/^    logger& logger_;$/;"	m	class:caf::test::logger::level::stream
+lookup	bf/bloom_filter.hpp	/^  size_t lookup(T const& x) const$/;"	f	class:bf::bloom_filter
+lookup	include/bf/bloom_filter.hpp	/^  size_t lookup(T const& x) const$/;"	f	class:bf::bloom_filter
+lookup	src/bloom_filter/a2.cpp	/^size_t a2_bloom_filter::lookup(object const& o) const {$/;"	f	class:bf::a2_bloom_filter
+lookup	src/bloom_filter/basic.cpp	/^size_t basic_bloom_filter::lookup(object const& o) const {$/;"	f	class:bf::basic_bloom_filter
+lookup	src/bloom_filter/bitwise.cpp	/^size_t bitwise_bloom_filter::lookup(object const& o) const {$/;"	f	class:bf::bitwise_bloom_filter
+lookup	src/bloom_filter/counting.cpp	/^size_t counting_bloom_filter::lookup(object const& o) const {$/;"	f	class:bf::counting_bloom_filter
+lookup	src/bloom_filter/counting.cpp	/^size_t spectral_rm_bloom_filter::lookup(object const& o) const {$/;"	f	class:bf::spectral_rm_bloom_filter
+lowest_bit	src/bitvector.cpp	/^size_type bitvector::lowest_bit(block_type block) {$/;"	f	class:bf::bitvector
+m	src/bloom_filter/basic.cpp	/^size_t basic_bloom_filter::m(double fp, size_t capacity) {$/;"	f	class:bf::basic_bloom_filter
+magenta	test/unit_test.hpp	/^  magenta,$/;"	e	enum:caf::test::logger::color_value
+main	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	build/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx	/^int main()$/;"	f
+main	build/lib/main.cc	/^int main(int argc, char **argv) {$/;"	f
+main	test/bf/bf.cc	/^int main(int argc, char* argv[]) {$/;"	f
+main	test/unit_test_impl.hpp	/^int main(int argc, char** argv) {$/;"	f
+main	test/unit_test_impl.hpp	/^int main(int argc, char** argv) {$/;"	f	namespace:caf::test
+make_hasher	src/hash.cpp	/^hasher make_hasher(size_t k, size_t seed, bool double_hashing) {$/;"	f	namespace:bf
+mask_	bf/bitvector.hpp	/^    block_type const mask_;$/;"	m	class:bf::bitvector::reference
+mask_	include/bf/bitvector.hpp	/^    block_type const mask_;$/;"	m	class:bf::bitvector::reference
+massive	test/unit_test.hpp	/^    massive = 4$/;"	m	class:caf::test::logger::level
+massive	test/unit_test_impl.hpp	/^logger::stream logger::massive() {$/;"	f	class:caf::test::logger
+max	src/counter_vector.cpp	/^size_t counter_vector::max() const {$/;"	f	class:bf::counter_vector
+max_obj_size	bf/hash.hpp	/^  constexpr static size_t max_obj_size = 36;$/;"	m	class:bf::default_hash_function
+max_obj_size	include/bf/hash.hpp	/^  constexpr static size_t max_obj_size = 36;$/;"	m	class:bf::default_hash_function
+max_runtime	test/unit_test_impl.hpp	/^int engine::max_runtime() {$/;"	f	class:caf::test::engine
+max_runtime	test/unit_test_impl.hpp	/^void engine::max_runtime(int value) {$/;"	f	class:caf::test::engine
+max_runtime_	test/unit_test.hpp	/^  int max_runtime_ = 30; \/\/ 30s per default$/;"	m	class:caf::test::logger::engine
+max_vals_	test/bf/util/configuration.h	/^    size_t max_vals_ = 0;$/;"	m	class:util::configuration::option
+msg	test/bf/util/error.h	/^  std::string const& msg() const {$/;"	f	class:util::error::std
+msg_	test/bf/util/error.h	/^  std::string msg_;$/;"	m	class:util::error
+mtx_	test/unit_test_impl.hpp	/^  std::mutex mtx_;$/;"	m	class:caf::test::watchdog
+multi	test/bf/util/configuration.h	/^    option& multi(size_t n = -1) {$/;"	f	class:util::configuration::option
+name	test/unit_test_impl.hpp	/^const std::string& test::name() const {$/;"	f	class:caf::test::test
+name_	test/bf/util/configuration.h	/^    std::string name_;$/;"	m	class:util::configuration::block
+name_	test/bf/util/configuration.h	/^    std::string name_;$/;"	m	class:util::configuration::option
+name_	test/unit_test.hpp	/^  std::string name_;$/;"	m	class:caf::test::test
+nil	test/bf/util/trial.h	/^static constexpr auto nil = nothing{};$/;"	m	namespace:util
+noexcept	bf/bitvector.hpp	/^  void clear() noexcept;$/;"	m	class:bf::bitvector
+noexcept	include/bf/bitvector.hpp	/^  void clear() noexcept;$/;"	m	class:bf::bitvector
+noexcept	test/unit_test.hpp	/^  ~require_error() noexcept;$/;"	m	class:caf::test::detail::require_error
+normal	test/unit_test.hpp	/^enum color_face { normal, bold };$/;"	e	enum:caf::test::logger::color_face
+not_equal_to	test/unit_test.hpp	/^bool not_equal_to(const T& t, const U& u) {$/;"	f	namespace:caf::test
+nothing	test/bf/util/trial.h	/^struct nothing {};$/;"	s	namespace:util
+npos	bf/bitvector.hpp	/^  static size_type constexpr npos = static_cast<size_type>(-1);$/;"	m	class:bf::bitvector
+npos	include/bf/bitvector.hpp	/^  static size_type constexpr npos = static_cast<size_type>(-1);$/;"	m	class:bf::bitvector
+num_bits_	bf/bitvector.hpp	/^  size_type num_bits_;$/;"	m	class:bf::bitvector
+num_bits_	include/bf/bitvector.hpp	/^  size_type num_bits_;$/;"	m	class:bf::bitvector
+object	bf/object.hpp	/^  object(void const* data, size_t size)$/;"	f	class:bf::object
+object	bf/object.hpp	/^class object$/;"	c	namespace:bf
+object	include/bf/object.hpp	/^  object(void const* data, size_t size)$/;"	f	class:bf::object
+object	include/bf/object.hpp	/^class object$/;"	c	namespace:bf
+operator !=	src/bitvector.cpp	/^bool operator!=(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator &	src/bitvector.cpp	/^bitvector operator&(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator &=	src/bitvector.cpp	/^bitvector& bitvector::operator&=(bitvector const& other) {$/;"	f	class:bf::bitvector
+operator &=	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator&=(bool x) {$/;"	f	class:bf::bitvector::reference
+operator ()	bf/h3.hpp	/^  T operator()(void const* data, size_t size, size_t offset = 0) const$/;"	f	class:bf::h3
+operator ()	include/bf/h3.hpp	/^  T operator()(void const* data, size_t size, size_t offset = 0) const$/;"	f	class:bf::h3
+operator ()	src/hash.cpp	/^size_t default_hash_function::operator()(object const& o) const {$/;"	f	class:bf::default_hash_function
+operator ()	src/hash.cpp	/^std::vector<digest> default_hasher::operator()(object const& o) const {$/;"	f	class:bf::default_hasher
+operator ()	src/hash.cpp	/^std::vector<digest> double_hasher::operator()(object const& o) const {$/;"	f	class:bf::double_hasher
+operator *	test/bf/util/trial.h	/^  T const& operator*() const {$/;"	f	class:util::trial
+operator *	test/bf/util/trial.h	/^  T& operator*() {$/;"	f	class:util::trial
+operator -	src/bitvector.cpp	/^bitvector operator-(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator -=	src/bitvector.cpp	/^bitvector& bitvector::operator-=(bitvector const& other) {$/;"	f	class:bf::bitvector
+operator -=	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator-=(bool x) {$/;"	f	class:bf::bitvector::reference
+operator ->	test/bf/util/trial.h	/^  T const* operator->() const {$/;"	f	class:util::trial
+operator ->	test/bf/util/trial.h	/^  T* operator->() {$/;"	f	class:util::trial
+operator <	src/bitvector.cpp	/^bool operator<(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator <<	src/bitvector.cpp	/^bitvector bitvector::operator<<(size_type n) const {$/;"	f	class:bf::bitvector
+operator <<	test/unit_test.hpp	/^    operator<<(const T& x) {$/;"	f	class:caf::test::logger::level::stream
+operator <<	test/unit_test.hpp	/^std::ostream& operator<<(std::ostream& out, const showable_base<T>& x) {$/;"	f	namespace:caf::test::logger::detail
+operator <<	test/unit_test_impl.hpp	/^logger::stream& logger::stream::operator<<(const char& c) {$/;"	f	class:caf::test::logger::stream
+operator <<	test/unit_test_impl.hpp	/^logger::stream& logger::stream::operator<<(const char* cstr) {$/;"	f	class:caf::test::logger::stream
+operator <<	test/unit_test_impl.hpp	/^logger::stream& logger::stream::operator<<(const std::string& str) {$/;"	f	class:caf::test::logger::stream
+operator <<=	src/bitvector.cpp	/^bitvector& bitvector::operator<<=(size_type n) {$/;"	f	class:bf::bitvector
+operator =	src/bitvector.cpp	/^bitvector& bitvector::operator=(bitvector other) {$/;"	f	class:bf::bitvector
+operator =	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator=(bool x) {$/;"	f	class:bf::bitvector::reference
+operator =	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator=(reference const& other) {$/;"	f	class:bf::bitvector::reference
+operator =	test/bf/util/trial.h	/^  trial& operator=(T x) {$/;"	f	class:util::trial
+operator =	test/bf/util/trial.h	/^  trial& operator=(error e) {$/;"	f	class:util::trial
+operator =	test/bf/util/trial.h	/^  trial& operator=(trial other) {$/;"	f	class:util::trial
+operator ==	src/bitvector.cpp	/^bool operator==(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator >>	src/bitvector.cpp	/^bitvector bitvector::operator>>(size_type n) const {$/;"	f	class:bf::bitvector
+operator >>=	src/bitvector.cpp	/^bitvector& bitvector::operator>>=(size_type n) {$/;"	f	class:bf::bitvector
+operator []	src/bitvector.cpp	/^bitvector::reference bitvector::operator[](size_type i) {$/;"	f	class:bf::bitvector
+operator []	src/bitvector.cpp	/^bool bitvector::operator[](size_type i) const {$/;"	f	class:bf::bitvector
+operator ^	src/bitvector.cpp	/^bitvector operator^(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator ^=	src/bitvector.cpp	/^bitvector& bitvector::operator^=(bitvector const& other) {$/;"	f	class:bf::bitvector
+operator ^=	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator^=(bool x) {$/;"	f	class:bf::bitvector::reference
+operator bool	src/bitvector.cpp	/^bitvector::reference::operator bool() const {$/;"	f	class:bf::bitvector::reference
+operator bool	test/bf/util/trial.h	/^  explicit operator bool() const {$/;"	f	class:util::trial
+operator std::string	test/bf/util/error.h	/^  explicit operator std::string() const {$/;"	f	class:util::error
+operator |	src/bitvector.cpp	/^bitvector operator|(bitvector const& x, bitvector const& y) {$/;"	f	namespace:bf
+operator |	src/counter_vector.cpp	/^counter_vector operator|(counter_vector const& x, counter_vector const& y) {$/;"	f	namespace:bf
+operator |=	src/bitvector.cpp	/^bitvector& bitvector::operator|=(bitvector const& other) {$/;"	f	class:bf::bitvector
+operator |=	src/bitvector.cpp	/^bitvector::reference& bitvector::reference::operator|=(bool x) {$/;"	f	class:bf::bitvector::reference
+operator |=	src/counter_vector.cpp	/^counter_vector& counter_vector::operator|=(counter_vector const& other) {$/;"	f	class:bf::counter_vector
+operator ~	src/bitvector.cpp	/^bitvector bitvector::operator~() const {$/;"	f	class:bf::bitvector
+operator ~	src/bitvector.cpp	/^bool bitvector::reference::operator~() const {$/;"	f	class:bf::bitvector::reference
+option	test/bf/util/configuration.h	/^    option(std::string name, std::string desc, char shortcut = '\\0')$/;"	f	class:util::configuration::option
+option	test/bf/util/configuration.h	/^  class option {$/;"	c	class:util::configuration
+optionize	test/bf/util/configuration.h	/^  trial<std::string> optionize(std::string& str) const {$/;"	f	class:util::configuration
+options_	test/bf/util/configuration.h	/^    std::vector<option> options_;$/;"	m	class:util::configuration::block
+other	test/bf/util/configuration.h	/^    block& operator=(block other) = delete;$/;"	m	class:util::configuration::block
+override	bf/bloom_filter/a2.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::a2_bloom_filter
+override	bf/bloom_filter/a2.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::a2_bloom_filter
+override	bf/bloom_filter/a2.hpp	/^  virtual void clear() override;$/;"	m	class:bf::a2_bloom_filter
+override	bf/bloom_filter/basic.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::basic_bloom_filter
+override	bf/bloom_filter/basic.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::basic_bloom_filter
+override	bf/bloom_filter/basic.hpp	/^  virtual void clear() override;$/;"	m	class:bf::basic_bloom_filter
+override	bf/bloom_filter/bitwise.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::bitwise_bloom_filter
+override	bf/bloom_filter/bitwise.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::bitwise_bloom_filter
+override	bf/bloom_filter/bitwise.hpp	/^  virtual void clear() override;$/;"	m	class:bf::bitwise_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::counting_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::counting_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::spectral_mi_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual void clear() override;$/;"	m	class:bf::counting_bloom_filter
+override	bf/bloom_filter/counting.hpp	/^  virtual void clear() override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	bf/bloom_filter/stable.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::stable_bloom_filter
+override	include/bf/bloom_filter/a2.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::a2_bloom_filter
+override	include/bf/bloom_filter/a2.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::a2_bloom_filter
+override	include/bf/bloom_filter/a2.hpp	/^  virtual void clear() override;$/;"	m	class:bf::a2_bloom_filter
+override	include/bf/bloom_filter/basic.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::basic_bloom_filter
+override	include/bf/bloom_filter/basic.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::basic_bloom_filter
+override	include/bf/bloom_filter/basic.hpp	/^  virtual void clear() override;$/;"	m	class:bf::basic_bloom_filter
+override	include/bf/bloom_filter/bitwise.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::bitwise_bloom_filter
+override	include/bf/bloom_filter/bitwise.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::bitwise_bloom_filter
+override	include/bf/bloom_filter/bitwise.hpp	/^  virtual void clear() override;$/;"	m	class:bf::bitwise_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::counting_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual size_t lookup(object const& o) const override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::counting_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::spectral_mi_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual void clear() override;$/;"	m	class:bf::counting_bloom_filter
+override	include/bf/bloom_filter/counting.hpp	/^  virtual void clear() override;$/;"	m	class:bf::spectral_rm_bloom_filter
+override	include/bf/bloom_filter/stable.hpp	/^  virtual void add(object const& o) override;$/;"	m	class:bf::stable_bloom_filter
+parse	test/bf/util/configuration.h	/^  static trial<Derived> parse(int argc, char* argv[]) {$/;"	f	class:util::configuration
+parse	test/bf/util/configuration.h	/^  static trial<Derived> parse(std::string const& \/* filename *\/) {$/;"	f	class:util::configuration
+partition_	bf/bloom_filter/basic.hpp	/^  bool partition_;$/;"	m	class:bf::basic_bloom_filter
+partition_	bf/bloom_filter/counting.hpp	/^  bool partition_;$/;"	m	class:bf::counting_bloom_filter
+partition_	include/bf/bloom_filter/basic.hpp	/^  bool partition_;$/;"	m	class:bf::basic_bloom_filter
+partition_	include/bf/bloom_filter/counting.hpp	/^  bool partition_;$/;"	m	class:bf::counting_bloom_filter
+pass	test/unit_test_impl.hpp	/^void test::pass(std::string msg) {$/;"	f	class:caf::test::test
+path	test/unit_test_impl.hpp	/^char* engine::path() {$/;"	f	class:caf::test::engine
+path	test/unit_test_impl.hpp	/^void engine::path(char* argv) {$/;"	f	class:caf::test::engine
+path_	test/unit_test.hpp	/^  char* path_ = nullptr;$/;"	m	class:caf::test::logger::engine
+prefix_	test/bf/util/configuration.h	/^    std::string prefix_;$/;"	m	class:util::configuration::block
+print_time_elapsed	build/lib/main.cc	/^void print_time_elapsed(const char* desc, struct timeval* start, struct$/;"	f
+push_back	src/bitvector.cpp	/^void bitvector::push_back(bool bit) {$/;"	f	class:bf::bitvector
+qnxnto	build/CMakeFiles/3.16.3/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
+qualify	test/bf/util/configuration.h	/^    std::string qualify(std::string const& name) const {$/;"	f	class:util::configuration::block
+quiet	test/unit_test.hpp	/^    quiet = 0,$/;"	m	class:caf::test::logger::level
+red	test/unit_test.hpp	/^  red,$/;"	e	enum:caf::test::logger::color_value
+reference	bf/bitvector.hpp	/^  class reference$/;"	c	class:bf::bitvector
+reference	include/bf/bitvector.hpp	/^  class reference$/;"	c	class:bf::bitvector
+reference	src/bitvector.cpp	/^bitvector::reference::reference(block_type& block, block_type i)$/;"	f	class:bf::bitvector::reference
+remove	bf/bloom_filter/counting.hpp	/^  void remove(T const& x)$/;"	f	class:bf::counting_bloom_filter
+remove	include/bf/bloom_filter/counting.hpp	/^  void remove(T const& x)$/;"	f	class:bf::counting_bloom_filter
+remove	src/bloom_filter/basic.cpp	/^void basic_bloom_filter::remove(object const& o) {$/;"	f	class:bf::basic_bloom_filter
+remove	src/bloom_filter/counting.cpp	/^void counting_bloom_filter::remove(object const& o) {$/;"	f	class:bf::counting_bloom_filter
+remove	src/bloom_filter/counting.cpp	/^void spectral_rm_bloom_filter::remove(object const& o) {$/;"	f	class:bf::spectral_rm_bloom_filter
+remove_trailing_spaces	test/unit_test_impl.hpp	/^void remove_trailing_spaces(std::string& x) {$/;"	f	namespace:caf::test::detail
+render	test/unit_test_impl.hpp	/^std::string engine::render(std::chrono::microseconds t) {$/;"	f	class:caf::test::engine
+require_error	test/unit_test.hpp	/^class require_error : std::logic_error {$/;"	c	namespace:caf::test::detail
+require_error	test/unit_test_impl.hpp	/^require_error::require_error(const std::string& msg) : std::logic_error(msg) {$/;"	f	class:caf::test::detail::require_error
+reset	src/bitvector.cpp	/^bitvector& bitvector::reset() {$/;"	f	class:bf::bitvector
+reset	src/bitvector.cpp	/^bitvector& bitvector::reset(size_type i) {$/;"	f	class:bf::bitvector
+reset	test/unit_test.hpp	/^  reset,$/;"	e	enum:caf::test::logger::color_value
+resize	src/bitvector.cpp	/^void bitvector::resize(size_type n, bool value) {$/;"	f	class:bf::bitvector
+run	test/bf/bf.cc	/^trial<nothing> run(config const& cfg) {$/;"	f
+run	test/unit_test_impl.hpp	/^bool engine::run(bool colorize, const std::string& log_file,$/;"	f	class:caf::test::engine
+s_watchdog	test/unit_test_impl.hpp	/^watchdog* s_watchdog;$/;"	m	namespace:caf::test::__anon2
+second_	bf/bloom_filter/a2.hpp	/^  basic_bloom_filter second_;$/;"	m	class:bf::a2_bloom_filter
+second_	bf/bloom_filter/counting.hpp	/^  counting_bloom_filter second_;$/;"	m	class:bf::spectral_rm_bloom_filter
+second_	include/bf/bloom_filter/a2.hpp	/^  basic_bloom_filter second_;$/;"	m	class:bf::a2_bloom_filter
+second_	include/bf/bloom_filter/counting.hpp	/^  counting_bloom_filter second_;$/;"	m	class:bf::spectral_rm_bloom_filter
+seed_	bf/bloom_filter/bitwise.hpp	/^  size_t seed_;$/;"	m	class:bf::bitwise_bloom_filter
+seed_	include/bf/bloom_filter/bitwise.hpp	/^  size_t seed_;$/;"	m	class:bf::bitwise_bloom_filter
+separator	test/bf/util/configuration.h	/^    static constexpr char const* separator = ".";$/;"	m	class:util::configuration::block
+set	src/bitvector.cpp	/^bitvector& bitvector::set() {$/;"	f	class:bf::bitvector
+set	src/bitvector.cpp	/^bitvector& bitvector::set(size_type i, bool bit) {$/;"	f	class:bf::bitvector
+set	src/counter_vector.cpp	/^void counter_vector::set(size_t cell, size_t value) {$/;"	f	class:bf::counter_vector
+shortcut_	test/bf/util/configuration.h	/^    char shortcut_ = '\\0';$/;"	m	class:util::configuration::option
+shortcuts_	test/bf/util/configuration.h	/^  std::map<std::string, std::string> shortcuts_;$/;"	m	class:util::configuration
+show	test/unit_test.hpp	/^showable<T> show(const T& x) {$/;"	f	namespace:caf::test::logger::detail
+showable	test/unit_test.hpp	/^  explicit showable(const T& x) : showable_base<T>(x) {$/;"	f	class:caf::test::logger::detail::showable
+showable	test/unit_test.hpp	/^class showable : public showable_base<T> {$/;"	c	namespace:caf::test::logger::detail
+showable_base	test/unit_test.hpp	/^  explicit showable_base(const T& x) : value(x) {$/;"	f	struct:caf::test::logger::detail::showable_base
+showable_base	test/unit_test.hpp	/^struct showable_base {$/;"	s	namespace:caf::test::logger::detail
+single	test/bf/util/configuration.h	/^    option& single() {$/;"	f	class:util::configuration::option
+size	bf/object.hpp	/^  size_t size() const$/;"	f	class:bf::object
+size	include/bf/object.hpp	/^  size_t size() const$/;"	f	class:bf::object
+size	src/bitvector.cpp	/^size_type bitvector::size() const {$/;"	f	class:bf::bitvector
+size	src/counter_vector.cpp	/^size_t counter_vector::size() const {$/;"	f	class:bf::counter_vector
+size_	bf/object.hpp	/^  size_t size_ = 0;$/;"	m	class:bf::object
+size_	include/bf/object.hpp	/^  size_t size_ = 0;$/;"	m	class:bf::object
+size_type	bf/bitvector.hpp	/^  typedef size_t size_type;$/;"	t	class:bf::bitvector
+size_type	include/bf/bitvector.hpp	/^  typedef size_t size_type;$/;"	t	class:bf::bitvector
+size_type	src/bitvector.cpp	/^typedef bitvector::size_type size_type;$/;"	t	namespace:bf	file:
+spectral_mi_bloom_filter	bf/bloom_filter/counting.hpp	/^class spectral_mi_bloom_filter : public counting_bloom_filter$/;"	c	namespace:bf
+spectral_mi_bloom_filter	include/bf/bloom_filter/counting.hpp	/^class spectral_mi_bloom_filter : public counting_bloom_filter$/;"	c	namespace:bf
+spectral_mi_bloom_filter	src/bloom_filter/counting.cpp	/^spectral_mi_bloom_filter::spectral_mi_bloom_filter(hasher h, size_t cells,$/;"	f	class:bf::spectral_mi_bloom_filter
+spectral_rm_bloom_filter	bf/bloom_filter/counting.hpp	/^class spectral_rm_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+spectral_rm_bloom_filter	include/bf/bloom_filter/counting.hpp	/^class spectral_rm_bloom_filter : public bloom_filter$/;"	c	namespace:bf
+spectral_rm_bloom_filter	src/bloom_filter/counting.cpp	/^spectral_rm_bloom_filter::spectral_rm_bloom_filter(hasher h1, size_t cells1,$/;"	f	class:bf::spectral_rm_bloom_filter
+stable_bloom_filter	bf/bloom_filter/stable.hpp	/^class stable_bloom_filter : public counting_bloom_filter$/;"	c	namespace:bf
+stable_bloom_filter	include/bf/bloom_filter/stable.hpp	/^class stable_bloom_filter : public counting_bloom_filter$/;"	c	namespace:bf
+stable_bloom_filter	src/bloom_filter/stable.cpp	/^stable_bloom_filter::stable_bloom_filter(hasher h, size_t cells, size_t width,$/;"	f	class:bf::stable_bloom_filter
+start	test/unit_test_impl.hpp	/^void watchdog::start(int secs) {$/;"	f	class:caf::test::watchdog
+stop	test/unit_test_impl.hpp	/^void watchdog::stop() {$/;"	f	class:caf::test::watchdog
+storage	src/bloom_filter/basic.cpp	/^bitvector const& basic_bloom_filter::storage() const {$/;"	f	class:bf::basic_bloom_filter
+str	test/unit_test_impl.hpp	/^std::string logger::stream::str() const {$/;"	f	class:caf::test::logger::stream
+str_	test/unit_test.hpp	/^    std::string str_;$/;"	m	class:caf::test::logger::level::stream
+stream	test/unit_test.hpp	/^  class stream {$/;"	c	class:caf::test::logger::level
+stream	test/unit_test_impl.hpp	/^logger::stream::stream(logger& l, level lvl) : logger_(l), level_(lvl) {$/;"	f	class:caf::test::logger::stream
+stream	test/unit_test_impl.hpp	/^logger::stream::stream(stream&& other)$/;"	f	class:caf::test::logger::stream
+suites_	test/unit_test.hpp	/^  std::map<std::string, std::vector<std::unique_ptr<test>>> suites_;$/;"	m	class:caf::test::logger::engine
+swap	src/bitvector.cpp	/^void swap(bitvector& x, bitvector& y) {$/;"	f	namespace:bf
+swap	src/bloom_filter/basic.cpp	/^void basic_bloom_filter::swap(basic_bloom_filter& other) {$/;"	f	class:bf::basic_bloom_filter
+test	test/unit_test.hpp	/^class test {$/;"	c	namespace:caf::test
+test	test/unit_test.hpp	/^namespace test {$/;"	n	namespace:caf
+test	test/unit_test_impl.hpp	/^namespace test {$/;"	n	namespace:caf
+test	test/unit_test_impl.hpp	/^test::test(std::string test_name)$/;"	f	class:caf::test::test
+test_impl	test/unit_test.hpp	/^  test_impl(std::string test_name) : test(std::move(test_name)) {$/;"	f	class:caf::test::test_impl
+test_impl	test/unit_test.hpp	/^class test_impl : public test {$/;"	c	namespace:caf::test
+thread_	test/unit_test_impl.hpp	/^  std::thread thread_;$/;"	m	class:caf::test::watchdog
+to_string	bf/counter_vector.hpp	/^  friend std::string to_string(counter_vector const& v, bool all = false,$/;"	f	class:bf::counter_vector
+to_string	include/bf/counter_vector.hpp	/^  friend std::string to_string(counter_vector const& v, bool all = false,$/;"	f	class:bf::counter_vector
+to_string	src/bitvector.cpp	/^std::string to_string(bitvector const& b, bool msb_to_lsb, bool all,$/;"	f	namespace:bf
+trial	test/bf/util/trial.h	/^  trial(T x) : engaged_{true} {$/;"	f	class:util::trial
+trial	test/bf/util/trial.h	/^  trial(error e) : engaged_{false} {$/;"	f	class:util::trial
+trial	test/bf/util/trial.h	/^  trial(trial const& other) {$/;"	f	class:util::trial
+trial	test/bf/util/trial.h	/^  trial(trial&& other) {$/;"	f	class:util::trial
+trial	test/bf/util/trial.h	/^class trial {$/;"	c	namespace:util
+tv2usec	build/lib/main.cc	/^uint64_t tv2usec(struct timeval *tv) {$/;"	f
+unif_	bf/bloom_filter/stable.hpp	/^  std::uniform_int_distribution<> unif_;$/;"	m	class:bf::stable_bloom_filter
+unif_	include/bf/bloom_filter/stable.hpp	/^  std::uniform_int_distribution<> unif_;$/;"	m	class:bf::stable_bloom_filter
+usage	test/bf/util/configuration.h	/^  void usage(std::ostream& sink, bool show_all = false) {$/;"	f	class:util::configuration
+util	test/bf/util/configuration.h	/^namespace util {$/;"	n
+util	test/bf/util/error.h	/^namespace util {$/;"	n
+util	test/bf/util/trial.h	/^namespace util {$/;"	n
+value	test/bf/util/trial.h	/^  T const& value() const {$/;"	f	class:util::trial
+value	test/bf/util/trial.h	/^  T& value() {$/;"	f	class:util::trial
+value	test/unit_test.hpp	/^  const T& value;$/;"	m	struct:caf::test::logger::detail::showable_base
+value_	test/bf/util/trial.h	/^    T value_;$/;"	m	union:util::trial::__anon3
+values_	test/bf/util/configuration.h	/^    std::vector<std::string> values_;$/;"	m	class:util::configuration::option
+verbose	test/unit_test.hpp	/^    verbose = 3,$/;"	m	class:caf::test::logger::level
+verbose	test/unit_test_impl.hpp	/^logger::stream logger::verbose() {$/;"	f	class:caf::test::logger
+verify	test/bf/util/configuration.h	/^  bool verify() const {$/;"	f	class:util::configuration
+visible	test/bf/util/configuration.h	/^    bool visible() const {$/;"	f	class:util::configuration::block
+visible	test/bf/util/configuration.h	/^    void visible(bool flag) {$/;"	f	class:util::configuration::block
+visible_	test/bf/util/configuration.h	/^    bool visible_ = true;$/;"	m	class:util::configuration::block
+watchdog	test/unit_test_impl.hpp	/^  watchdog(int secs) {$/;"	f	class:caf::test::watchdog
+watchdog	test/unit_test_impl.hpp	/^class watchdog {$/;"	c	namespace:caf::test
+white	test/unit_test.hpp	/^  white$/;"	e	enum:caf::test::logger::color_value
+width	src/counter_vector.cpp	/^size_t counter_vector::width() const {$/;"	f	class:bf::counter_vector
+width_	bf/counter_vector.hpp	/^  size_t width_;$/;"	m	class:bf::counter_vector
+width_	include/bf/counter_vector.hpp	/^  size_t width_;$/;"	m	class:bf::counter_vector
+wrap	bf/wrap.hpp	/^inline object wrap(std::string const& str)$/;"	f	namespace:bf
+wrap	bf/wrap.hpp	/^object wrap(T const (&str)[N])$/;"	f	namespace:bf
+wrap	bf/wrap.hpp	/^object wrap(T const& x)$/;"	f	namespace:bf
+wrap	bf/wrap.hpp	/^object wrap(std::vector<T> const& s)$/;"	f	namespace:bf
+wrap	include/bf/wrap.hpp	/^inline object wrap(std::string const& str)$/;"	f	namespace:bf
+wrap	include/bf/wrap.hpp	/^object wrap(T const (&str)[N])$/;"	f	namespace:bf
+wrap	include/bf/wrap.hpp	/^object wrap(T const& x)$/;"	f	namespace:bf
+wrap	include/bf/wrap.hpp	/^object wrap(std::vector<T> const& s)$/;"	f	namespace:bf
+yellow	test/unit_test.hpp	/^  yellow,$/;"	e	enum:caf::test::logger::color_value
+zero_unused_bits	src/bitvector.cpp	/^void bitvector::zero_unused_bits() {$/;"	f	class:bf::bitvector
+~test	test/unit_test_impl.hpp	/^test::~test() {$/;"	f	class:caf::test::test
+~trial	test/bf/util/trial.h	/^  ~trial() {$/;"	f	class:util::trial
+~watchdog	test/unit_test_impl.hpp	/^  ~watchdog() {$/;"	f	class:caf::test::watchdog

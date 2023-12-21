@@ -1,0 +1,78 @@
+Start testing: Nov 13 07:58 UTC
+----------------------------------------------------------
+1/1 Testing: unit
+1/1 Test: unit
+Command: "/home/ubuntu/libbf/build/bin/bf-test"
+Directory: /home/ubuntu/libbf/build/test
+"unit" start time: Nov 13 07:58 UTC
+Output:
+----------------------------------------------------------
+[33m+----------------------------------------------------------------------+
+                                unnamed
++----------------------------------------------------------------------+[0m
+
+[33m- [0mcounter_vector_incrementing_width2
+[33m  -> [36m18[0m checks took [36m117 us[0m
+
+[33m- [0mcounter_vector_incrementing_width3
+[33m  -> [36m19[0m checks took [36m58 us[0m
+
+[33m- [0mcounter_vector_decrementing_width3
+[33m  -> [36m16[0m checks took [36m48 us[0m
+
+[33m- [0mcounter_vector_adding
+[33m  -> [36m19[0m checks took [36m42 us[0m
+
+[33m- [0mcounter_vector_adding_big
+[33m  -> [36m131073[0m checks took [36m180 ms[0m
+
+[33m- [0mcounter_vector_mergin
+[33m  -> [36m1[0m check took [36m65 us[0m
+
+[33m- [0mbloom_filter_basic
+[33m  -> [36m14[0m checks took [36m575 us[0m
+ ([32m10[0m/[31m4[0m)
+[33m- [0mbloom_filter_counting
+[33m  -> [36m6[0m checks took [36m190 us[0m
+
+[33m- [0mbloom_filter_spectral_mi
+[33m  -> [36m5[0m checks took [36m182 us[0m
+
+[33m- [0mbloom_filter_spectral_rm
+[33m  -> [36m1[0m check took [36m301 us[0m
+
+[33m- [0mbloom_filter_bitwise
+[33m  -> [36m9[0m checks took [36m314 us[0m
+ ([32m8[0m/[31m1[0m)
+[33m- [0mbloom_filter_stable
+[33m  -> [36m4[0m checks took [36m196 us[0m
+ ([32m0[0m/[31m4[0m)
+[33m- [0mbloom_filter_a2
+[33m  -> [36m4[0m checks took [36m312 us[0m
+
+
+[36m+----------------------------------------------------------------------+
+                                summary
++----------------------------------------------------------------------+[0m
+
+                        suites:  [33m1[0m
+                        tests:   [33m13[0m
+
+                        time:    [33m182 ms
+[0m                        success: [31m99%[0m
+
+                        failed tests:
+                        - unnamed:bloom_filter_basic
+                        - unnamed:bloom_filter_bitwise
+                        - unnamed:bloom_filter_stable
+
+[36m+----------------------------------------------------------------------+[0m
+<end of output>
+Test time =   0.18 sec
+----------------------------------------------------------
+Test Failed.
+"unit" end time: Nov 13 07:58 UTC
+"unit" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 13 07:58 UTC

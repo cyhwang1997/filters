@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libbf.a  CMakeFiles/libbf_static.dir/src/bitvector.cpp.o CMakeFiles/libbf_static.dir/src/counter_vector.cpp.o CMakeFiles/libbf_static.dir/src/hash.cpp.o CMakeFiles/libbf_static.dir/src/bloom_filter/a2.cpp.o CMakeFiles/libbf_static.dir/src/bloom_filter/basic.cpp.o CMakeFiles/libbf_static.dir/src/bloom_filter/bitwise.cpp.o CMakeFiles/libbf_static.dir/src/bloom_filter/counting.cpp.o CMakeFiles/libbf_static.dir/src/bloom_filter/stable.cpp.o
+/usr/bin/ranlib lib/libbf.a
