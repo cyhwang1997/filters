@@ -152,23 +152,30 @@ int main(int argc, char **argv) {
     
 
     if (zipf_const == -2) {
-      nvals = 40000;
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
-      printf("----------TESTING RESIZING----------\n");
-      for (uint64_t i = 0; i < nvals; i++) {
-        vals[i] = 1;
+      printf("[CYDBG] webdocs.dat used\n");
+      ifstream file("/home/ubuntu/real_datasets/fimi/webdocs.dat");
+      if (file.is_open()) {
+        string line;
+        uint64_t i = 0;
+        while (i < nvals) {
+          getline(file, line);
+          stringstream ss(line);
+          string tmp;
+          while (getline(ss, tmp, ' ') && i < nvals) {
+            vals[i] = stoull(tmp) * 1234567 % filter->metadata.range;
+//            vals[i] = stoull(tmp) % filter->metadata.range;
+            uniq_vals.insert(vals[i]);
+            i++;
+          }
+        }
+        file.close();
       }
     }
     else if (zipf_const == -1) {
       vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
-//      printf("[CYDBG] caida used\n");
-//      ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
-      printf("[CYDBG] webdocs.dat used\n");
-      ifstream file("/home/ubuntu/real_datasets/fimi/webdocs.dat");
-//      printf("[CYDBG] vals.txt used\n");
-//      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
-//      printf("[CYDBG] vals.txt used\n");
-//      ifstream file("/home/ubuntu/filters/cvqf/vals.txt");
+      printf("[CYDBG] caida used\n");
+      ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
       if (file.is_open()) {
         string line;
         uint64_t i = 0;

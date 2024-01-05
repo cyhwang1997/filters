@@ -6,5 +6,5 @@ CXX_FLAGS = -Wall -Wextra -std=c++11 -O3 -DNDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/libbf 
+CXX_INCLUDES = -I/home/ubuntu/filters/libbf 
 

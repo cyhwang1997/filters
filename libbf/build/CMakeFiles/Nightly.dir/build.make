@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/libbf
+CMAKE_SOURCE_DIR = /home/ubuntu/filters/libbf
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/libbf/build
+CMAKE_BINARY_DIR = /home/ubuntu/filters/libbf/build
 
 # Utility rule file for Nightly.
 
@@ -71,6 +71,6 @@ CMakeFiles/Nightly.dir/clean:
 .PHONY : CMakeFiles/Nightly.dir/clean
 
 CMakeFiles/Nightly.dir/depend:
-	cd /home/ubuntu/libbf/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/libbf /home/ubuntu/libbf /home/ubuntu/libbf/build /home/ubuntu/libbf/build /home/ubuntu/libbf/build/CMakeFiles/Nightly.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/filters/libbf/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/filters/libbf /home/ubuntu/filters/libbf /home/ubuntu/filters/libbf/build /home/ubuntu/filters/libbf/build /home/ubuntu/filters/libbf/build/CMakeFiles/Nightly.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Nightly.dir/depend
 

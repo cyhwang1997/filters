@@ -75,12 +75,28 @@ int main(int argc, char **argv) {
 //  bf.reset(new counting_bloom_filter(std::move(h), num_cells, bits_per_cell, false));
   counting_bloom_filter bf(make_hasher(num_hashes, 0, false), num_cells, bits_per_cell, false);
 
-  if (zipf_const == -1) {
+  if (zipf_const == -2) {
     vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
-//    printf("[CYDBG] caida used\n");
-//    ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
     printf("[CYDBG] webdocs used\n");
     ifstream file("/home/ubuntu/real_datasets/webdocs.dat");
+    if (file.is_open()) {
+      string line;
+      uint64_t i = 0;
+      while (i < nvals) {
+        getline(file, line);
+        stringstream ss(line);
+        string tmp;
+        while (getline(ss, tmp, ' ') && i < nvals) {
+          vals[i] = stoull(tmp) % range;
+          i++;
+        }
+      }
+      file.close();
+    }
+  } else if (zipf_const == -1) {
+    vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
+    printf("[CYDBG] caida used\n");
+    ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
     if (file.is_open()) {
       string line;
       uint64_t i = 0;

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/libbf
+CMAKE_SOURCE_DIR = /home/ubuntu/filters/libbf
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/libbf/build
+CMAKE_BINARY_DIR = /home/ubuntu/filters/libbf/build
 
 # Include any dependencies generated for this target.
 include test/bf/CMakeFiles/bf.dir/depend.make
@@ -59,29 +59,29 @@ include test/bf/CMakeFiles/bf.dir/flags.make
 
 test/bf/CMakeFiles/bf.dir/bf.cc.o: test/bf/CMakeFiles/bf.dir/flags.make
 test/bf/CMakeFiles/bf.dir/bf.cc.o: ../test/bf/bf.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/bf/CMakeFiles/bf.dir/bf.cc.o"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bf.dir/bf.cc.o -c /home/ubuntu/libbf/test/bf/bf.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/filters/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/bf/CMakeFiles/bf.dir/bf.cc.o"
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bf.dir/bf.cc.o -c /home/ubuntu/filters/libbf/test/bf/bf.cc
 
 test/bf/CMakeFiles/bf.dir/bf.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bf.dir/bf.cc.i"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/libbf/test/bf/bf.cc > CMakeFiles/bf.dir/bf.cc.i
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/filters/libbf/test/bf/bf.cc > CMakeFiles/bf.dir/bf.cc.i
 
 test/bf/CMakeFiles/bf.dir/bf.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bf.dir/bf.cc.s"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/libbf/test/bf/bf.cc -o CMakeFiles/bf.dir/bf.cc.s
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/filters/libbf/test/bf/bf.cc -o CMakeFiles/bf.dir/bf.cc.s
 
 test/bf/CMakeFiles/bf.dir/configuration.cc.o: test/bf/CMakeFiles/bf.dir/flags.make
 test/bf/CMakeFiles/bf.dir/configuration.cc.o: ../test/bf/configuration.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object test/bf/CMakeFiles/bf.dir/configuration.cc.o"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bf.dir/configuration.cc.o -c /home/ubuntu/libbf/test/bf/configuration.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/filters/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object test/bf/CMakeFiles/bf.dir/configuration.cc.o"
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bf.dir/configuration.cc.o -c /home/ubuntu/filters/libbf/test/bf/configuration.cc
 
 test/bf/CMakeFiles/bf.dir/configuration.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bf.dir/configuration.cc.i"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/libbf/test/bf/configuration.cc > CMakeFiles/bf.dir/configuration.cc.i
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/filters/libbf/test/bf/configuration.cc > CMakeFiles/bf.dir/configuration.cc.i
 
 test/bf/CMakeFiles/bf.dir/configuration.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bf.dir/configuration.cc.s"
-	cd /home/ubuntu/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/libbf/test/bf/configuration.cc -o CMakeFiles/bf.dir/configuration.cc.s
+	cd /home/ubuntu/filters/libbf/build/test/bf && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/filters/libbf/test/bf/configuration.cc -o CMakeFiles/bf.dir/configuration.cc.s
 
 # Object files for target bf
 bf_OBJECTS = \
@@ -96,8 +96,8 @@ bin/bf: test/bf/CMakeFiles/bf.dir/configuration.cc.o
 bin/bf: test/bf/CMakeFiles/bf.dir/build.make
 bin/bf: lib/libbf.so
 bin/bf: test/bf/CMakeFiles/bf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ../../bin/bf"
-	cd /home/ubuntu/libbf/build/test/bf && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bf.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/filters/libbf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ../../bin/bf"
+	cd /home/ubuntu/filters/libbf/build/test/bf && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 test/bf/CMakeFiles/bf.dir/build: bin/bf
@@ -105,10 +105,10 @@ test/bf/CMakeFiles/bf.dir/build: bin/bf
 .PHONY : test/bf/CMakeFiles/bf.dir/build
 
 test/bf/CMakeFiles/bf.dir/clean:
-	cd /home/ubuntu/libbf/build/test/bf && $(CMAKE_COMMAND) -P CMakeFiles/bf.dir/cmake_clean.cmake
+	cd /home/ubuntu/filters/libbf/build/test/bf && $(CMAKE_COMMAND) -P CMakeFiles/bf.dir/cmake_clean.cmake
 .PHONY : test/bf/CMakeFiles/bf.dir/clean
 
 test/bf/CMakeFiles/bf.dir/depend:
-	cd /home/ubuntu/libbf/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/libbf /home/ubuntu/libbf/test/bf /home/ubuntu/libbf/build /home/ubuntu/libbf/build/test/bf /home/ubuntu/libbf/build/test/bf/CMakeFiles/bf.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/filters/libbf/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/filters/libbf /home/ubuntu/filters/libbf/test/bf /home/ubuntu/filters/libbf/build /home/ubuntu/filters/libbf/build/test/bf /home/ubuntu/filters/libbf/build/test/bf/CMakeFiles/bf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : test/bf/CMakeFiles/bf.dir/depend
 

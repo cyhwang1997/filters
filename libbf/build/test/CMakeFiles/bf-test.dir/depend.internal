@@ -15,7 +15,7 @@ test/CMakeFiles/bf-test.dir/tests.cpp.o
  ../bf/hash.hpp
  ../bf/object.hpp
  ../bf/wrap.hpp
- /home/ubuntu/libbf/test/test.hpp
- /home/ubuntu/libbf/test/tests.cpp
- /home/ubuntu/libbf/test/unit_test.hpp
- /home/ubuntu/libbf/test/unit_test_impl.hpp
+ /home/ubuntu/filters/libbf/test/test.hpp
+ /home/ubuntu/filters/libbf/test/tests.cpp
+ /home/ubuntu/filters/libbf/test/unit_test.hpp
+ /home/ubuntu/filters/libbf/test/unit_test_impl.hpp

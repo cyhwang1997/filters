@@ -23,7 +23,7 @@ function(uninstall_manifest manifestPath)
     endforeach ()
 endfunction(uninstall_manifest)
 
-file(GLOB install_manifests /home/ubuntu/libbf/build/install_manifest*.txt)
+file(GLOB install_manifests /home/ubuntu/filters/libbf/build/install_manifest*.txt)
 
 if (install_manifests)
     foreach (manifest ${install_manifests})
@@ -31,5 +31,5 @@ if (install_manifests)
     endforeach ()
 else ()
     message(FATAL_ERROR "Cannot find any install manifests in: "
-                        "\"/home/ubuntu/libbf/build/install_manifest*.txt\"")
+                        "\"/home/ubuntu/filters/libbf/build/install_manifest*.txt\"")
 endif ()

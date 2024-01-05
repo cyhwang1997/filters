@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/libbf/test/bf
+# Install script for directory: /home/ubuntu/filters/libbf/test/bf
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

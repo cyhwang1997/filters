@@ -1,6 +1,6 @@
 #!/bin/sh
-export LD_LIBRARY_PATH=/home/ubuntu/libbf/build/lib:$LD_LIBRARY_PATH
-g++ -o main main.cc -I/home/ubuntu/libbf -L./ -lbf -lssl -lcrypto
+export LD_LIBRARY_PATH=/home/ubuntu/filters/libbf/build/lib:$LD_LIBRARY_PATH
+g++ -o main main.cc -I/home/ubuntu/filters/libbf -L./ -lbf -lssl -lcrypto
 
 #./main 131088 12 10 90 0.9 55930880
 

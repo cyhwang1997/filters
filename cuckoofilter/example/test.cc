@@ -26,8 +26,8 @@ uint64_t tv2usec(struct timeval *tv) {
 using cuckoofilter::CuckooFilter;
 
 int main(int argc, char **argv) {
-  if (argc < 4) {
-    fprintf(stderr, "1. nslots\n2. load factor.\n3.skeweness (0 - 99)\n");
+  if (argc < 3) {
+    fprintf(stderr, "1. nslots\n2. load factor.\n");
     exit(1);
   }
   //size_t total_items = 1000000;
@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
   size_t total_items = 1ULL << nslots;
 
   uint64_t load_factor = atoi(argv[2]);
-  uint64_t skewness = atoi(argv[3]);
 	uint64_t nvals = load_factor*total_items/100;
 	uint64_t *vals;
 
@@ -60,34 +59,8 @@ int main(int argc, char **argv) {
   double negative_throughput;
   double remove_throughput;
 
-  if (skewness == 0) {
-    vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
-    RAND_bytes((unsigned char *)vals, sizeof(*vals)*total_items);
-  } else if (skewness > 99) {
-    fprintf(stderr, "Such skewness not allowed\n");
-    exit(EXIT_FAILURE);
-  } else {
-    uint64_t *foo;
-    foo = (uint64_t*)malloc((total_items)*sizeof(foo[0]));
-    for (uint64_t i = 0; i < total_items; i++) {
-      foo[i] = i;
-    }
-    unsigned seed;
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(foo, foo + total_items, std::default_random_engine(seed));
-    printf("SHUFFLED\n");
-    float skewnessR = skewness / 100.0;
-    uint64_t pre_val;
-    std::default_random_engine generator;
-    vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
-    zipfian_int_distribution<uint64_t> distribution(0, nvals, skewnessR);
-    for (uint64_t i = 0; i < nvals; i++) {
-      pre_val = distribution(generator) % total_items;
-      vals[i] = foo[pre_val];
-    }
-
-    printf("Zipfian Created\n");
-  }
+  vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
+  RAND_bytes((unsigned char *)vals, sizeof(*vals)*total_items);
 
 /*  for (uint64_t i = 0; i < nvals; i++) {
     printf("%ld\n", vals[i]);

@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/ubuntu/libbf
-BuildDirectory: /home/ubuntu/libbf/build
+SourceDirectory: /home/ubuntu/filters/libbf
+BuildDirectory: /home/ubuntu/filters/libbf/build
 
 # Where to place the cost data store
 CostDataFile: 
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/ubuntu/libbf"
+ConfigureCommand: "/usr/bin/cmake" "/home/ubuntu/filters/libbf"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -57,9 +57,9 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: /usr/bin/git
+UpdateCommand: 
 UpdateOptions: 
-UpdateType: git
+UpdateType: 
 
 # Compiler info
 Compiler: /usr/bin/g++

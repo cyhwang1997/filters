@@ -110,7 +110,7 @@ util/error.h
 cassert
 -
 
-/home/ubuntu/libbf/test/bf/bf.cc
+/home/ubuntu/filters/libbf/test/bf/bf.cc
 cassert
 -
 fstream
@@ -124,17 +124,23 @@ memory
 unordered_map
 -
 configuration.h
-/home/ubuntu/libbf/test/bf/configuration.h
+/home/ubuntu/filters/libbf/test/bf/configuration.h
 bf/all.hpp
-/home/ubuntu/libbf/test/bf/bf/all.hpp
+/home/ubuntu/filters/libbf/test/bf/bf/all.hpp
 
-/home/ubuntu/libbf/test/bf/configuration.h
+/home/ubuntu/filters/libbf/test/bf/configuration.cc
+configuration.h
+/home/ubuntu/filters/libbf/test/bf/configuration.h
+sstream
+-
+
+/home/ubuntu/filters/libbf/test/bf/configuration.h
 util/configuration.h
-/home/ubuntu/libbf/test/bf/util/configuration.h
+/home/ubuntu/filters/libbf/test/bf/util/configuration.h
 
-/home/ubuntu/libbf/test/bf/util/configuration.h
+/home/ubuntu/filters/libbf/test/bf/util/configuration.h
 util/trial.h
-/home/ubuntu/libbf/test/bf/util/util/trial.h
+/home/ubuntu/filters/libbf/test/bf/util/util/trial.h
 algorithm
 -
 cassert

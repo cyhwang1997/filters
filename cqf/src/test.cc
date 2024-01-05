@@ -100,12 +100,29 @@ int main(int argc, char **argv)
 
 	qf_set_auto_resize(&qf, true); /*true to false*/
 
-	if (zipf_const == -1) {
+  if (zipf_const == -2) {
     vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
-//    printf("[CYDBG] caida used\n");
-//    ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
     printf("[CYDBG] webdocs.dat used\n");
     ifstream file("/home/ubuntu/real_datasets/fimi/webdocs.dat");
+    if (file.is_open()) {
+      string line;
+      uint64_t i = 0;
+      while (i < nvals) {
+        getline(file, line);
+        stringstream ss(line);
+        string tmp;
+        while (getline(ss, tmp, ' ') && i < nvals) {
+          vals[i] = stoull(tmp) * 1234567 % qf.metadata->range;
+//          vals[i] = stoull(tmp);
+          i++;
+        }
+      }
+      file.close();
+    }
+  } else if (zipf_const == -1) {
+    vals = (uint64_t *)malloc(nvals * sizeof(vals[0]));
+    printf("[CYDBG] caida used\n");
+    ifstream file("/home/ubuntu/real_datasets/caida/caida_ip.txt");
     if (file.is_open()) {
       string line;
       uint64_t i = 0;

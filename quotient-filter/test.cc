@@ -358,7 +358,7 @@ static void qf_bench()
 int main(int argc, char **argv)
 {
   if (argc < 3) {
-    fprintf(stderr, "1. log_slot. \n2. load factor. \n3. skewness \n");
+    fprintf(stderr, "1. log_slot. \n2. load factor. \n");
     exit(1);
   }
   srand(0);
@@ -368,45 +368,13 @@ int main(int argc, char **argv)
   size_t max_value = total_items <<8;
   uint64_t load_factor = atoi(argv[2]); /*[CYDBG] load factor*/
   size_t nvals = load_factor * total_items / 100;
-  uint64_t skewness = atoi(argv[3]);
   uint64_t *vals;
 
-  if (skewness == 0) {
-    vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
-    RAND_bytes((unsigned char*)vals, sizeof(*vals)*total_items);
-    for (size_t i = 0; i < total_items; i++) {
-      vals[i] %= max_value;
-    }
-  } else if (skewness > 99) {
-    fprintf(stderr, "Such skewness not allowed\n");
-    exit(EXIT_FAILURE);
-  } else {
-    uint64_t *foo;
-    foo = (uint64_t*)malloc(max_value * sizeof(foo[0]));
-    for (uint64_t i = 0; i < max_value; i++) {
-      foo[i] = i;
-    }
-    unsigned seed;
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(foo, foo + max_value, std::default_random_engine(seed));
-    printf("SHUFFLED\n");
-
-    float skewnessR = skewness / 100.0;
-    uint64_t pre_val;
-    std::default_random_engine generator;
-    vals = (uint64_t*)malloc(nvals * sizeof(vals[0]));
-    zipfian_int_distribution<uint64_t> distribution(0, nvals, skewnessR);
-    for (uint64_t i = 0; i < nvals; i++) {
-      pre_val = distribution(generator) % max_value;
-      vals[i] = foo[pre_val];
-    }
-    printf("Zipfian Created\n");
+  vals = (uint64_t*)malloc(total_items*sizeof(vals[0]));
+  RAND_bytes((unsigned char*)vals, sizeof(*vals)*total_items);
+  for (size_t i = 0; i < total_items; i++) {
+    vals[i] %= max_value;
   }
-
-  for (uint64_t i = 0; i < nvals; i++) {
-    printf("%ld\n", vals[i]);
-  }
-
 
   uint64_t same_num = 0;
   uint64_t *vals_alt = (uint64_t*)malloc(total_items*sizeof(vals_alt[0]));
