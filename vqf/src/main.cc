@@ -32,10 +32,17 @@
 #include <random>
 #include "zipfian_int_distribution.h"
 
+#include "utils.h"
+#include "zipfian_generator.h"
+#include "scrambled_zipfian_generator.h"
+
 #define TEST_NUM 1
 
 // MD5
 #include <openssl/md5.h>
+
+using namespace std;
+using namespace ycsbc;
 
 #ifdef __AVX512BW__
 extern __m512i SHUFFLE [];
@@ -65,7 +72,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Please specify three arguments: \n \
                      1. Log2 of the number of slots in the CQF.\n \
                      2. Load factor (0 - 95).\n \
-                     3. Skewness (0 - 99).\n");
+                     3. Zipf Constant.\n");
     exit(1);
   }
 #ifdef __AVX512BW__
@@ -80,7 +87,7 @@ int main(int argc, char **argv) {
   uint64_t nvals = load_factor*nslots/100;
   uint64_t *vals;
   uint64_t *other_vals;
-  uint64_t skewness = atoi(argv[3]);
+  double zipf_const = std::stod(argv[3]);
 
 //  uint64_t sizeval = atoi(argv[4]);
 //  double sizevalR = 1.0 * sizeval / 100;
@@ -111,47 +118,35 @@ int main(int argc, char **argv) {
       exit(EXIT_FAILURE);
     }
 
-    if (skewness == 0) {
+    if (zipf_const == 0) {
       // Generate random values
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
-      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
+      mt19937 rng(42);
+      uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//      RAND_bytes((unsigned char *)vals, sizeof(*vals) * nvals);
       for (uint64_t i = 0; i < nvals; i++) {
-        vals[i] = (1 * vals[i]) % filter->metadata.range;
+        vals[i] = dist(rng);
+//        vals[i] = (1 * vals[i]) % filter->metadata.range;
       }
-    } else if (skewness > 99) {
-      fprintf(stderr, "Such skewness not allowed\n");
-      exit(EXIT_FAILURE);
     } else {
-      uint64_t *foo;
-      foo = (uint64_t*)malloc((filter->metadata.range)*sizeof(foo[0]));
-      for (uint64_t i = 0; i < filter->metadata.range; i++) {
-        foo[i] = i;
-      }
-      unsigned seed;
-      seed = std::chrono::system_clock::now().time_since_epoch().count();
-      std::shuffle(foo, foo + filter->metadata.range, std::default_random_engine(seed));
-
-      printf("SHUFFLED\n");
-
-      float skewnessR = skewness / 100.0;
-      uint64_t pre_val;
-      std::default_random_engine generator;
+      Generator<uint64_t> *key_chooser_;
+      key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range - 1, zipf_const);
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
-      zipfian_int_distribution<uint64_t> distribution(0, nvals, skewnessR);
-      for (uint64_t i = 0; i < nvals; i++) {
-        pre_val = distribution(generator) % filter->metadata.range;
-        vals[i] = foo[pre_val];
+      for (uint64_t i = 0; i < filter->metadata.range; i++) {
+        vals[i] = key_chooser_->Next() % filter->metadata.range;
       }
-      free(foo);
-
       printf("Zipfian Created\n");
     }
 
     other_vals = (uint64_t*)malloc(nvals*sizeof(other_vals[0]));
-    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
+    mt19937 seed(560);
+    uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
+//    RAND_bytes((unsigned char *)other_vals, sizeof(*other_vals) * nvals);
     for (uint64_t i = 0; i < nvals; i++) {
-      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+//      other_vals[i] = (1 * other_vals[i]) % filter->metadata.range;
+      other_vals[i] = dist(seed);
     }
+    printf("Other vals Created\n");
 
     struct timeval start, end;
     struct timezone tzp;
@@ -177,11 +172,12 @@ int main(int argc, char **argv) {
       }
       num_successful_inserts++;
     }
-    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     gettimeofday(&end, &tzp);
+    printf("[CYDBG] keys_tobe_inserted: %ld, num_succesful_inserts: %ld\n", nvals, num_successful_inserts);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     insertion_throughput += 1.0 * nvals / elapsed_usecs;
     print_time_elapsed("Insertion time", &start, &end, nvals, "insert");
+    printf("[CYDBG] SIZE: %ld, total_blocks: %ld, add_blocks: %ld\n", filter->metadata.total_size_in_bytes, filter->metadata.nblocks, filter->metadata.add_blocks);
     //printf("\n%d/%d\n\n", put_slot, all_slot);
 
     gettimeofday(&start, &tzp);

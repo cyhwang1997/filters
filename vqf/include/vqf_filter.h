@@ -54,6 +54,18 @@ extern "C" {
 	} vqf_block;
 #endif
 
+  /* CY: RESIZE */
+  typedef struct linked_blocks {
+    vqf_block block;
+    linked_blocks *child0;
+    linked_blocks *child1;
+  } linked_blocks;
+
+  typedef struct linked_list {
+    linked_blocks head_block;
+  } linked_list;
+  /* CY: RESIZE */
+
 	typedef struct vqf_metadata {
 		uint64_t total_size_in_bytes;
 		uint64_t key_remainder_bits;
@@ -61,11 +73,13 @@ extern "C" {
 		uint64_t nblocks;
 		uint64_t nelts;
 		uint64_t nslots;
+    uint64_t add_blocks; /* CY: RESIZE */
 	} vqf_metadata;
 
 	typedef struct vqf_filter {
 		vqf_metadata metadata;
-		vqf_block blocks[];
+//		vqf_block blocks[];
+    linked_list blocks[]; /* CY: RESIZE */
 	} vqf_filter;
 
 	vqf_filter * vqf_init(uint64_t nslots);
@@ -75,6 +89,8 @@ extern "C" {
 	bool vqf_remove(vqf_filter * restrict filter, uint64_t hash);
 
 	bool vqf_is_present(vqf_filter * restrict filter, uint64_t hash);
+
+  vqf_block* add_block (vqf_filter *restrict filter, linked_blocks *parent, bool child_node); /* CY: RESIZE */
 
 #ifdef __cplusplus
 }
