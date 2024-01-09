@@ -1917,7 +1917,7 @@ bool vqf_remove(vqf_filter * restrict filter, uint64_t hash) {
          cur_lblock = cur_lblock->child0;
        if (cur_lblock == NULL) return false;
        if (remove_tags(filter, tag, block_index, &cur_lblock->block))
-         return remove;
+         return true;
        i = (i + 1) % 8;
      };
 /*     while (cur_alt_lblock != NULL) {
