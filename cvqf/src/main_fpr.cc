@@ -222,18 +222,18 @@ int main(int argc, char **argv) {
     uniform_int_distribution<uint64_t> dist(0, filter->metadata.range - 1);
     for (uint64_t i = 0; i < nvals; i++) {
       other_vals[i] = dist(seed);
-/*      if (find(vals, vals+nvals, other_vals[i]) != vals+nvals) {
+      if (find(vals, vals+nvals, other_vals[i]) != vals+nvals) {
         i--;
         continue;
-      }*/
+      }
     }
 
     printf("[CYDBG] Other vals Created\n");
 
     /*CYDBG uniq_vals*/
-/*    for (auto i : uniq_vals) {
+    for (auto i : uniq_vals) {
       count_vals[i]= count(vals, vals + nvals, i); 
-    }*/
+    }
 /*    for (auto i : count_vals) {
       cout << i.first << ": " << i.second << endl;
     }*/
@@ -372,10 +372,10 @@ int main(int argc, char **argv) {
       
     print_time_elapsed("Lookup time", &start, &end, nvals, "successful_lookup");
 
-//    uint64_t count_fail = 0;
+    uint64_t count_fail = 0;
 //    gettimeofday(&start, &tzp);
     /*Get Count*/
-/*    for (auto i : uniq_vals) {
+    for (auto i : uniq_vals) {
       int count = get_count(filter, i);
       if (count != count_vals[i])
         count_fail++;
@@ -383,7 +383,7 @@ int main(int argc, char **argv) {
     gettimeofday(&end, &tzp);
     elapsed_usecs = tv2usec(&end) - tv2usec(&start);
     count_throughput += 1.0 * nvals / elapsed_usecs;
-    printf("[CYDBG] uniq_vals num: %ld, count_fail: %ld\n", uniq_vals.size(), count_fail);*/
+    printf("[CYDBG] uniq_vals num: %ld, count_fail: %ld\n", uniq_vals.size(), count_fail);
       
 //    print_time_elapsed("Get Count time", &start, &end, uniq_nvals, "count_time");
       

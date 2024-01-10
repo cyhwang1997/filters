@@ -1,4 +1,4 @@
-TARGETS= main main_tx main_id bm
+TARGETS= main main_tx main_id bm main_fpr
 
 OPT=-Ofast -g
 
@@ -40,12 +40,14 @@ $(info AVX512)
 main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
 main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
 main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
+main_fpr:							$(OBJDIR)/main_fpr.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
 bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter.o $(OBJDIR)/shuffle_matrix_512.o $(OBJDIR)/shuffle_matrix_512_16.o 
 else
 $(info AVX2)
 main:							$(OBJDIR)/main.o $(OBJDIR)/vqf_filter.o 
 main_id:						$(OBJDIR)/main_id.o $(OBJDIR)/vqf_filter.o
 main_tx:						$(OBJDIR)/main_tx.o $(OBJDIR)/vqf_filter.o
+main_fpr:							$(OBJDIR)/main_fpr.o $(OBJDIR)/vqf_filter.o 
 bm:							$(OBJDIR)/bm.o $(OBJDIR)/vqf_filter.o 
 endif
 
@@ -55,6 +57,7 @@ $(OBJDIR)/shuffle_matrix_512.o: 	$(LOC_SRC)/shuffle_matrix_512.c
 $(OBJDIR)/main.o: 			$(LOC_SRC)/main.cc
 $(OBJDIR)/main_id.o: 			$(LOC_SRC)/main_id.cc
 $(OBJDIR)/main_tx.o: 			$(LOC_SRC)/main_tx.cc
+$(OBJDIR)/main_fpr.o: 			$(LOC_SRC)/main_fpr.cc
 $(OBJDIR)/bm.o: 			$(LOC_SRC)/bm.cc
 
 $(OBJDIR)/vqf_filter.o: 			$(LOC_SRC)/vqf_filter.c
