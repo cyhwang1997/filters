@@ -544,8 +544,6 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
             block_md = cur_block->md;
             block_free = get_block_free_space(block_md);
           }*/
-          filter->metadata.add_blocks++;
-          filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
         }
       } else {
 //        unlock(*cur_block);
@@ -572,8 +570,6 @@ uint64_t vqf_insert(vqf_filter * restrict filter, uint64_t hash) { // bool
        cur_block = add_block(filter, block_index / QUQU_BUCKETS_PER_BLOCK);
        block_md = cur_block->md;
        block_free = get_block_free_space(block_md);
-       filter->metadata.add_blocks++;
-       filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
      }
    }
 
@@ -2684,6 +2680,8 @@ vqf_block* add_block(vqf_filter * restrict filter, uint64_t block_index) {
   linked_blocks *last_block = blocks[block_index].tail;
   last_block->next = new_block;
   blocks[block_index].tail = new_block;
+  filter->metadata.add_blocks++;
+  filter->metadata.total_size_in_bytes += sizeof(linked_blocks);
 
   return &new_block->block;
 }
