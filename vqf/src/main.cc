@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
       Generator<uint64_t> *key_chooser_;
       key_chooser_ = new ScrambledZipfianGenerator(0, filter->metadata.range - 1, zipf_const);
       vals = (uint64_t*)malloc(nvals*sizeof(vals[0]));
-      for (uint64_t i = 0; i < filter->metadata.range; i++) {
+      for (uint64_t i = 0; i < nvals; i++) {
         vals[i] = key_chooser_->Next() % filter->metadata.range;
       }
       printf("Zipfian Created\n");
